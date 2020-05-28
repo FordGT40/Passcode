@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cc000000"
+    tools:context=".mine.activity.RegisterCannotReceiveCodeActivity">
+<LinearLayout
+    android:id="@+id/ll"
+    android:layout_width="@dimen/dp_290"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dp_30"
+    android:background="@drawable/shape_circle_coner_white_15"
+    android:layout_centerInParent="true"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/textcolor"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/receive_code_hint1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_26"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:textSize="@dimen/sp_14"
+        android:textColor="#006EC7"
+        android:text="@string/receive_code_hint2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_13"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/textcolor"
+        android:text="@string/receive_code_hint3"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:textSize="@dimen/sp_14"
+        android:textColor="#006EC7"
+        android:text="@string/receive_code_hint4"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_13"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/textcolor"
+        android:text="@string/receive_code_hint5"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:textSize="@dimen/sp_14"
+        android:textColor="#006EC7"
+        android:text="@string/receive_code_hint6"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_13"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginRight="@dimen/dp_30"
+        android:textColor="@color/textcolor"
+        android:text="@string/receive_code_hint7"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:textSize="@dimen/sp_14"
+        android:textColor="#006EC7"
+        android:text="@string/receive_code_hint8"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_13"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginRight="@dimen/dp_30"
+        android:textColor="@color/textcolor"
+        android:text="@string/receive_code_hint9"/>
+
+</LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_25"
+        android:src="@drawable/kz_close" />
+
+
+
+
+</RelativeLayout>

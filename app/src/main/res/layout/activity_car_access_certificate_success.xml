@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".apply.activity.CardApplySuccessActivity">
+
+    <include layout="@layout/head_title_bar" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_96"
+        android:src="@drawable/wait" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_36"
+        android:text="提交成功 等待审核"
+        android:textColor="@color/textcolor"
+        android:textSize="@dimen/sp_18"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:text="审核时间为1-2个工作日"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_14" />
+
+    <Button
+        android:id="@+id/btn_back_to_main"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_15"
+        android:background="@drawable/shape_circle_conner_blue_deep"
+        android:gravity="center"
+        android:text="返回首页"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_15" />
+</LinearLayout>

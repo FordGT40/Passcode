@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wisdom.passcode">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+        android:name=".AppApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".apply.activity.CarCardApplyActivity"></activity>
+        <!-- 选择出入证类型 -->
+        <activity android:name=".apply.activity.CardTypeChooseActivity" /> <!-- 人员出入证申请 -->
+        <activity android:name=".apply.activity.PersonCardApplyActivity" /> <!-- 上传公函 -->
+        <activity android:name=".apply.activity.PlaceUploadPaperActivity" /> <!-- 场所码申请 -->
+        <activity android:name=".apply.activity.PlaceCodeApplyActivity" /> <!-- 场所码类型选择 -->
+        <activity android:name=".apply.activity.PlaceCodePlaceTypeChooseActivity" /> <!-- 扫脸识别页面 -->
+        <activity android:name=".faceId.IdentifyingActivity" /> <!-- 欢迎页 -->
+        <activity android:name=".homepage.activity.WelcomeActivity" /> <!-- 扫脸界面 -->
+        <activity android:name=".faceId.faceAli.FaceDetectionActivity" />
+        <activity android:name=".faceId.faceAli.VideoBaseActivity" /> <!-- 实名认证获得验证码页面 -->
+        <activity android:name=".faceId.FaceIdVerifyCodeActivity" /> <!-- 实名认证输入姓名身份证号页面 -->
+        <activity android:name=".faceId.FaceIdInputNameActivity" /> <!-- 输入验证码页面 -->
+        <activity android:name=".mine.activity.VerificationCodeActivity" /> <!-- 收不到验证码的提示页面 -->
+        <activity
+            android:name=".mine.activity.RegisterCannotReceiveCodeActivity"
+            android:theme="@style/translucent" /> <!-- 注册输入密码页面 -->
+        <activity android:name=".mine.activity.RegisterPswInputActivity" /> <!-- 注册成功页面 -->
+        <activity android:name=".mine.activity.RegisterSuccessActivity" /> <!-- 前导页面 -->
+        <activity
+            android:name=".homepage.activity.SplashActivity"
+            android:theme="@style/ThemeSplash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- 卡证详情 -->
+        <activity
+            android:name=".homepage.activity.CardDetailActivity"
+            android:theme="@style/translucent" /> <!-- 我的卡证 -->
+        <activity android:name=".homepage.activity.MyCardsActivity" /> <!-- 找回密码 -->
+        <activity android:name=".mine.activity.ResetPswActivity" />
+        <activity android:name=".mine.activity.MyIdentificationActivity" /> <!-- 申请记录 -->
+        <activity android:name=".mine.activity.ApplyRecordListActivity" /> <!-- 扫码亮码记录 -->
+        <activity android:name=".mine.activity.ScanShowCodeRecordActivity" /> <!-- 注册 -->
+        <activity android:name=".mine.activity.RegisterActivity" /> <!-- 登录 -->
+        <activity android:name=".mine.activity.LoginActivity" /> <!-- 车辆出入证申请搜索页 -->
+        <activity android:name=".apply.activity.PlaceNameSearchActivity" /> <!-- 车辆出入证成功页 -->
+        <activity android:name=".apply.activity.CardApplySuccessActivity" /> <!-- 车辆出入证申请页 -->
+        <activity android:name=".homepage.activity.CarAccessCertificateActivity" /> <!-- 亮码页面 -->
+        <activity android:name=".homepage.activity.ShowCodeActivity">
+            <intent-filter>
+                <action android:name="com.wisdom.showcode" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".homepage.activity.MainActivity"
+            android:theme="@style/AppTheme" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.myprovider.contentprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_xml" />
+        </provider>
+    </application>
+
+</manifest>

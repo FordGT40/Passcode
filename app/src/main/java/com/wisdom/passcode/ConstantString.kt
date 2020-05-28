@@ -1,0 +1,88 @@
+package com.wisdom.passcode
+
+/**
+ * @ProjectName project： Passcode
+ * @class package：com.wisdom.passcode
+ * @class describe：
+ * @author HanXueFeng
+ * @time 2020/4/22 0022 11:38
+ * @change
+ */
+class ConstantString {
+    companion object {
+
+        const val SCREEN_LIGHT_MAX: Int = 255
+        const val SPLASH_WAITING_SECONDS: Long = 4000L//炫耀页面展示的时长
+        const val REGISTER_TYPE: String = "1"//发送验证码---注册类型参数
+        const val LOGIN_TYPE: String = "2"//发送验证码---登录类型参数
+        const val FACE_TYPE: String = "3"//发送验证码---实名认证类型参数
+        const val SHARE_PER_INFO = "passcode_sp"
+        const val APP_KEY = "androidkeykeykey"//
+        const val APP_SECRET = "androidsecret"
+        const val IS_FIRST_LOAD = "firstLoad"
+        const val USER_INFO = "user_info"//存储用户模型常量
+        const val USER_STATE_TRUE = "1"//用户实名状态：已实名
+        const val USER_STATE_FALSE = "0"//用户实名状态：未实名
+        const val BROADCAST_FINISH_TAG = "finish"//广播标识，用来关闭某页面
+        const val PLACE_TYPE_GOVERNMENT = "1"//申请场所码类型---政府
+        const val PLACE_TYPE_COMPANY = "2"//申请场所码类型---企业
+        const val PLACE_TYPE_OTHER = "3"//申请场所码类型---其他
+
+        //调取相册相机文件方面的参数常量
+        const val REQUEST_CAMERA = 101 //调起相机
+        const val ALBUM_SELECT_CODE = 102 //调起相册
+        const val FILE_SELECT_CODE = 103 //调起文件选择
+        const val REQUEST_CODE = 0x103 //通用的startActivityForResult，请求码
+
+        const val PAPER_TYPE_A = "1"// 1：多证合一营业执照
+        const val PAPER_TYPE_B = "2"// 2：普通营业执照
+        const val PAPER_TYPE_C = "3"//3：事业单位法人证书或统一社会信用代码证书
+        const val PAPER_TYPE_D = "4"// 4：普通组织机构代码证
+
+        const val AUTHENTICATION_TYPE_TRUE = "1"//实名认证状态---已认证
+        const val AUTHENTICATION_TYPE_FALSE = "0"//实名认证状态---未认证
+
+        const val RECYCLER_PULL_REFRESH = "refresh"//列表下拉刷新标识
+        const val RECYCLER_PULL_LOADMORE = "loadmore"//列表上拉加载标识
+
+const val AUDITSTATE_CHECK="1"//我的申请审核状态---待审核
+const val AUDITSTATE_PASS="2"//我的申请审核状态---已通过
+const val AUDITSTATE_REFUSE="3"//我的申请审核状态---已驳回
+
+
+        var timeStamp = 0L//时间戳 初始值
+        var accessToken = ""//短时间token
+        var refreshToken = ""//长效时间戳
+        var isAdmin = ""//是否是某场所管理员
+        var userIdEncryption = ""//加密过的userId
+        var loginState = false//系统的登录状态
+        var userPhone = ""//当前登录用户的手机号
+        var PIC_LOCATE = "" //拍照后图片缓存的地址
+
+
+        val LICENCEPAPER =
+            "<p class=MsoNormal ><span style='font-family:\"微软雅黑\",\"sans-serif\"'>哈尔滨华泽数码科技有限公司：</span></p>" +
+
+                    "<p class=MsoNormal ><span style='font-family:\"微软雅黑\",\"sans-serif\"'>本企业</span><span" +
+                    "lang=EN-US>/</span><span style='font-family:\"微软雅黑\",\"sans-serif\"'>组织</span><span" +
+                    "lang=EN-US>_____________________________</span></p>" +
+
+                    "<p class=MsoNormal ><span style='font-family:\"微软雅黑\",\"sans-serif\"'>授权在职员工</span><span" +
+                    "lang=EN-US>____________________________</span></p>" +
+
+                    "<p class=MsoNormal ><span style='font-family:\"微软雅黑\",\"sans-serif\"'>（身份证号</span><span" +
+                    "lang=EN-US>____________________</span><span style='font-family:\"微软雅黑\",\"sans-serif\"'>）为本企业</span><span" +
+                    "lang=EN-US>/</span><span style='font-family:\"微软雅黑\",\"sans-serif\"'>组织管理员。本企业承诺遵守《智通行服务协议》和《智通行公约》，保证内容真实有效并授权企业管理员代表本企业阅读并确认《智通行认证规范》</span></p>" +
+
+                    "<p class=MsoNormal ><span style='font-family:\"微软雅黑\",\"sans-serif\"'>申请企业</span><span" +
+                    "lang=EN-US>/</span><span style='font-family:\"微软雅黑\",\"sans-serif\"'>组织（盖章）：</span><span" +
+                    "lang=EN-US>___________________</span></p>" +
+
+                    "<p class=MsoNormal ><span style='font-family:\"微软雅黑\",\"sans-serif\"'>授权管理员（签字）</span><span" +
+                    "lang=EN-US>_______________________</span></p>" +
+
+                    "<p class=MsoNormal ><span style='font-family:\"微软雅黑\",\"sans-serif\"'>日期</span><span" +
+                    "lang=EN-US>___________________</span></p>"
+    }
+
+}

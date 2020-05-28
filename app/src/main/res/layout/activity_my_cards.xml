@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/head_title_bar" />
+
+    <com.wisdom.passcode.widght.EnhanceTabLayout
+        android:id="@+id/mEnhanceTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorHeight="2dp"
+        app:tabIndicatorWidth="40dp"
+        app:tab_Mode="mode_fixed"
+        app:tabSelectTextColor="@color/textcolor"
+        app:tabTextColor="@color/textcolor"
+        app:tabTextSize="6sp" />
+
+    <!--    app:tab_Mode="mode_scrollable"-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/mViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
