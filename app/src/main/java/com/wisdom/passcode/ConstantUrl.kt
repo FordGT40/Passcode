@@ -41,10 +41,12 @@ class ConstantUrl {
 
         //        申请场所码
         const val APPLY_PLACE_CODE_URL = "/v1/place/apply"
+
         //我的场所申请列表
         const val APPLY_PLACE_MINE_URL = "/v1/place/mine"
 
-
+        //10. 根据名称搜索场所列表
+        const val PLACE_SEARCH_URL = "/v1/place/search"
 
     }
 

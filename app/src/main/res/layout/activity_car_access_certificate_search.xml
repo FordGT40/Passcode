@@ -23,6 +23,7 @@
             android:background="@drawable/shape_cirle_conner_edit">
 
             <EditText
+                android:id="@+id/et_content"
                 android:layout_width="@dimen/dp_200"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -46,12 +47,37 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_marginTop="@dimen/dp_5"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_16"
             android:src="@drawable/searcch_scan" />
 
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp_16"
+        android:layout_height="match_parent">
+
+        <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_5" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/ll_nodata"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/include_layout_nodata" />
+        </LinearLayout>
+    </FrameLayout>
+
 </LinearLayout>

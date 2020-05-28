@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/dp_50">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:text="阿斯达三大阿斯达三大阿斯达阿斯达三大阿斯达阿斯达三大阿斯达阿斯达三大阿斯达阿斯达三大阿斯达阿斯达三大阿斯达阿斯达三大阿斯达阿斯达三大阿斯达阿斯达三大阿斯达阿斯达三大阿斯达阿斯达三大阿斯达阿斯达"
+        android:textColor="@color/textcolor"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_05"
+        android:layout_alignParentBottom="true"
+        android:background="@color/ysf_grey_e9e9e9" />
+</RelativeLayout>

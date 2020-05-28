@@ -11,6 +11,8 @@ package com.wisdom.passcode
 class ConstantString {
     companion object {
 
+        const val RESULT_CODE_PERSON_APPLY: Int=0x111//申请人员码----选择场所后的结果码
+        const val RESULT_CODE_CAR_APPLY: Int=0x112//申请人员码----选择场所后的结果码
         const val SCREEN_LIGHT_MAX: Int = 255
         const val SPLASH_WAITING_SECONDS: Long = 4000L//炫耀页面展示的时长
         const val REGISTER_TYPE: String = "1"//发送验证码---注册类型参数

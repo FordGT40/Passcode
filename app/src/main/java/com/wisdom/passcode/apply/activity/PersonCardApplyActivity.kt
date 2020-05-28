@@ -1,5 +1,6 @@
 package com.wisdom.passcode.apply.activity
 
+import android.content.Intent
 import android.view.View
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.R
@@ -10,7 +11,8 @@ import org.jetbrains.anko.startActivityForResult
 
 class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
 
-
+    var placeCode = ""
+    var typeCode = ""
     override fun initViews() {
         setTitle(R.string.title_person_card_apply)
         tv_place_name.setOnClickListener(this)
@@ -40,5 +42,15 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == ConstantString.RESULT_CODE_PERSON_APPLY) {
+            //选择场所后返回的
+            if (data != null) {
+                placeCode = data.getStringExtra("code")
+                tv_place_name.text = data.getStringExtra("name")
+            }
+        }
+    }
 
 }
