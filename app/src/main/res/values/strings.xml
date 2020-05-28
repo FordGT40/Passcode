@@ -167,6 +167,7 @@
     <string name="no_data">暂无数据</string>
     <string name="load_first">请先登录</string>
     <string name="hint38">请输入场所名称</string>
+    <string name="hint39">请先选择场所</string>
 
 
 </resources>

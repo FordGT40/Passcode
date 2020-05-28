@@ -6,110 +6,26 @@
     android:orientation="vertical"
     tools:context=".apply.activity.PlaceCodePlaceTypeChooseActivity">
     <include layout="@layout/head_title_bar" />
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_height="match_parent">
+
+        <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_5" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/ll_nodata"
             android:orientation="vertical">
 
-
-
-            <LinearLayout
-                android:id="@+id/ll_company"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginTop="@dimen/dp_15"
-                android:layout_marginRight="@dimen/dp_15"
-                android:background="@drawable/shape_circle_coner_grey_1dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/card_type_long"
-                    android:textColor="@color/primary_blue"
-                    android:textSize="@dimen/sp_18"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:text="@string/card_type_long"
-                    android:textColor="@color/color_666666"
-                    android:textSize="@dimen/sp_15" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_gov"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginTop="@dimen/dp_15"
-                android:layout_marginRight="@dimen/dp_15"
-                android:background="@drawable/shape_circle_coner_grey_1dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/card_type_short"
-                    android:textColor="@color/primary_blue"
-                    android:textSize="@dimen/sp_18"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:text="@string/card_type_short"
-                    android:textColor="@color/color_666666"
-                    android:textSize="@dimen/sp_15" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_other"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginTop="@dimen/dp_15"
-                android:layout_marginRight="@dimen/dp_15"
-                android:background="@drawable/shape_circle_coner_grey_1dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/card_type_temporary"
-                    android:textColor="@color/primary_blue"
-                    android:textSize="@dimen/sp_18"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:text="@string/card_type_temporary"
-                    android:textColor="@color/color_666666"
-                    android:textSize="@dimen/sp_15" />
-
-
-            </LinearLayout>
-
-
+            <include
+                layout="@layout/include_layout_nodata" />
         </LinearLayout>
-    </ScrollView>
+    </FrameLayout>
 </LinearLayout>

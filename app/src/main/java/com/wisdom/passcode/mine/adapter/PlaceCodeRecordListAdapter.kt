@@ -85,7 +85,7 @@ class PlaceCodeRecordListAdapter(
             }
         }
 
-
+       holder.itemView.setOnClickListener { mListener.onItemClick(mList[position]) }
     }
 
     override fun getItemCount(): Int {
@@ -93,7 +93,7 @@ class PlaceCodeRecordListAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: CodeListModel?)
+        fun onItemClick(item: PlaceCodeRecordModel.ListBean)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

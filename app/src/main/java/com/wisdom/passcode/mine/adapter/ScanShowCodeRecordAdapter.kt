@@ -48,9 +48,13 @@ class ScanShowCodeRecordAdapter(
         holder.llDelete.setOnClickListener {
             onDeteleClickedListener.onDeleteClicked(listData[position])
         }
+       holder.itemView.setOnClickListener {
+           onDeteleClickedListener.OnItemClicked(listData[position])
+       }
     }
 
     interface OnDeteleClickedListener {
         fun onDeleteClicked(data: ScanShowCodeModel)
+        fun OnItemClicked(data: ScanShowCodeModel)
     }
 }

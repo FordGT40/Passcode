@@ -132,7 +132,7 @@ class HttpUtil {
             OkGo.post(getAbsolteUrl(ConstantUrl.REFRESH_TOKEN_URL))
                 .cacheMode(CacheMode.DEFAULT)
                 .params(params)
-                .headers("accesstoken", refreshToken)
+                .headers("refreshtoken", refreshToken)
                 .headers("appkey", ConstantString.APP_KEY)
                 .headers("Content-Type", "multipart/form-data")
                 .execute(callback)

@@ -47,6 +47,8 @@ class ConstantUrl {
 
         //10. 根据名称搜索场所列表
         const val PLACE_SEARCH_URL = "/v1/place/search"
+        //获取场所通行证类型
+        const val  CODETYPE_SEARCH_URL="/v1/codeType/search"
 
     }
 

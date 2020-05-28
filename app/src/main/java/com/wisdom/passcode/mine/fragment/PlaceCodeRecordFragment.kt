@@ -46,11 +46,12 @@ class PlaceCodeRecordFragment : Fragment() {
         adapter = PlaceCodeRecordListAdapter(
             context!!,
             dataList,
-            object : OnItemClickListener {
-                override fun onItemClick(item: CodeListModel?) {
-                    //TODO 列表子项点击事件
-                }
-            })
+           object :OnItemClickListener{
+               override fun onItemClick(item: PlaceCodeRecordModel.ListBean) {
+//               TODO  子项点击事件
+
+               }
+           })
         recyclerView.setLinearLayout()
         recyclerView.setAdapter(adapter)
         recyclerView.setOnPullLoadMoreListener(object :

@@ -22,13 +22,17 @@ class ScanShowCodeRecordActivity : BaseActivity() {
         }
         //设置adapter
         recyclerView.setLinearLayout()
-        recyclerView.setColorSchemeResources(R.color.primary_blue,android.R.color.holo_blue_dark);
+        recyclerView.setColorSchemeResources(R.color.primary_blue, android.R.color.holo_blue_dark);
         val adapter = ScanShowCodeRecordAdapter(
             listData,
             this,
             object : ScanShowCodeRecordAdapter.OnDeteleClickedListener {
                 override fun onDeleteClicked(data: ScanShowCodeModel) {
                     toast("点击了删除${data.name}")
+                }
+
+                override fun OnItemClicked(data: ScanShowCodeModel) {
+//                TODO 子项点击事件
                 }
 
             })

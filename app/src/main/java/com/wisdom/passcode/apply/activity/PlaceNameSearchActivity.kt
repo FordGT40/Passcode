@@ -106,7 +106,7 @@ class PlaceNameSearchActivity : BaseActivity(), View.OnClickListener {
                                         val intent = Intent()
                                         intent.putExtra("code", item.placeIdEncryption)
                                         intent.putExtra("name", item.name)
-                                        setResult(ConstantString.RESULT_CODE_PERSON_APPLY, intent)
+                                        setResult(ConstantString.RESULT_CODE_CHOOSE_PLACE, intent)
                                         this@PlaceNameSearchActivity.finish()
                                     }
                                 })
