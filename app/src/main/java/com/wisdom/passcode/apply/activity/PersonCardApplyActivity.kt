@@ -2,14 +2,22 @@ package com.wisdom.passcode.apply.activity
 
 import android.content.Intent
 import android.view.View
+import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
+import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.util.StrUtils
+import com.wisdom.passcode.util.Tools
+import com.wisdom.passcode.util.httpUtil.HttpUtil
+import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import kotlinx.android.synthetic.main.activity_person_card_apply.*
+import okhttp3.Call
+import okhttp3.Response
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
+import org.json.JSONObject
 
 class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
 
@@ -48,7 +56,9 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_submit -> {
                 //提交按钮点击事件(暂时跳转成功页面)
                 if (checkPageData()) {
-                    startActivity<CardApplySuccessActivity>("title" to R.string.title_person_card_apply)
+                    //提交数据到接口
+                    submitData()
+
                 }
             }
 
@@ -64,7 +74,7 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
                 tv_place_name.text = data.getStringExtra("name")
             }
         } else if (resultCode == ConstantString.RESULT_CODE_CHOOSE_CARD_TYPE) {
-            if (data!=null) {
+            if (data != null) {
 //                typeCode = data.getStringExtra("ids")
                 val name = data.getStringExtra("name")
                 val label = data.getStringExtra("label")
@@ -79,14 +89,14 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
      *  @author HanXueFeng
      *  @time 2020/5/28 0028  16:29
      */
-    fun checkPageData(): Boolean {
+    private fun checkPageData(): Boolean {
         var isCheck = true
         when {
-            placeCode=="" -> {
+            placeCode == "" -> {
                 isCheck = false
                 toast(R.string.hint39)
             }
-            typeCode=="" -> {
+            typeCode == "" -> {
                 isCheck = false
                 toast(R.string.hint40)
             }
@@ -106,11 +116,70 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
                 isCheck = false
                 toast(R.string.hint44)
             }
-            !cb_licences.isChecked->{
+            !cb_licences.isChecked -> {
                 isCheck = false
                 toast(R.string.upload_paper_cb_hint)
             }
         }
         return isCheck
     }
+
+    /**
+     *  @describe 提交数据到接口
+     *  @return
+     *  @author HanXueFeng
+     *  @time 2020/5/28 0028  17:33
+     */
+    private fun submitData() {
+        val params = HttpParams()
+        params.put("placeIdEncryption", placeCode)
+        params.put("applyType", ConstantString.CARD_TYPE_PERSON)
+        params.put("guaranteeName", StrUtils.getEdtTxtContent(et_person_id_name))
+        params.put("guaranteeJob", StrUtils.getEdtTxtContent(et_person_job))
+        params.put("guaranteeDept", StrUtils.getEdtTxtContent(et_person_dep))
+        params.put("reason", StrUtils.getEdtTxtContent(et_reason))
+        params.put("passCodeTypeId", typeCode)
+        params.put("carNumber", "")
+        val paramsList = listOf(
+            "placeIdEncryption$placeCode"
+            , "applyType${ConstantString.CARD_TYPE_PERSON}"
+            , "guaranteeName${StrUtils.getEdtTxtContent(et_person_id_name)}"
+            , "guaranteeJob${StrUtils.getEdtTxtContent(et_person_job)}"
+            , "guaranteeDept${StrUtils.getEdtTxtContent(et_person_dep)}"
+            , "reason${StrUtils.getEdtTxtContent(et_reason)}"
+            , "passCodeTypeId$typeCode"
+            , "carNumber"
+        ).toMutableList()
+        Tools.showLoadingDialog(this@PersonCardApplyActivity)
+        HttpUtil.httpPostWithStampAndSignToken(
+            ConstantUrl.PASSCODE_APPLY_URL,
+            params,
+            paramsList,
+            object : StringsCallback(object : OnTokenRefreshSuccessListener {
+                override fun onRefreshSuccess() {
+                    Tools.closeDialog()
+                }
+
+                override fun onRefreshFail(msg: String?) {
+                    Tools.closeDialog()
+                }
+            }) {
+                override fun onInterfaceSuccess(
+                    jsonObject: JSONObject?,
+                    call: Call?,
+                    response: Response?
+                ) {
+                    Tools.closeDialog()
+                    val code = jsonObject!!.optInt("code")
+                    if (code == 0) {
+                        //成功
+                        startActivity<CardApplySuccessActivity>("title" to R.string.title_person_card_apply)
+                    } else {
+                        //失败
+                        toast(HttpUtil.getErrorMsgByCode("$code"))
+                    }
+                }
+            })
+    }
+
 }

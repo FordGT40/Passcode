@@ -50,6 +50,9 @@ class ConstantUrl {
         //获取场所通行证类型
         const val  CODETYPE_SEARCH_URL="/v1/codeType/search"
 
+//        提交场所申请
+const val  PASSCODE_APPLY_URL="/v1/passCode/apply"
+
     }
 
 }
