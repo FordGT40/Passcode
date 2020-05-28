@@ -60,12 +60,10 @@ class PlaceUploadPaperActivity : BaseActivity() {
         params.put("prefecture", model.prefecture)
         params.put("detailedAddress", model.detailedAddress)
         params.put("legal", model.legal)
-        params.put("legalIdCard", model.legalIdCard)
+        params.put("legalIdCard",EncrypAndDecrypUtil.encrypt(model.legalIdCard))
         params.put("accountSliceType", model.accountSliceType)
         params.put("licenseImgFile", File(model.licenseImgFile))
         params.put("applyLetterFile", File(picPath))
-        val idCardNum = EncrypAndDecrypUtil.encrypt(model.legalIdCard)
-        LogUtil.getInstance().e("身份证加密结果：$idCardNum")
         val paramList = listOf(
             "type${model.type}"
             , "name${model.name}"
@@ -75,7 +73,7 @@ class PlaceUploadPaperActivity : BaseActivity() {
             , "prefecture${model.prefecture}"
             , "detailedAddress${model.detailedAddress}"
             , "legal${model.legal}"
-            , "legalIdCard${model.legalIdCard}"
+            , "legalIdCard${EncrypAndDecrypUtil.encrypt(model.legalIdCard)}"
             , "accountSliceType${model.accountSliceType}"
         ).toMutableList()
 

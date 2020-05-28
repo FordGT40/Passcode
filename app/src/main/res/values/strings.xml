@@ -165,6 +165,7 @@
     <string name="user_id_lost">获取登录信息失败，请重新登录</string>
     <string name="no_more_data">没有更多数据</string>
     <string name="no_data">暂无数据</string>
+    <string name="load_first">请先登录</string>
 
 
 </resources>

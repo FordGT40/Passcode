@@ -69,8 +69,12 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (keyboardUtil!!.isShow) {
-                keyboardUtil!!.hideKeyboard()
+            if (keyboardUtil != null) {
+                if (keyboardUtil!!.isShow) {
+                    keyboardUtil!!.hideKeyboard()
+                } else {
+                    finish()
+                }
             } else {
                 finish()
             }

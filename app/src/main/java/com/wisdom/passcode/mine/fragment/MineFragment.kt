@@ -55,12 +55,14 @@ class MineFragment : Fragment(), View.OnClickListener {
         //根据登录状态，改变登录按钮显示
         if (ConstantString.loginState) {
             //登录了
+            tv_name.text=SharedPreferenceUtil.getPersonalInfoModel(context).nickName
             btn_search.setBackgroundResource(R.drawable.shape_circle_conner_blue_deep)
             btn_search.isClickable = true
         } else {
             //未登录
             btn_search.setBackgroundResource(R.drawable.shape_circle_conner_grey)
             btn_search.isClickable = false
+            tv_name.text=getString(R.string.load_first)
         }
     }
 
