@@ -103,10 +103,10 @@ class PlaceNameSearchActivity : BaseActivity(), View.OnClickListener {
                                 object : PlaceNameSearchListAdapter.OnItemClickListener {
                                     override fun onItemClick(item: PlaceSearchListModel) {
                                         //点击某个子项进行回显操作
-                                        val intent = Intent()
-                                        intent.putExtra("code", item.placeIdEncryption)
-                                        intent.putExtra("name", item.name)
-                                        setResult(ConstantString.RESULT_CODE_CHOOSE_PLACE, intent)
+                                        val intentBack = Intent()
+                                        intentBack.putExtra("code", item.placeIdEncryption)
+                                        intentBack.putExtra("name", item.name)
+                                        setResult(ConstantString.RESULT_CODE_CHOOSE_PLACE, intentBack)
                                         this@PlaceNameSearchActivity.finish()
                                     }
                                 })

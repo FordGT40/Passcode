@@ -40,7 +40,7 @@ class CardTypeListAdapter(
         holder.tv_name.text = "${item.name}(${item.lable})"
         holder.tv_time.text = item.timeRange
         holder.itemView.setOnClickListener {
-            mListener.onItemClick(mList[position])
+            mListener.onItemClick(item)
         }
 
     }

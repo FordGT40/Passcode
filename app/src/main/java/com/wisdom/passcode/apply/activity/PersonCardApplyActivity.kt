@@ -5,6 +5,7 @@ import android.view.View
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
+import com.wisdom.passcode.util.StrUtils
 import kotlinx.android.synthetic.main.activity_person_card_apply.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
@@ -34,7 +35,7 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_card_type -> {
                 //出入证类型选择
-                if (placeCode!="") {
+                if (placeCode != "") {
                     startActivityForResult<CardTypeChooseActivity>(
                         ConstantString.REQUEST_CODE,
                         "type" to ConstantString.CARD_TYPE_PERSON,
@@ -46,7 +47,9 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.btn_submit -> {
                 //提交按钮点击事件(暂时跳转成功页面)
-                startActivity<CardApplySuccessActivity>("title" to R.string.title_person_card_apply)
+                if (checkPageData()) {
+                    startActivity<CardApplySuccessActivity>("title" to R.string.title_person_card_apply)
+                }
             }
 
         }
@@ -61,11 +64,53 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
                 tv_place_name.text = data.getStringExtra("name")
             }
         } else if (resultCode == ConstantString.RESULT_CODE_CHOOSE_CARD_TYPE) {
-            typeCode = data!!.getStringExtra("id")
-            val name = data.getStringExtra("name")
-            val label = data.getStringExtra("label")
-            tv_card_type.text = "$name($label)"
+            if (data!=null) {
+//                typeCode = data.getStringExtra("ids")
+                val name = data.getStringExtra("name")
+                val label = data.getStringExtra("label")
+                tv_card_type.text = "$name($label)"
+            }
         }
     }
 
+    /**
+     *  @describe 检查界面是否有空值
+     *  @return
+     *  @author HanXueFeng
+     *  @time 2020/5/28 0028  16:29
+     */
+    fun checkPageData(): Boolean {
+        var isCheck = true
+        when {
+            placeCode=="" -> {
+                isCheck = false
+                toast(R.string.hint39)
+            }
+            typeCode=="" -> {
+                isCheck = false
+                toast(R.string.hint40)
+            }
+            StrUtils.isEdtTxtEmpty(et_reason) -> {
+                isCheck = false
+                toast(R.string.hint41)
+            }
+            StrUtils.isEdtTxtEmpty(et_person_id_name) -> {
+                isCheck = false
+                toast(R.string.hint42)
+            }
+            StrUtils.isEdtTxtEmpty(et_person_phone) -> {
+                isCheck = false
+                toast(R.string.hint43)
+            }
+            StrUtils.isEdtTxtEmpty(et_person_dep) -> {
+                isCheck = false
+                toast(R.string.hint44)
+            }
+            !cb_licences.isChecked->{
+                isCheck = false
+                toast(R.string.upload_paper_cb_hint)
+            }
+        }
+        return isCheck
+    }
 }
