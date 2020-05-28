@@ -85,7 +85,7 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
     /**
      * 隐藏软键盘(只适用于Activity，不适用于Fragment)
      */
-    fun hideSoftKeyboard(activity: Activity) {
+    private fun hideSoftKeyboard(activity: Activity) {
         val view = activity.currentFocus
         if (view != null) {
             val inputMethodManager: InputMethodManager =

@@ -51,6 +51,7 @@ class PlaceUploadPaperActivity : BaseActivity() {
      *  @time 2020/5/26 0026  09:09
      */
     private fun uploadInfo(model: UpLoadPaperModel) {
+        val idCardNum = EncrypAndDecrypUtil.encrypt(model.legalIdCard)
         val params = HttpParams()
         params.put("type", model.type)
         params.put("name", model.name)
@@ -59,8 +60,8 @@ class PlaceUploadPaperActivity : BaseActivity() {
         params.put("city", model.city)
         params.put("prefecture", model.prefecture)
         params.put("detailedAddress", model.detailedAddress)
-        params.put("legal", model.legal)
-        params.put("legalIdCard",EncrypAndDecrypUtil.encrypt(model.legalIdCard))
+        params.put("legalName", model.legal)
+        params.put("legalIdCard", idCardNum)
         params.put("accountSliceType", model.accountSliceType)
         params.put("licenseImgFile", File(model.licenseImgFile))
         params.put("applyLetterFile", File(picPath))
@@ -72,8 +73,8 @@ class PlaceUploadPaperActivity : BaseActivity() {
             , "city${model.city}"
             , "prefecture${model.prefecture}"
             , "detailedAddress${model.detailedAddress}"
-            , "legal${model.legal}"
-            , "legalIdCard${EncrypAndDecrypUtil.encrypt(model.legalIdCard)}"
+            , "legalName${model.legal}"
+            , "legalIdCard$idCardNum"
             , "accountSliceType${model.accountSliceType}"
         ).toMutableList()
 
@@ -85,8 +86,8 @@ class PlaceUploadPaperActivity : BaseActivity() {
         LogUtil.getInstance().e("city:${model.city}")
         LogUtil.getInstance().e("prefecture:${model.prefecture}")
         LogUtil.getInstance().e("detailedAddress:${model.detailedAddress}")
-        LogUtil.getInstance().e("legal:${model.legal}")
-        LogUtil.getInstance().e("legalIdCard:${EncrypAndDecrypUtil.encrypt(model.legalIdCard)}")
+        LogUtil.getInstance().e("legalName:${model.legal}")
+        LogUtil.getInstance().e("legalIdCard:$idCardNum")
         LogUtil.getInstance().e("licenseImgFile:${model.licenseImgFile}")
         LogUtil.getInstance().e("applyLetterFile:$picPath")
         LogUtil.getInstance().e("accountSliceType:${model.accountSliceType}")
