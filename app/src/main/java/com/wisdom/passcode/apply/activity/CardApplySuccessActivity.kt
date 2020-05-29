@@ -9,7 +9,7 @@ class CardApplySuccessActivity : BaseActivity() {
 
 
     override fun initViews() {
-      setTitle(R.string.title_apply_car_card)
+      setTitle(intent.getIntExtra("title",R.string.title_apply_code_place))
         btn_back_to_main.setOnClickListener {
             ActivityManager.getActivityManagerInstance().clearAllActivity()
             this.finish()

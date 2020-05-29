@@ -38,9 +38,9 @@ class CardTypeChooseActivity : BaseActivity() {
             CardTypeListAdapter(this, dataList, object : CardTypeListAdapter.OnItemClickListener {
                 override fun onItemClick(item: CardTypeListModel) {
                     val intentBack = Intent()
-                    intentBack.putExtra("lable", item.lable)
+                    intentBack.putExtra("label", item.lable)
                     intentBack.putExtra("name", item.name)
-                    intentBack.putExtra("ids", item.id)
+                    intentBack.putExtra("id", item.id)
                     setResult(ConstantString.RESULT_CODE_CHOOSE_CARD_TYPE,intentBack)
                     this@CardTypeChooseActivity.finish()
                 }

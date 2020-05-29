@@ -176,6 +176,7 @@
     <string name="hint43">请填写推荐人电话</string>
     <string name="hint44">请填写推荐人部门</string>
     <string name="hint46">推荐人电话不正确，请查证</string>
+    <string name="hint47">请输入车牌号</string>
 
 
 </resources>

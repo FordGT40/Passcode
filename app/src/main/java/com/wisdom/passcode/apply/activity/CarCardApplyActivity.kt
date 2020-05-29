@@ -5,14 +5,24 @@ import android.content.Intent
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
+import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
+import com.wisdom.passcode.util.EncrypAndDecrypUtil
 import com.wisdom.passcode.util.KeyboardUtil
+import com.wisdom.passcode.util.StrUtils
+import com.wisdom.passcode.util.Tools
+import com.wisdom.passcode.util.httpUtil.HttpUtil
+import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import kotlinx.android.synthetic.main.activity_car_card_apply.*
+import okhttp3.Call
+import okhttp3.Response
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
+import org.json.JSONObject
 
 
 class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
@@ -59,10 +69,10 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_card_type -> {
                 //出入证类型选择
-                if (placeCode!="") {
+                if (placeCode != "") {
                     startActivityForResult<CardTypeChooseActivity>(
                         ConstantString.REQUEST_CODE,
-                        "type" to ConstantString.CARD_TYPE_PERSON,
+                        "type" to ConstantString.CARD_TYPE_CAR,
                         "placeCode" to placeCode
                     )
                 } else {
@@ -70,8 +80,12 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
                 }
             }
             R.id.btn_submit -> {
-                //提交按钮点击事件(暂时跳转成功页面)
-                startActivity<CardApplySuccessActivity>("title" to R.string.title_apply_car_card)
+                //提交按钮点击事件
+                if (checkPageData()) {
+                    //提交数据到接口
+                    submitData()
+
+                }
             }
 
         }
@@ -126,4 +140,112 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+
+    /**
+     *  @describe 检查界面是否有空值
+     *  @return
+     *  @author HanXueFeng
+     *  @time 2020/5/28 0028  16:29
+     */
+    private fun checkPageData(): Boolean {
+        var isCheck = true
+        when {
+            placeCode == "" -> {
+                isCheck = false
+                toast(R.string.hint39)
+            }
+            typeCode == "" -> {
+                isCheck = false
+                toast(R.string.hint40)
+            }
+            StrUtils.isEdtTxtEmpty(et_plate_num) -> {
+                isCheck = false
+                toast(R.string.hint47)
+            }
+            StrUtils.isEdtTxtEmpty(et_reason) -> {
+                isCheck = false
+                toast(R.string.hint41)
+            }
+            StrUtils.isEdtTxtEmpty(et_person_id_name) -> {
+                isCheck = false
+                toast(R.string.hint42)
+            }
+            StrUtils.isEdtTxtEmpty(et_person_phone) -> {
+                isCheck = false
+                toast(R.string.hint43)
+            }
+            StrUtils.isEdtTxtEmpty(et_person_dep) -> {
+                isCheck = false
+                toast(R.string.hint44)
+            }
+            !cb_licences.isChecked -> {
+                isCheck = false
+                toast(R.string.upload_paper_cb_hint)
+            }
+        }
+        return isCheck
+    }
+
+
+    /**
+     *  @describe 提交数据到接口
+     *  @return
+     *  @author HanXueFeng
+     *  @time 2020/5/28 0028  17:33
+     */
+    private fun submitData() {
+        val params = HttpParams()
+        val phoneNum = EncrypAndDecrypUtil.encrypt(StrUtils.getEdtTxtContent(et_person_phone))
+        params.put("placeIdEncryption", placeCode)
+        params.put("applyType", ConstantString.CARD_TYPE_CAR)
+        params.put("guaranteeName", StrUtils.getEdtTxtContent(et_person_id_name))
+        params.put("guaranteeJob", StrUtils.getEdtTxtContent(et_person_job))
+        params.put("guaranteeDept", StrUtils.getEdtTxtContent(et_person_dep))
+        params.put("reason", StrUtils.getEdtTxtContent(et_reason))
+        params.put("passCodeTypeId", typeCode)
+        params.put("guaranteePhone", phoneNum)
+        params.put("carNumber",StrUtils.getEdtTxtContent(et_plate_num))
+        val paramsList = listOf(
+            "placeIdEncryption$placeCode"
+            , "applyType${ConstantString.CARD_TYPE_CAR}"
+            , "guaranteeName${StrUtils.getEdtTxtContent(et_person_id_name)}"
+            , "guaranteeJob${StrUtils.getEdtTxtContent(et_person_job)}"
+            , "guaranteeDept${StrUtils.getEdtTxtContent(et_person_dep)}"
+            , "reason${StrUtils.getEdtTxtContent(et_reason)}"
+            , "passCodeTypeId$typeCode"
+            , "guaranteePhone$phoneNum"
+            , "carNumber${StrUtils.getEdtTxtContent(et_plate_num)}"
+        ).toMutableList()
+        Tools.showLoadingDialog(this@CarCardApplyActivity)
+        HttpUtil.httpPostWithStampAndSignToken(
+            ConstantUrl.PASSCODE_APPLY_URL,
+            params,
+            paramsList,
+            object : StringsCallback(object : OnTokenRefreshSuccessListener {
+                override fun onRefreshSuccess() {
+                    Tools.closeDialog()
+                }
+
+                override fun onRefreshFail(msg: String?) {
+                    Tools.closeDialog()
+                }
+            }) {
+                override fun onInterfaceSuccess(
+                    jsonObject: JSONObject?,
+                    call: Call?,
+                    response: Response?
+                ) {
+                    Tools.closeDialog()
+                    val code = jsonObject!!.optInt("code")
+                    val msg = jsonObject!!.optString("msg")
+                    if (code == 0) {
+                        //成功
+                        startActivity<CardApplySuccessActivity>("title" to R.string.title_person_card_apply)
+                    } else {
+                        //失败
+                        toast(msg)
+                    }
+                }
+            })
+    }
 }

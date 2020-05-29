@@ -9,15 +9,18 @@ import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
 import com.wisdom.passcode.apply.model.UpLoadPaperModel
-import com.wisdom.passcode.base.ActivityManager
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.helper.PopWindowHelper
-import com.wisdom.passcode.util.*
+import com.wisdom.passcode.util.EncrypAndDecrypUtil
+import com.wisdom.passcode.util.FileUtils
+import com.wisdom.passcode.util.LogUtil
+import com.wisdom.passcode.util.Tools
 import com.wisdom.passcode.util.httpUtil.HttpUtil
 import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import kotlinx.android.synthetic.main.activity_upload_paper_licence.*
 import okhttp3.Call
 import okhttp3.Response
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 import java.io.File
@@ -79,21 +82,6 @@ class PlaceUploadPaperActivity : BaseActivity() {
         ).toMutableList()
 
 
-        LogUtil.getInstance().e("type:${model.type}")
-        LogUtil.getInstance().e("name:${model.name}")
-        LogUtil.getInstance().e("uscc:${model.uscc}")
-        LogUtil.getInstance().e("province:${model.province}")
-        LogUtil.getInstance().e("city:${model.city}")
-        LogUtil.getInstance().e("prefecture:${model.prefecture}")
-        LogUtil.getInstance().e("detailedAddress:${model.detailedAddress}")
-        LogUtil.getInstance().e("legalName:${model.legal}")
-        LogUtil.getInstance().e("legalIdCard:$idCardNum")
-        LogUtil.getInstance().e("licenseImgFile:${model.licenseImgFile}")
-        LogUtil.getInstance().e("applyLetterFile:$picPath")
-        LogUtil.getInstance().e("accountSliceType:${model.accountSliceType}")
-
-
-
         Tools.showLoadingDialog(this)
         HttpUtil.httpPostWithStampAndSignToken(
             ConstantUrl.APPLY_PLACE_CODE_URL,
@@ -115,17 +103,11 @@ class PlaceUploadPaperActivity : BaseActivity() {
                 ) {
                     Tools.closeDialog()
                     val code = jsonObject!!.getInt("code")
+                    val msg = jsonObject!!.getString("msg")
                     if (code == 0) {
-                        AlertUtil.showMsgAlert(
-                            this@PlaceUploadPaperActivity,
-                            R.string.hint36
-                        ) { _, _ ->
-                            //点击确定
-                            ActivityManager.getActivityManagerInstance().clearAllActivity()
-                            this@PlaceUploadPaperActivity.finish()
-                        }
+                        startActivity<CardApplySuccessActivity>("title" to R.string.title_apply_code_place)
                     } else {
-                        toast(HttpUtil.getErrorMsgByCode("$code"))
+                        toast(msg)
                     }
                 }
 

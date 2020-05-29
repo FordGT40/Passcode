@@ -12,7 +12,17 @@ import com.wisdom.passcode.util.StrUtils
 import com.wisdom.passcode.util.Tools
 import com.wisdom.passcode.util.httpUtil.HttpUtil
 import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
+import kotlinx.android.synthetic.main.activity_car_card_apply.*
 import kotlinx.android.synthetic.main.activity_person_card_apply.*
+import kotlinx.android.synthetic.main.activity_person_card_apply.btn_submit
+import kotlinx.android.synthetic.main.activity_person_card_apply.cb_licences
+import kotlinx.android.synthetic.main.activity_person_card_apply.et_person_dep
+import kotlinx.android.synthetic.main.activity_person_card_apply.et_person_id_name
+import kotlinx.android.synthetic.main.activity_person_card_apply.et_person_job
+import kotlinx.android.synthetic.main.activity_person_card_apply.et_person_phone
+import kotlinx.android.synthetic.main.activity_person_card_apply.et_reason
+import kotlinx.android.synthetic.main.activity_person_card_apply.tv_card_type
+import kotlinx.android.synthetic.main.activity_person_card_apply.tv_place_name
 import okhttp3.Call
 import okhttp3.Response
 import org.jetbrains.anko.startActivity
@@ -55,11 +65,10 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
                 }
             }
             R.id.btn_submit -> {
-                //提交按钮点击事件(暂时跳转成功页面)
+                //提交按钮点击事件
                 if (checkPageData()) {
                     //提交数据到接口
                     submitData()
-
                 }
             }
 
@@ -76,9 +85,9 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
             }
         } else if (resultCode == ConstantString.RESULT_CODE_CHOOSE_CARD_TYPE) {
             if (data != null) {
-                typeCode = data.getStringExtra("ids")
+                typeCode = data.getStringExtra("id")
                 val name = data.getStringExtra("name")
-                val label = data.getStringExtra("lable")
+                val label = data.getStringExtra("label")
                 tv_card_type.text = "$name($label)"
 
             }
@@ -176,7 +185,7 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
                 ) {
                     Tools.closeDialog()
                     val code = jsonObject!!.optInt("code")
-                    val msg = jsonObject!!.optInt("msg")
+                    val msg = jsonObject!!.optString("msg")
                     if (code == 0) {
                         //成功
                         startActivity<CardApplySuccessActivity>("title" to R.string.title_person_card_apply)
