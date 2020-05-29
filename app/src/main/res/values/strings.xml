@@ -177,6 +177,7 @@
     <string name="hint44">请填写推荐人部门</string>
     <string name="hint46">推荐人电话不正确，请查证</string>
     <string name="hint47">请输入车牌号</string>
+    <string name="in_out_state">出行状态</string>
 
 
 </resources>

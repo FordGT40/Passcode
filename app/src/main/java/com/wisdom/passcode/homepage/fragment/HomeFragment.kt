@@ -16,6 +16,7 @@ import com.wisdom.passcode.apply.activity.PlaceCodePlaceTypeChooseActivity
 import com.wisdom.passcode.helper.Helper
 import com.wisdom.passcode.homepage.activity.MyCardsActivity
 import com.wisdom.passcode.homepage.activity.ShowCodeActivity
+import com.wisdom.passcode.scanback.activity.ScanBackMainActivity
 import com.wisdom.passcode.util.Tools
 import kotlinx.android.synthetic.main.content_scrolling.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -67,9 +68,7 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
         when (v.id) {
 
             R.id.iv_ad -> {
-//                startActivity<UploadPaperLicenceActivity>()
-                //跳转到省份列表
-
+                startActivity<ScanBackMainActivity>()
             }
             R.id.ll_show_card,R.id.tv_head_show_card->{
                 //亮证

@@ -60,12 +60,6 @@ class MainActivity : FragmentActivity(), View.OnClickListener {
      *  @time 2020/4/29 0029  11:29
      */
     private fun initViews() {
-        val md5Str ="accountSliceType1city230100detailedAddress八倍镜legal八倍镜legalIdCardIjUjP7Ug1I8N/kaXz9eZvACPmwT35B9fname哈哈哈哈prefecture230102province230000timestamp1590634019645type2uscc宝宝androidsecret"
-       LogUtil.getInstance().e(MD5Util.MD5(md5Str))
-       LogUtil.getInstance().e(MD5Util.MD5(md5Str))
-       LogUtil.getInstance().e(MD5Util.MD5(md5Str))
-       LogUtil.getInstance().e(MD5Util.MD5(md5Str))
-
         applyPermission()
         doubleClickHelper = DoubleClickExitHelper(this)
         ll_bar_1.setOnClickListener(this)

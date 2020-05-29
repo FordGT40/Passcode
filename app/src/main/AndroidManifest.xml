@@ -18,8 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".apply.activity.CarCardApplyActivity"></activity>
-        <!-- 选择出入证类型 -->
+        <activity android:name=".scanback.activity.ScanBackMainActivity"></activity>
+        <activity android:name=".apply.activity.CarCardApplyActivity" /> <!-- 选择出入证类型 -->
         <activity android:name=".apply.activity.CardTypeChooseActivity" /> <!-- 人员出入证申请 -->
         <activity android:name=".apply.activity.PersonCardApplyActivity" /> <!-- 上传公函 -->
         <activity android:name=".apply.activity.PlaceUploadPaperActivity" /> <!-- 场所码申请 -->

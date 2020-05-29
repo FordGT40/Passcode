@@ -1,6 +1,8 @@
 package com.wisdom.passcode.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
@@ -383,6 +385,10 @@ public class StrUtils {
             myName=name.replaceAll(str, replacement);
         }
         return myName;
+    }
+
+    public static Typeface getTypefaceCardTitle(Activity activity){
+        return Typeface.createFromAsset(activity.getAssets(),"fonts/card_title_font.ttf");
     }
 
 }
