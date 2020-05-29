@@ -23,10 +23,10 @@ public class CardTypeListModel implements Serializable {
      */
 
     private String dataType;
-    private int placeId;
+    private String placeId;
     private String name;
     private String lable;
-    private int id;
+    private String id;
     private String type;
     private String timeRange;
 
@@ -38,11 +38,11 @@ public class CardTypeListModel implements Serializable {
         this.dataType = dataType;
     }
 
-    public int getPlaceId() {
+    public String getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(int placeId) {
+    public void setPlaceId(String placeId) {
         this.placeId = placeId;
     }
 
@@ -62,11 +62,11 @@ public class CardTypeListModel implements Serializable {
         this.lable = lable;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

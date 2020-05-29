@@ -7,6 +7,7 @@ import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
+import com.wisdom.passcode.util.EncrypAndDecrypUtil
 import com.wisdom.passcode.util.StrUtils
 import com.wisdom.passcode.util.Tools
 import com.wisdom.passcode.util.httpUtil.HttpUtil
@@ -75,10 +76,11 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
             }
         } else if (resultCode == ConstantString.RESULT_CODE_CHOOSE_CARD_TYPE) {
             if (data != null) {
-//                typeCode = data.getStringExtra("ids")
+                typeCode = data.getStringExtra("ids")
                 val name = data.getStringExtra("name")
-                val label = data.getStringExtra("label")
+                val label = data.getStringExtra("lable")
                 tv_card_type.text = "$name($label)"
+
             }
         }
     }
@@ -132,6 +134,7 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
      */
     private fun submitData() {
         val params = HttpParams()
+        val phoneNum = EncrypAndDecrypUtil.encrypt(StrUtils.getEdtTxtContent(et_person_phone))
         params.put("placeIdEncryption", placeCode)
         params.put("applyType", ConstantString.CARD_TYPE_PERSON)
         params.put("guaranteeName", StrUtils.getEdtTxtContent(et_person_id_name))
@@ -139,6 +142,7 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
         params.put("guaranteeDept", StrUtils.getEdtTxtContent(et_person_dep))
         params.put("reason", StrUtils.getEdtTxtContent(et_reason))
         params.put("passCodeTypeId", typeCode)
+        params.put("guaranteePhone", phoneNum)
         params.put("carNumber", "")
         val paramsList = listOf(
             "placeIdEncryption$placeCode"
@@ -148,6 +152,7 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
             , "guaranteeDept${StrUtils.getEdtTxtContent(et_person_dep)}"
             , "reason${StrUtils.getEdtTxtContent(et_reason)}"
             , "passCodeTypeId$typeCode"
+            , "guaranteePhone$phoneNum"
             , "carNumber"
         ).toMutableList()
         Tools.showLoadingDialog(this@PersonCardApplyActivity)
@@ -171,12 +176,13 @@ class PersonCardApplyActivity : BaseActivity(), View.OnClickListener {
                 ) {
                     Tools.closeDialog()
                     val code = jsonObject!!.optInt("code")
+                    val msg = jsonObject!!.optInt("msg")
                     if (code == 0) {
                         //成功
                         startActivity<CardApplySuccessActivity>("title" to R.string.title_person_card_apply)
                     } else {
                         //失败
-                        toast(HttpUtil.getErrorMsgByCode("$code"))
+                        toast(msg)
                     }
                 }
             })

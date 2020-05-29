@@ -168,13 +168,14 @@
     <string name="load_first">请先登录</string>
     <string name="hint38">请输入场所名称</string>
     <string name="hint39">请先选择场所</string>
-    <string name="reason">申请原由</string>
+    <string name="reason">申请原因</string>
     <string name="hint_reason">请填写原因</string>
     <string name="hint40">请选择出入证类型</string>
     <string name="hint41">请填写申请原因</string>
     <string name="hint42">请填写推荐人姓名</string>
     <string name="hint43">请填写推荐人电话</string>
     <string name="hint44">请填写推荐人部门</string>
+    <string name="hint46">推荐人电话不正确，请查证</string>
 
 
 </resources>
