@@ -43,10 +43,10 @@ class MineFragment : Fragment(), View.OnClickListener {
         rl_my_identifiction.setOnClickListener(this)
         if (SharedPreferenceUtil.getPersonalInfoModel(context).authState == ConstantString.AUTHENTICATION_TYPE_TRUE) {
             //已经实名了
-            tv_attestation.visibility = View.VISIBLE
+            tv_attestation.text=getString(R.string.real_name)
         } else {
             //没有实名了
-            tv_attestation.visibility = View.GONE
+            tv_attestation.text=getString(R.string.un_real_name)
         }
     }
 

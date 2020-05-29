@@ -359,34 +359,12 @@ public class StrUtils {
         return sb.toString();
     }
 
+
     /**
-     * 姓名脱敏算法
-     * @param name
+     * 取得特定自定义字体设置
+     * @param activity
      * @return
      */
-    public static String nameDesensitization(String name){
-        if(name==null || name.isEmpty()){
-            return "";
-        }
-        String myName = null;
-        char[] chars = name.toCharArray();
-        if(chars.length==1){
-            myName=name;
-        }
-        if(chars.length==2){
-            myName=name.replaceFirst(name.substring(0,1), "*");
-        }
-        if(chars.length>2){
-            String str=name.substring(1, chars.length-1);
-            String replacement="";
-                    for(int i=0;i<str.length();i++){
-                        replacement+="*";
-                    }
-            myName=name.replaceAll(str, replacement);
-        }
-        return myName;
-    }
-
     public static Typeface getTypefaceCardTitle(Activity activity){
         return Typeface.createFromAsset(activity.getAssets(),"fonts/card_title_font.ttf");
     }

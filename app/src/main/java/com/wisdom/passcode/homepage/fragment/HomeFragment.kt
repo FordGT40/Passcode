@@ -70,7 +70,7 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
             R.id.iv_ad -> {
                 startActivity<ScanBackMainActivity>()
             }
-            R.id.ll_show_card,R.id.tv_head_show_card->{
+            R.id.ll_show_card, R.id.tv_head_show_card -> {
                 //亮证
                 startActivity<MyCardsActivity>()
             }
@@ -81,7 +81,10 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
             R.id.ll_admin_scan_person, R.id.ll_scan, R.id.tv_head_scan -> {
                 //扫描人员码，二维码
                 Tools.startScanActivity(context!!, activity!!,
-                    QrManager.OnScanResultCallback { result -> toast(result!!.content) })
+                    QrManager.OnScanResultCallback {
+                            result -> toast(result!!.content)
+
+                    })
             }
             R.id.ll_apply_card -> {
                 //车辆出入码申请

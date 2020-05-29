@@ -6,10 +6,7 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.mine.activity.LoginActivity
-import com.wisdom.passcode.util.AlertUtil
-import com.wisdom.passcode.util.QrCodeUtils
-import com.wisdom.passcode.util.StrUtils
-import com.wisdom.passcode.util.Tools
+import com.wisdom.passcode.util.*
 import kotlinx.android.synthetic.main.activity_show_code.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -46,7 +43,7 @@ class ShowCodeActivity : BaseActivity() {
             iv_qr.setImageBitmap(bitmap)
             //用户名
             val name = SharedPreferenceUtil.getPersonalInfoModel(this).nickName
-            tv_user_name.text = StrUtils.nameDesensitization(name)
+            tv_user_name.text = PrivacyUtil.nameDesensitization(name)
         }
     }
 

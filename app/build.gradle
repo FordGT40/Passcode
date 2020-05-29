@@ -72,6 +72,8 @@ dependencies {
     implementation files('src/main/JniLibs/GifView.jar')
     //地市选择滚轮数据 https://github.com/crazyandcoder/citypicker
     implementation 'liji.library.dev:citypickerview:5.2.2'
+//脱敏工具类用到的相关StringUtils包
+    implementation 'org.apache.commons:commons-lang3:3.3.1'
 
 //    车牌简称输入键盘  https://github.com/parkingwang/vehicle-keyboard-android
 //    https://www.ctolib.com/parkingwang-vehicle-keyboard-android.html

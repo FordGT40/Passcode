@@ -190,6 +190,8 @@
     <string name="in_out_state_out">外出</string>
     <string name="scan_result_licence">我已阅读本申报所列事项并确认以上填报信息真实有效</string>
     <string name="title_scan_result">同行凭证</string>
+    <string name="real_name">已实名</string>
+    <string name="un_real_name">未实名</string>
 
 
 </resources>

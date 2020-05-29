@@ -127,12 +127,10 @@
                 android:textSize="@dimen/sp_15" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_attestation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/attestationed"
                 android:layout_toLeftOf="@+id/iv_more"
                 android:textColor="@color/textcolor"
                 android:layout_marginRight="@dimen/dp_10"

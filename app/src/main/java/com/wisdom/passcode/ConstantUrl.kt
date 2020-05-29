@@ -47,11 +47,15 @@ class ConstantUrl {
 
         //10. 根据名称搜索场所列表
         const val PLACE_SEARCH_URL = "/v1/place/search"
-        //获取场所通行证类型
-        const val  CODETYPE_SEARCH_URL="/v1/codeType/search"
 
-//        提交场所申请
-const val  PASSCODE_APPLY_URL="/v1/passCode/apply"
+        //获取场所通行证类型
+        const val CODETYPE_SEARCH_URL = "/v1/codeType/search"
+
+        // 提交场所申请
+        const val PASSCODE_APPLY_URL = "/v1/passCode/apply"
+
+        //获取实名认证信息接口（实名认证后在个人中心的实名认证中查看）
+        const val USER_AUTHINFO_URL = "/v1/user/authInfo"
 
     }
 
