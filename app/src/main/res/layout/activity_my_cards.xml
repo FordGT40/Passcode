@@ -15,7 +15,7 @@
         app:tabIndicatorHeight="2dp"
         app:tabIndicatorWidth="40dp"
         app:tab_Mode="mode_fixed"
-        app:tabSelectTextColor="@color/textcolor"
+        app:tabSelectTextColor="@color/colorPrimary"
         app:tabTextColor="@color/textcolor"
         app:tabTextSize="6sp" />
 

@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_my_cards.*
 class MyCardsActivity : BaseActivity() {
     //Fragment 数组
     private val TAB_FRAGMENTS = arrayOf(
-        PlaceCardFragment(),PersonCardFragment(), CarCardFragment()
+        PlaceCardFragment(), PersonCardFragment(), CarCardFragment()
     )
 
     val tabString = arrayOf(
@@ -38,11 +38,9 @@ class MyCardsActivity : BaseActivity() {
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-
             }
         })
         for (strId in tabString) {
