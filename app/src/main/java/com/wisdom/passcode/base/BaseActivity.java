@@ -156,4 +156,12 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    public void setNoStateBar(){
+        //沉浸式状态栏
+        //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
+        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
+        //设置状态栏透明
+        StatusBarUtil.setTranslucentStatus(this);
+    }
 }

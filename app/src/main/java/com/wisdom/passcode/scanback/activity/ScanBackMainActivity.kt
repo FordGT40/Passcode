@@ -3,11 +3,11 @@ package com.wisdom.passcode.scanback.activity
 import android.view.View
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
-import com.wisdom.passcode.util.StatusBarUtil
 import com.wisdom.passcode.util.StrUtils
 import kotlinx.android.synthetic.main.activity_scan_back_main.*
+import org.jetbrains.anko.startActivity
 
-class ScanBackMainActivity : BaseActivity() {
+class ScanBackMainActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun initViews() {
@@ -31,10 +31,7 @@ class ScanBackMainActivity : BaseActivity() {
         tv_in.compoundDrawablePadding = 20
         tv_out.compoundDrawablePadding = 20
         //沉浸式状态栏
-        //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
-        StatusBarUtil.setRootViewFitsSystemWindows(this, false)
-        //设置状态栏透明
-        StatusBarUtil.setTranslucentStatus(this)
+        setNoStateBar()
         //返回键点击事件
         iv_back.setOnClickListener { finish() }
         //设置特殊字体
@@ -72,9 +69,20 @@ class ScanBackMainActivity : BaseActivity() {
         }
         //设置默认选中按钮
         rb_in.isChecked = true
+        //提交按钮点击事件
+        btn_submit.setOnClickListener(this)
     }
 
     override fun setlayoutIds() {
         setContentView(R.layout.activity_scan_back_main)
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.btn_submit -> {
+                //提交信息后跳转的页面
+                startActivity<CodeResultActivity>()
+            }
+        }
     }
 }

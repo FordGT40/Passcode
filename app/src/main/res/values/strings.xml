@@ -189,6 +189,7 @@
     <string name="hint_contact_reason">请输入事由</string>
     <string name="in_out_state_out">外出</string>
     <string name="scan_result_licence">我已阅读本申报所列事项并确认以上填报信息真实有效</string>
+    <string name="title_scan_result">同行凭证</string>
 
 
 </resources>
