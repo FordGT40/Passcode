@@ -57,6 +57,14 @@ class ConstantUrl {
         //获取实名认证信息接口（实名认证后在个人中心的实名认证中查看）
         const val USER_AUTHINFO_URL = "/v1/user/authInfo"
 
+        //        通用扫码接口
+        const val SCAN_CODE_URL = "/v1/scan/code"
+
+        //        18. 扫码信息记录接口
+        const val SCAN_LOG_URL = "/v1/scan/log"
+
+
+
     }
 
 }

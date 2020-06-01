@@ -3,11 +3,13 @@ package com.wisdom.passcode.util
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.style.ForegroundColorSpan
 import android.view.WindowManager
+import android.widget.TextView
 import cn.bertsir.zbar.QrConfig
 import cn.bertsir.zbar.QrManager
 import cn.bertsir.zbar.view.ScanLineView
@@ -199,6 +201,16 @@ class Tools {
         //将时间戳转换为时间
         fun stampToDate(s: Long): String? {
             return  SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(s))
+        }
+
+        /**
+         * 设置特殊字体
+         * @param activity
+         * @param textView
+         */
+        fun setFont(activity: Activity, textView: TextView) {
+            val tf = Typeface.createFromAsset(activity.assets, "fonts/card_title_font.ttf")
+            textView.typeface = tf
         }
     }
 

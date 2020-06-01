@@ -83,6 +83,7 @@
     <string name="code_check_empty">请输入验证码</string>
     <string name="phone_wrong">电话不正确，请查证</string>
     <string name="choose_licence">请勾选用户协议</string>
+    <string name="choose_licence2">请勾选协议</string>
     <string name="psw_error">密码长度为6-16位</string>
     <string name="go_auth_check">去实名</string>
     <string name="hint17">请先进行实名认证</string>
@@ -189,7 +190,7 @@
     <string name="hint_contact_reason">请输入事由</string>
     <string name="in_out_state_out">外出</string>
     <string name="scan_result_licence">我已阅读本申报所列事项并确认以上填报信息真实有效</string>
-    <string name="title_scan_result">同行凭证</string>
+    <string name="title_scan_result">通行凭证</string>
     <string name="real_name">已实名</string>
     <string name="un_real_name">未实名</string>
     <string name="car_photo">车辆正面照片</string>
@@ -200,6 +201,7 @@
     <string name="upload_driving_licence">请上传驾驶证</string>
     <string name="alter">修改</string>
     <string name="title_my_profile">我的资料</string>
+    <string name="forbidden">禁止通行</string>
 
 
 </resources>

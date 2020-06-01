@@ -11,12 +11,12 @@ package com.wisdom.passcode
 class ConstantString {
     companion object {
 
-        val RESULT_CODE_CHOOSE_CARD_TYPE: Int=0x113//申请人员码----选择卡类型后的结果码
-        const val RESULT_CODE_CHOOSE_PLACE: Int=0x111//申请人员码或车辆吗----选择场所后的结果码
+        val RESULT_CODE_CHOOSE_CARD_TYPE: Int = 0x113//申请人员码----选择卡类型后的结果码
+        const val RESULT_CODE_CHOOSE_PLACE: Int = 0x111//申请人员码或车辆吗----选择场所后的结果码
 
 
-        const val CARD_TYPE_PERSON="1"//申请出入证时候，获取某场所出入证类型可选数据-----人员的
-        const val CARD_TYPE_CAR="2"//申请出入证时候，获取某场所出入证类型可选数据-----车辆的
+        const val CARD_TYPE_PERSON = "1"//申请出入证时候，获取某场所出入证类型可选数据-----人员的
+        const val CARD_TYPE_CAR = "2"//申请出入证时候，获取某场所出入证类型可选数据-----车辆的
 
         const val SCREEN_LIGHT_MAX: Int = 255
         const val SPLASH_WAITING_SECONDS: Long = 4000L//炫耀页面展示的时长
@@ -52,9 +52,23 @@ class ConstantString {
         const val RECYCLER_PULL_REFRESH = "refresh"//列表下拉刷新标识
         const val RECYCLER_PULL_LOADMORE = "loadmore"//列表上拉加载标识
 
-const val AUDITSTATE_CHECK="1"//我的申请审核状态---待审核
-const val AUDITSTATE_PASS="2"//我的申请审核状态---已通过
-const val AUDITSTATE_REFUSE="3"//我的申请审核状态---已驳回
+        const val AUDITSTATE_CHECK = "1"//我的申请审核状态---待审核
+        const val AUDITSTATE_PASS = "2"//我的申请审核状态---已通过
+        const val AUDITSTATE_REFUSE = "3"//我的申请审核状态---已驳回
+
+        const val PLACE_QRCODE_HEAD_URL = "http://192.168.1.225:8090/cxm-api/p/qsm/"//扫描场所码，场所码的前缀
+
+        const val SCAN_CODE_TYPE_WALL_CODE = "1"//1：人扫墙
+        const val SCAN_CODE_TYPE_ADMIN_SCAN = "2"//2：管理员扫人码
+        const val SCAN_CODE_TYPE_ADMIN_SCAN_PASS_LICENCE = "3"//3：管理员扫人通行证
+        const val SCAN_CODE_TYPE_ADMIN_SCAN_CAR_PASS = "4"//4：管理员扫车通行证
+        const val SCAN_CODE_TYPE_ADMIN_SCAN_PLATE = "5"//5：管理员扫车牌号
+
+        const val SCAN_CODE_TYPE_IN="1"//出入类型  1：入内   2：外出
+        const val SCAN_CODE_TYPE_OUT="2"//出入类型  1：入内   2：外出
+
+        const val SCAN_TYPE_SCAN="1"//扫码类型  1：扫码  2：通行证
+        const val SCAN_TYPE_LICENCE="2"//扫码类型  1：扫码  2：通行证
 
 
         var timeStamp = 0L//时间戳 初始值

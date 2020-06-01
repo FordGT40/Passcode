@@ -17,6 +17,8 @@ import com.wisdom.passcode.helper.Helper
 import com.wisdom.passcode.homepage.activity.MyCardsActivity
 import com.wisdom.passcode.homepage.activity.ShowCodeActivity
 import com.wisdom.passcode.scanback.activity.ScanBackMainActivity
+import com.wisdom.passcode.scanback.helper.ScanHelper
+import com.wisdom.passcode.scanback.model.GetScanResultModel
 import com.wisdom.passcode.util.Tools
 import kotlinx.android.synthetic.main.content_scrolling.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -81,9 +83,23 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
             R.id.ll_admin_scan_person, R.id.ll_scan, R.id.tv_head_scan -> {
                 //扫描人员码，二维码
                 Tools.startScanActivity(context!!, activity!!,
-                    QrManager.OnScanResultCallback {
-                            result -> toast(result!!.content)
+                    QrManager.OnScanResultCallback { result ->
+                        val content = result.content
+                        if (content.contains(ConstantString.PLACE_QRCODE_HEAD_URL)) {
+                            //扫描的是场所码
+                            val placeCode =
+                                content.replace(ConstantString.PLACE_QRCODE_HEAD_URL, "")
+                            val data = GetScanResultModel()
+                            data.type = ConstantString.SCAN_CODE_TYPE_WALL_CODE
+                            data.carNumber = ""
+                            data.passCodeId = ""
+                            data.placeCodeEncryption = placeCode
+                            data.userIdEncryption = ConstantString.userIdEncryption
+                            ScanHelper.getScanPlaceName(context!!,data)
 
+                        } else {
+                            toast("扫的不是场所码")
+                        }
                     })
             }
             R.id.ll_apply_card -> {

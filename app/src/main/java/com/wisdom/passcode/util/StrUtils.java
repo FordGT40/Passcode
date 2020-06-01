@@ -360,13 +360,6 @@ public class StrUtils {
     }
 
 
-    /**
-     * 取得特定自定义字体设置
-     * @param activity
-     * @return
-     */
-    public static Typeface getTypefaceCardTitle(Activity activity){
-        return Typeface.createFromAsset(activity.getAssets(),"fonts/card_title_font.ttf");
-    }
+
 
 }
