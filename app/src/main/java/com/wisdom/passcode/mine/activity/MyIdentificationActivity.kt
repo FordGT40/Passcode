@@ -56,6 +56,7 @@ class MyIdentificationActivity : BaseActivity() {
                     call: Call?,
                     response: Response?
                 ) {
+                    Tools.closeDialog()
                     val code = jsonObject!!.optInt("code")
                     val msg = jsonObject.optString("msg")
                     if (code == 0) {

@@ -2,18 +2,18 @@ package com.wisdom.passcode.apply.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.bumptech.glide.Glide
 import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
-import com.wisdom.passcode.util.EncrypAndDecrypUtil
-import com.wisdom.passcode.util.KeyboardUtil
-import com.wisdom.passcode.util.StrUtils
-import com.wisdom.passcode.util.Tools
+import com.wisdom.passcode.helper.PopWindowHelper
+import com.wisdom.passcode.util.*
 import com.wisdom.passcode.util.httpUtil.HttpUtil
 import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import kotlinx.android.synthetic.main.activity_car_card_apply.*
@@ -23,11 +23,15 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.json.JSONObject
+import java.io.File
 
 
 class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
     var placeCode = ""
     var typeCode = ""
+    var carPhoto = ""
+    var drivingLicencePhoto = ""
+    var isCarPhoto = true//判断点击的是哪个按钮（上传车辆还是驾驶证）
     private var keyboardUtil: KeyboardUtil? = null
     override fun initViews() {
         setTitle(R.string.title_apply_car_card)
@@ -55,6 +59,17 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
                 }
             }
         }
+        //上传车辆照片
+        btn_car_photo.setOnClickListener {
+            isCarPhoto = true
+            PopWindowHelper(this).showUploadPop(this)
+        }
+        //上传驾驶证照片
+        btn_driving_licence.setOnClickListener {
+            isCarPhoto = false
+            PopWindowHelper(this).showUploadPop(this)
+        }
+
     }
 
     override fun setlayoutIds() {
@@ -108,20 +123,76 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == ConstantString.RESULT_CODE_CHOOSE_PLACE) {
-            //选择场所后返回的
-            if (data != null) {
-                placeCode = data.getStringExtra("code")
-                tv_place_name.text = data.getStringExtra("name")
+        when (resultCode) {
+            ConstantString.RESULT_CODE_CHOOSE_CARD_TYPE -> {
+                typeCode = data!!.getStringExtra("id")
+                val name = data.getStringExtra("name")
+                val label = data.getStringExtra("label")
+                tv_card_type.text = "$name($label)"
             }
-        }else if (resultCode == ConstantString.RESULT_CODE_CHOOSE_CARD_TYPE) {
-            typeCode = data!!.getStringExtra("id")
-            val name = data.getStringExtra("name")
-            val label = data.getStringExtra("label")
-            tv_card_type.text = "$name($label)"
+            ConstantString.RESULT_CODE_CHOOSE_PLACE -> {
+                //选择场所后返回的
+                if (data != null) {
+                    placeCode = data.getStringExtra("code")
+                    tv_place_name.text = data.getStringExtra("name")
+                }
+            }
+        }
+        when (requestCode) {
+            ConstantString.ALBUM_SELECT_CODE -> {
+                //相册选择
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        // Get the Uri of the selected file
+                        val uri = data.data
+                        val uri2 =
+                            Uri.parse(Uri.encode(uri.toString()))
+                        if (isCarPhoto) {
+                            carPhoto = FileUtils.getPath(this, uri)
+                            Glide.with(this@CarCardApplyActivity).load(carPhoto).into(iv_car_photo)
+                        } else {
+                            drivingLicencePhoto = FileUtils.getPath(this, uri)
+                            Glide.with(this@CarCardApplyActivity).load(drivingLicencePhoto)
+                                .into(iv_driving_licence)
+                        }
+
+
+                    }
+                }
+            }
+            ConstantString.FILE_SELECT_CODE -> {
+                //文件选择器选择
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        // Get the Uri of the selected file
+                        val uri = data.data
+                        if (isCarPhoto) {
+                            carPhoto = FileUtils.getPathByUri4kitkat(this, uri)
+                            Glide.with(this@CarCardApplyActivity).load(carPhoto).into(iv_car_photo)
+                        } else {
+                            drivingLicencePhoto = FileUtils.getPathByUri4kitkat(this, uri)
+                            Glide.with(this@CarCardApplyActivity).load(carPhoto)
+                                .into(iv_driving_licence)
+                        }
+                    }
+                }
+            }
+            ConstantString.REQUEST_CAMERA -> {
+
+            }
+            else -> {
+                //相机拍照选择
+                if (isCarPhoto) {
+                    carPhoto = ConstantString.PIC_LOCATE
+                    Glide.with(this@CarCardApplyActivity).load(carPhoto).into(iv_car_photo)
+                } else {
+                    drivingLicencePhoto = ConstantString.PIC_LOCATE
+                    Glide.with(this@CarCardApplyActivity).load(carPhoto).into(iv_driving_licence)
+                }
+
+            }
         }
     }
 
@@ -178,6 +249,15 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
                 isCheck = false
                 toast(R.string.hint44)
             }
+
+            carPhoto.isNullOrEmpty() -> {
+                isCheck = false
+                toast(R.string.upload_car_photo)
+            }
+            drivingLicencePhoto.isNullOrEmpty() -> {
+                isCheck = false
+                toast(R.string.upload_driving_licence)
+            }
             !cb_licences.isChecked -> {
                 isCheck = false
                 toast(R.string.upload_paper_cb_hint)
@@ -204,7 +284,9 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
         params.put("reason", StrUtils.getEdtTxtContent(et_reason))
         params.put("passCodeTypeId", typeCode)
         params.put("guaranteePhone", phoneNum)
-        params.put("carNumber",StrUtils.getEdtTxtContent(et_plate_num))
+        params.put("carNumber", StrUtils.getEdtTxtContent(et_plate_num))
+        params.put("carPositiveImg", File(carPhoto))
+        params.put("drivingLicenseImg", File(drivingLicencePhoto))
         val paramsList = listOf(
             "placeIdEncryption$placeCode"
             , "applyType${ConstantString.CARD_TYPE_CAR}"

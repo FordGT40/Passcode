@@ -192,6 +192,12 @@
     <string name="title_scan_result">同行凭证</string>
     <string name="real_name">已实名</string>
     <string name="un_real_name">未实名</string>
+    <string name="car_photo">车辆正面照片</string>
+    <string name="car_photo_hint">车辆照片需清晰完整,大小不超过5M</string>
+    <string name="car_paper_photo">驾驶证照片</string>
+    <string name="driving_licence_hint">证件必须完整清晰,且在有效期内,大小不超过5M</string>
+    <string name="upload_car_photo">请上传车辆照片</string>
+    <string name="upload_driving_licence">请上传驾驶证</string>
 
 
 </resources>
