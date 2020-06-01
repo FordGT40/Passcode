@@ -11,10 +11,7 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.base.ActivityManager
 import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.faceId.FaceIdInputNameActivity
-import com.wisdom.passcode.mine.activity.ApplyRecordListActivity
-import com.wisdom.passcode.mine.activity.LoginActivity
-import com.wisdom.passcode.mine.activity.MyIdentificationActivity
-import com.wisdom.passcode.mine.activity.ScanShowCodeRecordActivity
+import com.wisdom.passcode.mine.activity.*
 import com.wisdom.passcode.util.AlertUtil
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.head_title_bar.*
@@ -48,22 +45,22 @@ class MineFragment : Fragment(), View.OnClickListener {
         super.onResume()
         if (SharedPreferenceUtil.getPersonalInfoModel(context).authState == ConstantString.AUTHENTICATION_TYPE_TRUE) {
             //已经实名了
-            tv_attestation.text=getString(R.string.real_name)
+            tv_attestation.text = getString(R.string.real_name)
         } else {
             //没有实名了
-            tv_attestation.text=getString(R.string.un_real_name)
+            tv_attestation.text = getString(R.string.un_real_name)
         }
         //根据登录状态，改变登录按钮显示
         if (ConstantString.loginState) {
             //登录了
-            tv_name.text=SharedPreferenceUtil.getPersonalInfoModel(context).nickName
+            tv_name.text = SharedPreferenceUtil.getPersonalInfoModel(context).nickName
             btn_search.setBackgroundResource(R.drawable.shape_circle_conner_blue_deep)
             btn_search.isClickable = true
         } else {
             //未登录
             btn_search.setBackgroundResource(R.drawable.shape_circle_conner_grey)
             btn_search.isClickable = false
-            tv_name.text=getString(R.string.load_first)
+            tv_name.text = getString(R.string.load_first)
         }
     }
 
@@ -71,7 +68,7 @@ class MineFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.tv_info -> {
                 //个人资料
-                startActivity<LoginActivity>()
+                startActivity<MyProfileActivity>()
             }
             R.id.rl_apply_record -> {
                 //申请记录
@@ -102,8 +99,8 @@ class MineFragment : Fragment(), View.OnClickListener {
                     ConstantString.timeStamp = 0L
                     ConstantString.userPhone = ""
                     ConstantString.loginState = false
-                    ConstantString.isAdmin=""
-                    ConstantString.userIdEncryption=""
+                    ConstantString.isAdmin = ""
+                    ConstantString.userIdEncryption = ""
 
                     toast(R.string.logout_success)
                     startActivity<LoginActivity>()

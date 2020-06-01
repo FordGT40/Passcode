@@ -18,9 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--扫完码，填完信息之后显示的结果页面-->
-        <activity android:name=".scanback.activity.CodeResultActivity" />
-        <!--扫完二维码后展示的页面（填报入内或外出）-->
+        <activity android:name=".mine.activity.MyProfileActivity"></activity>
+        <!-- 扫完码，填完信息之后显示的结果页面 -->
+        <activity android:name=".scanback.activity.CodeResultActivity" /> <!-- 扫完二维码后展示的页面（填报入内或外出） -->
         <activity android:name=".scanback.activity.ScanBackMainActivity" />
         <activity android:name=".apply.activity.CarCardApplyActivity" /> <!-- 选择出入证类型 -->
         <activity android:name=".apply.activity.CardTypeChooseActivity" /> <!-- 人员出入证申请 -->

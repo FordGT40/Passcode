@@ -198,6 +198,8 @@
     <string name="driving_licence_hint">证件必须完整清晰,且在有效期内,大小不超过5M</string>
     <string name="upload_car_photo">请上传车辆照片</string>
     <string name="upload_driving_licence">请上传驾驶证</string>
+    <string name="alter">修改</string>
+    <string name="title_my_profile">我的资料</string>
 
 
 </resources>

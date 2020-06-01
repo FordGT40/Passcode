@@ -184,7 +184,6 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
                 }
             }
             ConstantString.REQUEST_CAMERA -> {
-
             }
             else -> {
                 //相机拍照选择
