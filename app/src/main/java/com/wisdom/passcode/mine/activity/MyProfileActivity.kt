@@ -26,7 +26,7 @@ class MyProfileActivity : BaseActivity() {
         getUserInfo()
         //修改手机号点击事件
         tv_alter_phone.setOnClickListener {
-            //修改密码点击事件
+            //TODO  修改密码点击事件
 
         }
     }
