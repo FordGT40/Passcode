@@ -41,6 +41,11 @@ class MineFragment : Fragment(), View.OnClickListener {
         rl_apply_record.setOnClickListener(this)
         btn_search.setOnClickListener(this)
         rl_my_identifiction.setOnClickListener(this)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         if (SharedPreferenceUtil.getPersonalInfoModel(context).authState == ConstantString.AUTHENTICATION_TYPE_TRUE) {
             //已经实名了
             tv_attestation.text=getString(R.string.real_name)
@@ -48,10 +53,6 @@ class MineFragment : Fragment(), View.OnClickListener {
             //没有实名了
             tv_attestation.text=getString(R.string.un_real_name)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
         //根据登录状态，改变登录按钮显示
         if (ConstantString.loginState) {
             //登录了
@@ -78,7 +79,7 @@ class MineFragment : Fragment(), View.OnClickListener {
             }
             R.id.rl_my_identifiction -> {
                 //我的认证
-                if (tv_attestation.visibility == View.VISIBLE) {
+                if (SharedPreferenceUtil.getPersonalInfoModel(context).authState == ConstantString.AUTHENTICATION_TYPE_TRUE) {
                     startActivity<MyIdentificationActivity>()
                 } else {
                     startActivity<FaceIdInputNameActivity>()

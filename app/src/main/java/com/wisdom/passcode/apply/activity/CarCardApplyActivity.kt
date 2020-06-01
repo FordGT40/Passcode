@@ -149,13 +149,15 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
                         val uri = data.data
                         val uri2 =
                             Uri.parse(Uri.encode(uri.toString()))
-                        if (isCarPhoto) {
-                            carPhoto = FileUtils.getPath(this, uri)
+                        carPhoto = FileUtils.getPath(this, uri)
+                        if (isCarPhoto && carPhoto.isNotEmpty()) {
                             Glide.with(this@CarCardApplyActivity).load(carPhoto).into(iv_car_photo)
                         } else {
                             drivingLicencePhoto = FileUtils.getPath(this, uri)
-                            Glide.with(this@CarCardApplyActivity).load(drivingLicencePhoto)
-                                .into(iv_driving_licence)
+                            if (drivingLicencePhoto.isNotEmpty()) {
+                                Glide.with(this@CarCardApplyActivity).load(drivingLicencePhoto)
+                                    .into(iv_driving_licence)
+                            }
                         }
 
 
@@ -168,13 +170,15 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
                     if (data != null) {
                         // Get the Uri of the selected file
                         val uri = data.data
-                        if (isCarPhoto) {
-                            carPhoto = FileUtils.getPathByUri4kitkat(this, uri)
+                        carPhoto = FileUtils.getPathByUri4kitkat(this, uri)
+                        if (isCarPhoto && carPhoto.isNotEmpty()) {
                             Glide.with(this@CarCardApplyActivity).load(carPhoto).into(iv_car_photo)
                         } else {
                             drivingLicencePhoto = FileUtils.getPathByUri4kitkat(this, uri)
-                            Glide.with(this@CarCardApplyActivity).load(carPhoto)
-                                .into(iv_driving_licence)
+                            if (drivingLicencePhoto.isNotEmpty()) {
+                                Glide.with(this@CarCardApplyActivity).load(drivingLicencePhoto)
+                                    .into(iv_driving_licence)
+                            }
                         }
                     }
                 }
@@ -184,12 +188,15 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
             }
             else -> {
                 //相机拍照选择
-                if (isCarPhoto) {
-                    carPhoto = ConstantString.PIC_LOCATE
+                carPhoto = ConstantString.PIC_LOCATE
+                if (isCarPhoto && carPhoto.isNotEmpty()) {
                     Glide.with(this@CarCardApplyActivity).load(carPhoto).into(iv_car_photo)
                 } else {
                     drivingLicencePhoto = ConstantString.PIC_LOCATE
-                    Glide.with(this@CarCardApplyActivity).load(carPhoto).into(iv_driving_licence)
+                    if (drivingLicencePhoto.isNotEmpty()) {
+                        Glide.with(this@CarCardApplyActivity).load(drivingLicencePhoto)
+                            .into(iv_driving_licence)
+                    }
                 }
 
             }
