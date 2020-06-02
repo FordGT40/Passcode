@@ -30,7 +30,7 @@ import org.json.JSONObject
 class PlaceCodeRecordFragment : Fragment() {
 
 
-    private var page = 0
+    private var page = 1
     private var pageSize = 10
     private lateinit var adapter: PlaceCodeRecordListAdapter
     private var dataList: List<PlaceCodeRecordModel.ListBean> = ArrayList()
@@ -62,7 +62,7 @@ class PlaceCodeRecordFragment : Fragment() {
             }
 
             override fun onRefresh() {
-                page = 0
+                page = 1
                 getData(ConstantString.RECYCLER_PULL_REFRESH)
             }
         })
@@ -111,7 +111,7 @@ class PlaceCodeRecordFragment : Fragment() {
                         val jsonStr = jsonObject.optString("data")
                         val data = Gson().fromJson(jsonStr, PlaceCodeRecordModel::class.java)
 
-                        if (data.list.isNotEmpty()) {
+                        if (!data.list.isNullOrEmpty()) {
                             tv_nodata.visibility=View.GONE
                             if (pullFlag == ConstantString.RECYCLER_PULL_REFRESH) {
                                 //刷新

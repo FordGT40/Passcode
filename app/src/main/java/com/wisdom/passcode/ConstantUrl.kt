@@ -66,6 +66,9 @@ class ConstantUrl {
         //更新手机号
         const val UPDATE_PHONE_URL = "/v1/user/updatePhone"
 
+//        16. 我的通行证
+        const val PASSCODE_MINE_URL="/v1/passCode/mine"
+
 
     }
 

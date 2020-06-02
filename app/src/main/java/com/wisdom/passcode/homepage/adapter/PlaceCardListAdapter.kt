@@ -12,6 +12,7 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.homepage.model.CodeListModel
 import com.wisdom.passcode.util.Tools
 import org.jetbrains.anko.backgroundDrawable
+import java.text.SimpleDateFormat
 
 /**
  * @author HanXueFeng
@@ -23,9 +24,10 @@ import org.jetbrains.anko.backgroundDrawable
  */
 class PlaceCardListAdapter(
     private val mContext: Context,
-    private val mList: List<CodeListModel>,
+    private var mList: List<CodeListModel>,
     private val mListener: OnItemClickListener
 ) : RecyclerView.Adapter<PlaceCardListAdapter.ViewHolder>() {
+    private val sp: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -34,42 +36,68 @@ class PlaceCardListAdapter(
         val view = inflater.inflate(R.layout.item_card_c, parent, false)
         return ViewHolder(view)
     }
+    //    上拉加载更多时候使用的方法
+    fun loadMoreData(moreList: List<CodeListModel>) {
+        moreList.forEach { item ->
+            this.mList.toMutableList().add(item)
+        }
+        notifyDataSetChanged()
+    }
+
+    //    刷新数据源使用的方法
+    fun refreshData(refreshList: List<CodeListModel>) {
+        this.mList = refreshList
+        notifyDataSetChanged()
+    }
 
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int
     ) {
-        val item = mList[position]
-        when (item.isDateOf) {
-            "0" -> {
-                //没过期
-                holder.ll_parent.backgroundDrawable =
-                    mContext.resources.getDrawable(R.drawable.kz_c)
-                holder.tv_date.text = "有效期至：2020-06-01"
-            }
-            "1" -> {
-                //即将过期
-                holder.ll_parent.backgroundDrawable =
-                    mContext.resources.getDrawable(R.drawable.kz_c)
-                val str = Tools.getClickableSpan(
-                    "有效期至：2020-06-01 (即将过期)"
-                    ,
-                    15, 22, Color.parseColor("#FE3237"), false, null
-                )
-                holder.tv_date.text = str
-            }
-            else -> {
-                //彻底过期了
-                holder.ll_parent.backgroundDrawable =
-                    mContext.resources.getDrawable(R.drawable.kz_c_grey)
-                holder.tv_date.text = "有效期至：2020-06-01(已过期)"
-                holder.tv_dep.setTextColor(Color.parseColor("#333333"))
-                holder.tv_card_name.setTextColor(Color.parseColor("#333333"))
-                holder.tv_num.setTextColor(Color.parseColor("#666666"))
-                holder.tv_date.setTextColor(Color.parseColor("#666666"))
-
-            }
+        //子项点击事件
+        holder.itemView.setOnClickListener {
+            mListener?.onItemClick(mList[position])
         }
+
+        val item = mList[position]
+        //计算过期时间
+        //即将过期衡量标准
+        val nearlyOutOfDate = item.advanceTime.toLong() * 24 * 3600 * 1000
+        //过期时间与当前时间戳的差值
+        val temp = item.expireTime.toLong() - System.currentTimeMillis()
+        if (temp > 0 && temp > nearlyOutOfDate) {
+            //没过期
+            holder.ll_parent.backgroundDrawable =
+                mContext.resources.getDrawable(R.drawable.kz_c)
+            holder.tv_date.text = "有效期至：${sp.format(item.expireTime)}"
+        } else if (temp in 1 until nearlyOutOfDate || temp == nearlyOutOfDate) {
+            //即将过期
+            holder.ll_parent.backgroundDrawable =
+                mContext.resources.getDrawable(R.drawable.kz_c)
+            val str = Tools.getClickableSpan(
+                "有效期至：${sp.format(item.expireTime)} (即将过期)"
+                ,
+                15, 22, Color.parseColor("#FE3237"), false, null
+            )
+            holder.tv_date.text = str
+        } else {
+            //彻底过期了
+            holder.ll_parent.backgroundDrawable =
+                mContext.resources.getDrawable(R.drawable.kz_c_grey)
+            holder.tv_date.text = "有效期至：${sp.format(item.expireTime)}(已过期)"
+            holder.tv_dep.setTextColor(Color.parseColor("#333333"))
+            holder.tv_card_name.setTextColor(Color.parseColor("#333333"))
+            holder.tv_num.setTextColor(Color.parseColor("#666666"))
+            holder.tv_date.setTextColor(Color.parseColor("#666666"))
+        }
+
+
+
+
+
+
+
+
 
 
         holder.itemView.setOnClickListener { mListener.onItemClick(item) }

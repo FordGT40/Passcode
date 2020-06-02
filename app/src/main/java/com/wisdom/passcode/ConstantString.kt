@@ -71,6 +71,10 @@ class ConstantString {
         const val SCAN_TYPE_SCAN="1"//扫码类型  1：扫码  2：通行证
         const val SCAN_TYPE_LICENCE="2"//扫码类型  1：扫码  2：通行证
 
+        const val PASS_CODE_TYPE_CAE="1"//我的通行证,查询类型----车辆证
+        const val PASS_CODE_TYPE_PERSON="2"//我的通行证,查询类型----通行证
+        const val PASS_CODE_TYPE_WORK="3"//我的通行证,查询类型----工作证
+
 
         var timeStamp = 0L//时间戳 初始值
         var accessToken = ""//短时间token
