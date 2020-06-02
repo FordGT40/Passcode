@@ -2,6 +2,7 @@ package com.wisdom.passcode.util;
 
 
 import android.util.Base64;
+import android.widget.EditText;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -63,6 +64,28 @@ public class EncrypAndDecrypUtil {
 
         // 加密文本
         byte[] encrypted = cipher.doFinal(text.getBytes("UTF-8"));
+
+
+        return Base64.encodeToString(encrypted, Base64.NO_WRAP);
+    }
+    public static String encrypt(EditText editText)
+
+            throws Exception {
+        String key = ENCRYPT_KEY;
+        String initializationVector = INITIALIZATION_VECTOR;
+        // 根据给定的字节数组构造一个密钥  Blowfish-与给定的密钥内容相关联的密钥算法的名称
+        SecretKeySpec sksSpec = new SecretKeySpec(key.getBytes("UTF-8"), BLOWFISH);
+        // 使用 initializationVector 中的字节作为 IV 来构造一个 IvParameterSpec 对象
+        AlgorithmParameterSpec iv = new IvParameterSpec(initializationVector.getBytes("UTF-8"));
+
+        // 返回实现指定转换的 Cipher 对象
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+
+        // 用密钥和随机源初始化此 Cipher
+        cipher.init(Cipher.ENCRYPT_MODE, sksSpec, iv);
+
+        // 加密文本
+        byte[] encrypted = cipher.doFinal(editText.getText().toString().getBytes("UTF-8"));
 
 
         return Base64.encodeToString(encrypted, Base64.NO_WRAP);

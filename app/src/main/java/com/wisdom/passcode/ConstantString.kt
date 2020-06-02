@@ -23,6 +23,7 @@ class ConstantString {
         const val REGISTER_TYPE: String = "1"//发送验证码---注册类型参数
         const val LOGIN_TYPE: String = "2"//发送验证码---登录类型参数
         const val FACE_TYPE: String = "3"//发送验证码---实名认证类型参数
+        const val ALTER_PHONE_TYPE: String = "4"//发送验证码---修改手机号
         const val SHARE_PER_INFO = "passcode_sp"
         const val APP_KEY = "androidkeykeykey"//
         const val APP_SECRET = "androidsecret"

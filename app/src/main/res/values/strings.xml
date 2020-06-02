@@ -202,6 +202,7 @@
     <string name="alter">修改</string>
     <string name="title_my_profile">我的资料</string>
     <string name="forbidden">禁止通行</string>
+    <string name="alter_success">修改成功</string>
 
 
 </resources>
