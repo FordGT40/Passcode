@@ -21,6 +21,7 @@
         android:gravity="center"
         android:drawableTop="@drawable/image_empty"
         android:drawablePadding="10dp"
+        android:visibility="gone"
         android:layout_gravity="center"
         android:textColor="@color/textcolor"
         android:text="@string/no_data"/>

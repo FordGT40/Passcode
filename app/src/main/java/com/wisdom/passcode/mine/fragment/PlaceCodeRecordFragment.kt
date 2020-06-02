@@ -10,15 +10,13 @@ import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
-import com.wisdom.passcode.homepage.model.CodeListModel
 import com.wisdom.passcode.mine.adapter.PlaceCodeRecordListAdapter
 import com.wisdom.passcode.mine.adapter.PlaceCodeRecordListAdapter.OnItemClickListener
 import com.wisdom.passcode.mine.model.PlaceCodeRecordModel
 import com.wisdom.passcode.util.httpUtil.HttpUtil
 import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
-import kotlinx.android.synthetic.main.activity_scan_show_code_record.*
-import kotlinx.android.synthetic.main.fragment_place_card.*
+
 import kotlinx.android.synthetic.main.fragment_place_card.recyclerView
 import kotlinx.android.synthetic.main.fragment_place_code_record.*
 import okhttp3.Call

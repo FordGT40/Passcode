@@ -18,7 +18,7 @@ import com.wisdom.passcode.util.httpUtil.HttpUtil
 import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
 import kotlinx.android.synthetic.main.fragment_person_card.*
-import kotlinx.android.synthetic.main.fragment_place_card.*
+
 import kotlinx.android.synthetic.main.fragment_place_card.recyclerView
 import okhttp3.Call
 import okhttp3.Response
@@ -74,7 +74,7 @@ class PersonCardFragment : Fragment() {
      *  @time 2020/6/2 0002  11:33
      */
     fun getCardsData(pullFlag: String) {
-        Tools.showLoadingDialog(context)
+//        Tools.showLoadingDialog(context)
         val params = HttpParams()
         params.put("pageSize", pageSize)
         params.put("pageNum", page)
@@ -108,10 +108,13 @@ class PersonCardFragment : Fragment() {
                     if (code == 0) {
                         //访问成功，封装数据源
                         val jsonStr = jsonObject.optJSONObject("data").optString("list")
-                        val data = Gson().fromJson<List<CodeListModel>>(jsonStr, object:TypeToken<List<CodeListModel>>(){}.type)
+                        val data = Gson().fromJson<List<CodeListModel>>(
+                            jsonStr,
+                            object : TypeToken<List<CodeListModel>>() {}.type
+                        )
 
                         if (!data.isNullOrEmpty()) {
-                            tv_nodata.visibility=View.GONE
+                            tv_nodata.visibility = View.GONE
                             if (pullFlag == ConstantString.RECYCLER_PULL_REFRESH) {
                                 //刷新
                                 recyclerView.setPullLoadMoreCompleted()
@@ -125,8 +128,8 @@ class PersonCardFragment : Fragment() {
                             recyclerView.setPullLoadMoreCompleted()
                             if (pullFlag == ConstantString.RECYCLER_PULL_LOADMORE) {
                                 toast(R.string.no_more_data)
-                            }else{
-                                tv_nodata.visibility=View.VISIBLE
+                            } else {
+                                tv_nodata.visibility = View.VISIBLE
                             }
                         }
                     } else {
