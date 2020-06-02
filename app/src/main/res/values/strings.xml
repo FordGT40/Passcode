@@ -203,6 +203,9 @@
     <string name="title_my_profile">我的资料</string>
     <string name="forbidden">禁止通行</string>
     <string name="alter_success">修改成功</string>
+    <string name="card_record_use">正在使用</string>
+    <string name="card_record_outoff_date">已过期</string>
+    <string name="card_record_useless">已失效</string>
 
 
 </resources>

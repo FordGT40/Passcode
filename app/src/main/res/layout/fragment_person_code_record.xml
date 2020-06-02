@@ -5,10 +5,27 @@
     android:layout_height="match_parent"
     tools:context=".mine.fragment.PersonCodeRecordFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:foregroundGravity="center"
+        android:layout_height="match_parent">
+        <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/recyclerView"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/tv_nodata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_18"
+            android:visibility="gone"
+            android:gravity="center"
+            android:drawableTop="@drawable/image_empty"
+            android:drawablePadding="10dp"
+            android:layout_gravity="center"
+            android:textColor="@color/textcolor"
+            android:text="@string/no_data"/>
+    </FrameLayout>
 
 </FrameLayout>

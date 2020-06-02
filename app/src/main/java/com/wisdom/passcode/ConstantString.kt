@@ -78,6 +78,14 @@ class ConstantString {
         const val MY_CODE_PASS_TYPE_NORMAL="2"//通行日期类型1:工作日 2:无限制
         const val MY_CODE_PASS_TYPE_WORKDAYS="1"//通行日期类型 1:工作日 2:无限制
 
+        const val MY_APPLY_CARD_RECORD_UNDERCHECK="1"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+        const val MY_APPLY_CARD_RECORD_USEING="2"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+        const val MY_APPLY_CARD_RECORD_REFUSED="3"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+        const val MY_APPLY_CARD_RECORD_OUT_OFF_DATE="4"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+        const val MY_APPLY_CARD_RECORD_USELESS="5"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+
+        const val PASSCODE_RECORD_TYPE_PERSON="1"//我的通行证申请记录 查询类型 1.车辆证  2.通行证
+        const val PASSCODE_RECORD_TYPE_CAR="2"//我的通行证申请记录 查询类型 1.车辆证  2.通行证
 
         var timeStamp = 0L//时间戳 初始值
         var accessToken = ""//短时间token

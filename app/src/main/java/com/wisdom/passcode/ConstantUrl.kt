@@ -69,6 +69,9 @@ class ConstantUrl {
 //        16. 我的通行证
         const val PASSCODE_MINE_URL="/v1/passCode/mine"
 
+//        17. 我的通行证申请记录
+        const val PASSCODE_APPLYLIST_URL="/v1/passCode/applyList"
+
 
     }
 
