@@ -8,10 +8,7 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.scanback.model.UploadScanFormModel
-import com.wisdom.passcode.util.EncrypAndDecrypUtil
-import com.wisdom.passcode.util.PrivacyUtil
-import com.wisdom.passcode.util.StrUtils
-import com.wisdom.passcode.util.Tools
+import com.wisdom.passcode.util.*
 import com.wisdom.passcode.util.httpUtil.HttpUtil
 import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import kotlinx.android.synthetic.main.activity_scan_back_main.*
@@ -25,6 +22,8 @@ class ScanBackMainActivity : BaseActivity() {
 
     var type = ConstantString.SCAN_CODE_TYPE_IN
     override fun initViews() {
+        //设置键盘的监听,防止输入框呗软键盘遮挡
+        KeyboardPatch(this, ll_parent).enable()
         //四张图片的状态
         val drawable_in = resources.getDrawable(R.drawable.`in`)
         drawable_in.setBounds(0, 0, drawable_in.minimumWidth, drawable_in.minimumHeight)

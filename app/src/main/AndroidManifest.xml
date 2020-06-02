@@ -18,10 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mine.activity.MyProfileActivity"></activity>
-        <!-- 扫完码，填完信息之后显示的结果页面 -->
-        <activity android:name=".scanback.activity.CodeResultActivity" /> <!-- 扫完二维码后展示的页面（填报入内或外出） -->
-        <activity android:name=".scanback.activity.ScanBackMainActivity" />
+        <activity android:name=".mine.activity.AlterPhoneActivity"></activity>
+        <activity android:name=".mine.activity.MyProfileActivity" /> <!-- 扫完码，填完信息之后显示的结果页面 -->
+        <activity android:name=".scanback.activity.CodeResultActivity" />
+
+        <!-- 扫完二维码后展示的页面（填报入内或外出） -->
+        <activity android:name=".scanback.activity.ScanBackMainActivity"
+            />
+
         <activity android:name=".apply.activity.CarCardApplyActivity" /> <!-- 选择出入证类型 -->
         <activity android:name=".apply.activity.CardTypeChooseActivity" /> <!-- 人员出入证申请 -->
         <activity android:name=".apply.activity.PersonCardApplyActivity" /> <!-- 上传公函 -->
@@ -60,8 +64,8 @@
         <activity android:name=".mine.activity.RegisterActivity" /> <!-- 登录 -->
         <activity android:name=".mine.activity.LoginActivity" /> <!-- 车辆出入证申请搜索页 -->
         <activity android:name=".apply.activity.PlaceNameSearchActivity" /> <!-- 车辆出入证成功页 -->
-        <activity android:name=".apply.activity.CardApplySuccessActivity" /> <!-- 车辆出入证申请页 -->
-        <activity android:name=".homepage.activity.CarAccessCertificateActivity" /> <!-- 亮码页面 -->
+        <activity android:name=".apply.activity.CardApplySuccessActivity" />
+        <!-- 亮码页面 -->
         <activity android:name=".homepage.activity.ShowCodeActivity">
             <intent-filter>
                 <action android:name="com.wisdom.showcode" />

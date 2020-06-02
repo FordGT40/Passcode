@@ -15,6 +15,7 @@ import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import okhttp3.Call
 import okhttp3.Response
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 
@@ -26,8 +27,7 @@ class MyProfileActivity : BaseActivity() {
         getUserInfo()
         //修改手机号点击事件
         tv_alter_phone.setOnClickListener {
-            //TODO  修改密码点击事件
-
+            startActivity<AlterPhoneActivity>()
         }
     }
 

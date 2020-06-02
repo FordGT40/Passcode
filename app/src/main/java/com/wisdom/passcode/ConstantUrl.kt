@@ -63,6 +63,8 @@ class ConstantUrl {
         //        18. 扫码信息记录接口
         const val SCAN_LOG_URL = "/v1/scan/log"
 
+        //更新手机号
+        const val UPDATE_PHONE_URL = "/v1/user/updatePhone"
 
 
     }

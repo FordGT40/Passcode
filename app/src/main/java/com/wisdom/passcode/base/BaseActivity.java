@@ -49,6 +49,8 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        //防止EditText被软键盘遮挡
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setlayoutIds();
         //沉浸式状态栏
         //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
@@ -63,7 +65,7 @@ public abstract class BaseActivity extends FragmentActivity {
 //            //这样半透明+白=灰, 状态栏的文字能看得清
 //            StatusBarUtil.setStatusBarColor(this,0x55000000);
 //        }
-        //
+
 
 
         context=this;
