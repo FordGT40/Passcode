@@ -212,6 +212,8 @@ class Tools {
             val tf = Typeface.createFromAsset(activity.assets, "fonts/card_title_font.ttf")
             textView.typeface = tf
         }
+
+
     }
 
 

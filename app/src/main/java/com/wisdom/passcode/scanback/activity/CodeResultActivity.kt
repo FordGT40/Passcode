@@ -1,6 +1,8 @@
 package com.wisdom.passcode.scanback.activity
 
+import android.animation.Animator
 import android.graphics.Color
+import android.util.Log
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
@@ -19,8 +21,14 @@ class CodeResultActivity : BaseActivity() {
     override fun initViews() {
         //禁止截屏
         Tools.forbiddenScreenShort(this)
-        //设置特殊字体
-        Tools.setFont(this, tv_title)
+        //设置特殊字体动画效果
+        tv_title.setAnimation("normal.json")
+        tv_title.loop(true)
+        tv_title.progress = 0F
+        tv_title.useHardwareAcceleration(true)
+        tv_title.playAnimation()
+
+
         iv_back.setOnClickListener { finish() }
         tv_date.text = SimpleDateFormat("MM月dd日").format(Date())
         comm_head_title.text = getText(R.string.title_scan_result)

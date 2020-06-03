@@ -30,6 +30,24 @@ public class PersonalInfoModel implements Serializable {
     private String phonenumber;
     private String userName;
     private String isAdmin;
+    private String passCodeSort;
+    private String score;
+
+    public String getPassCodeSort() {
+        return passCodeSort;
+    }
+
+    public void setPassCodeSort(String passCodeSort) {
+        this.passCodeSort = passCodeSort;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
 
     public String getIsAdmin() {
         return isAdmin;
