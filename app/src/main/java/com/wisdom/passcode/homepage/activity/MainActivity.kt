@@ -15,13 +15,18 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import cn.bertsir.zbar.QrManager
+import com.baidu.android.pushservice.PushConstants
+import com.baidu.android.pushservice.PushManager
+import com.baidu.android.pushservice.PushSettings
 import com.google.android.material.tabs.TabLayout
 import com.permissionx.guolindev.PermissionX
 import com.wisdom.passcode.R
-import com.wisdom.passcode.base.BaseActivity
+import com.wisdom.passcode.helper.PagerTransformerCustom
 import com.wisdom.passcode.homepage.fragment.HomeFragment
 import com.wisdom.passcode.mine.fragment.MineFragment
-import com.wisdom.passcode.util.*
+import com.wisdom.passcode.util.DoubleClickExitHelper
+import com.wisdom.passcode.util.StatusBarUtil
+import com.wisdom.passcode.util.Tools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_meun_bar.*
 import org.jetbrains.anko.toast
@@ -60,6 +65,12 @@ class MainActivity : FragmentActivity(), View.OnClickListener {
      *  @time 2020/4/29 0029  11:29
      */
     private fun initViews() {
+        PushSettings.enableDebugMode(true)
+        PushManager.startWork(
+            applicationContext,
+            PushConstants.LOGIN_TYPE_API_KEY,
+            "GEBD43bqb4Wh6ex4Dvt4k1xr"
+        )
         applyPermission()
         doubleClickHelper = DoubleClickExitHelper(this)
         ll_bar_1.setOnClickListener(this)
@@ -93,6 +104,7 @@ class MainActivity : FragmentActivity(), View.OnClickListener {
                 vpposition = position
             }
         })
+        vp_home.setPageTransformer(false, PagerTransformerCustom())
         vp_home.adapter = MyViewPagerAdapter(supportFragmentManager)
         ll_cb_1.performClick()
         overAnim(ll_cb_1)
@@ -275,5 +287,11 @@ class MainActivity : FragmentActivity(), View.OnClickListener {
         set.playTogether(scaleX, scaleY, translationY)
         set.duration = 200
         set.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Push：解绑
+        PushManager.stopWork(applicationContext)
     }
 }
