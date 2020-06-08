@@ -16,6 +16,7 @@ import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.helper.Helper
 import com.wisdom.passcode.util.EncrypAndDecrypUtil
+import com.wisdom.passcode.util.PhoneInfoUtil
 import com.wisdom.passcode.util.Tools
 import com.wisdom.passcode.util.httpUtil.HttpUtil
 import kotlinx.android.synthetic.main.activity_register_psw_input.*
@@ -141,8 +142,20 @@ class RegisterPswInputActivity : BaseActivity() {
         params.put("phone", phoneData)
         params.put("password", pswData)
         params.put("code", codeData)
+
+        params.put("diviceOs", "Android${PhoneInfoUtil.getSystemVersion()}")
+        params.put("diviceName", PhoneInfoUtil.getDeviceManufacturer())
+        params.put("diviceType", PhoneInfoUtil.getDeviceBrand())
+        params.put("diviceId", PhoneInfoUtil.getFingerPrint())
         val paramsList =
-            listOf("phone$phoneData", "password$pswData", "code$codeData").toMutableList()
+            listOf(
+                "phone$phoneData", "password$pswData", "code$codeData"
+                , "diviceOsAndroid${PhoneInfoUtil.getSystemVersion()}"
+                , "diviceName${PhoneInfoUtil.getDeviceManufacturer()}"
+                , "diviceType${PhoneInfoUtil.getDeviceBrand()}"
+                , "diviceId${PhoneInfoUtil.getFingerPrint()}"
+            ).toMutableList()
+
 
         HttpUtil.httpPostWithStampAndSign(
             ConstantUrl.REGISTER_URL,

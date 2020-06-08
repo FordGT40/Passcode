@@ -255,10 +255,10 @@ class Helper {
          *  @author HanXueFeng
          *  @time 2020/5/20 0020  14:36
          */
-        fun syncPersonalInfo(context: Context,listener: OnPersonalInfoCompletedListener) {
+        fun syncPersonalInfo(context: Context, listener: OnPersonalInfoCompletedListener) {
             val params = HttpParams()
             val listSign = ArrayList<String>()
-         Tools.showLoadingDialog(context)
+            Tools.showLoadingDialog(context)
             HttpUtil.httpPostWithStampAndSignToken(
                 ConstantUrl.USER_INFO_URL,
                 params,
@@ -267,7 +267,7 @@ class Helper {
                     override fun onRefreshSuccess() {
 //                        token刷新成功，重新回调自己方法
                         Tools.closeDialog()
-                        syncPersonalInfo(context,listener)
+                        syncPersonalInfo(context, listener)
                     }
 
                     override fun onRefreshFail(msg: String?) {
@@ -362,7 +362,8 @@ class Helper {
                         if (code == 0) {
                             val data = jsonObject.optString("data")
                             val locationModelList = Gson().fromJson<List<LocationModel>>(data,
-                                object : TypeToken<List<LocationModel>>() {}.type)
+                                object : TypeToken<List<LocationModel>>() {}.type
+                            )
                         } else {
                             HttpUtil.getErrorMsgByCode("$code")
                         }
@@ -373,9 +374,11 @@ class Helper {
 
 
 
+
     }
-interface OnPersonalInfoCompletedListener{
-    fun onPersonalInfoCompleted()
-}
+
+    interface OnPersonalInfoCompletedListener {
+        fun onPersonalInfoCompleted()
+    }
 
 }

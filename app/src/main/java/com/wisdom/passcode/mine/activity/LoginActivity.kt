@@ -17,9 +17,10 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.base.ActivityManager
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
-import com.wisdom.passcode.homepage.activity.MainActivity
 import com.wisdom.passcode.helper.Helper
+import com.wisdom.passcode.homepage.activity.MainActivity
 import com.wisdom.passcode.util.EncrypAndDecrypUtil
+import com.wisdom.passcode.util.PhoneInfoUtil
 import com.wisdom.passcode.util.RegularUtil
 import com.wisdom.passcode.util.Tools
 import com.wisdom.passcode.util.httpUtil.HttpUtil
@@ -158,7 +159,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.btn_login -> {
                 //登录按钮点击事件,核验二维码准确性
-                if (selection=="1") {
+                if (selection == "1") {
                     loginSys()
                 } else {
                     checkSmsCode(et_code.text.toString())
@@ -195,23 +196,37 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         Tools.showLoadingDialog(this)
         val phone = EncrypAndDecrypUtil.encrypt(et_phone.text.toString())
         val params = HttpParams()
-        var listParams: List<String>
+        var listParams: MutableList<String>
         var password = ""
         var code = ""
+
 
         if (selection == "1") {
             //密码登录
             password = EncrypAndDecrypUtil.encrypt(et_psw.text.toString())
-            listParams = listOf("phone$phone", "password$password")
+            listParams = listOf("phone$phone", "password$password").toMutableList()
             params.put("password", password)
             params.put("phone", phone)
         } else {
             //验证码登录
             code = EncrypAndDecrypUtil.encrypt(et_code.text.toString())
-            listParams = listOf("phone$phone", "code$code")
+            listParams = listOf("phone$phone", "code$code").toMutableList()
             params.put("code", code)
             params.put("phone", phone)
         }
+        params.put("diviceOs", "Android${PhoneInfoUtil.getSystemVersion()}")
+        params.put("diviceName", PhoneInfoUtil.getDeviceManufacturer())
+        params.put("diviceType", PhoneInfoUtil.getDeviceBrand())
+        params.put("diviceId", PhoneInfoUtil.getFingerPrint())
+
+        listParams.add("diviceOsAndroid${PhoneInfoUtil.getSystemVersion()}")
+        listParams.add("diviceName${PhoneInfoUtil.getDeviceManufacturer()}")
+        listParams.add("diviceType${PhoneInfoUtil.getDeviceBrand()}")
+        listParams.add("diviceId${PhoneInfoUtil.getFingerPrint()}")
+
+
+
+
         //访问网络执行登录操作
         HttpUtil.httpPostWithStampAndSign(
             ConstantUrl.LOGIN_URL,
@@ -250,13 +265,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         //sp数据本地化
                         Helper.getInfoFromSpFile(this@LoginActivity)
                         //同步一下个人信息
-                        Helper.syncPersonalInfo(this@LoginActivity,object:Helper.OnPersonalInfoCompletedListener{
-                            override fun onPersonalInfoCompleted() {
-                                //打开主页
-                                startActivity<MainActivity>()
-                                ActivityManager.getActivityManagerInstance().clearAllActivity()
-                            }
-                        })
+                        Helper.syncPersonalInfo(this@LoginActivity,
+                            object : Helper.OnPersonalInfoCompletedListener {
+                                override fun onPersonalInfoCompleted() {
+                                    //打开主页
+                                    startActivity<MainActivity>()
+                                    ActivityManager.getActivityManagerInstance().clearAllActivity()
+                                }
+                            })
 
                     } else {
                         //登录失败
@@ -305,7 +321,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         203 -> {
                             //新用户，发送注册验证码
                             sendSms(phoneNum, ConstantString.REGISTER_TYPE)
-                            btn_login.text=getString(R.string.title_register)
+                            btn_login.text = getString(R.string.title_register)
                             isNewUser = true
 
                         }

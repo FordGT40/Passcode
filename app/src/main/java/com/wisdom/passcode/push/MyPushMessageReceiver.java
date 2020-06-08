@@ -170,7 +170,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                     myvalue = customJson.getString("mykey");
                 }
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

@@ -6,7 +6,7 @@ import com.wisdom.passcode.base.BaseActivity
 class ResetPswActivity : BaseActivity() {
 
     override fun initViews() {
-       setTitle(R.string.title_find_psw)
+       setTitle(R.string.title_reset_psw)
     }
 
     override fun setlayoutIds() {

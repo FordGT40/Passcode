@@ -206,6 +206,7 @@
     <string name="card_record_use">正在使用</string>
     <string name="card_record_outoff_date">已过期</string>
     <string name="card_record_useless">已失效</string>
+    <string name="title_reset_psw">修改密码</string>
 
 
 </resources>

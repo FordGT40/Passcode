@@ -2,12 +2,14 @@
 
     <!-- Base application theme. -->
     <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <!--    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="mypopwindow_anim_style">
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
         <!-- 指定显示的动画xml -->
@@ -15,6 +17,7 @@
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
         <!-- 指定消失的动画xml -->
     </style>
+
     <style name="CustomTab" parent="Widget.Design.TabLayout">
         <item name="tabTextColor">@color/black_home_tab_text</item>
         <item name="tabSelectedTextColor">@color/blue_home_tab_text</item>

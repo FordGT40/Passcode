@@ -24,9 +24,7 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.helper.PagerTransformerCustom
 import com.wisdom.passcode.homepage.fragment.HomeFragment
 import com.wisdom.passcode.mine.fragment.MineFragment
-import com.wisdom.passcode.util.DoubleClickExitHelper
-import com.wisdom.passcode.util.StatusBarUtil
-import com.wisdom.passcode.util.Tools
+import com.wisdom.passcode.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_meun_bar.*
 import org.jetbrains.anko.toast
@@ -65,6 +63,10 @@ class MainActivity : FragmentActivity(), View.OnClickListener {
      *  @time 2020/4/29 0029  11:29
      */
     private fun initViews() {
+
+
+
+
         PushSettings.enableDebugMode(true)
         PushManager.startWork(
             applicationContext,
@@ -135,6 +137,7 @@ class MainActivity : FragmentActivity(), View.OnClickListener {
                 Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.VIBRATE,
                 Manifest.permission.CAMERA,
+                Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
