@@ -64,7 +64,12 @@ class PlaceCardListAdapter(
         val item = mList[position]
         //计算过期时间
         //即将过期衡量标准
-        val nearlyOutOfDate = item.advanceTime.toLong() * 24 * 3600 * 1000
+        val nearlyOutOfDate = if(item.advanceTime!=null){
+            item.advanceTime.toLong() * 24 * 3600 * 1000
+        }else{
+            //如果返回的advanceTime为null，那么过期时间为50年
+            50*12*30*24*3600
+        }
         //过期时间与当前时间戳的差值
         val temp = item.expireTime.toLong() - System.currentTimeMillis()
         if (temp > 0 && temp > nearlyOutOfDate) {
@@ -94,18 +99,21 @@ class PlaceCardListAdapter(
         }
 
         //设置卡面上的相关数据
-        holder.tv_dep.text = "【${item.codeTypeLable}】${item.placeName}"
-        when (item.codeTypeDataType) {
-            ConstantString.MY_CODE_PASS_TYPE_NORMAL -> {
-                holder.tv_num.text = "无限制 ${item.codeTypeTimeRange}"
-            }
-            ConstantString.MY_CODE_PASS_TYPE_WORKDAYS -> {
-                holder.tv_num.text = "工作日 ${item.codeTypeTimeRange}"
-            }
-            else -> {
-                holder.tv_num.text = "${item.codeTypeTimeRange}"
-            }
-        }
+        holder.tv_dep.visibility=View.GONE
+        holder.tv_num.visibility=View.GONE
+
+//        holder.tv_dep.text = "【${item.codeTypeLable}】${item.placeName}"
+//        when (item.codeTypeDataType) {
+//            ConstantString.MY_CODE_PASS_TYPE_NORMAL -> {
+//                holder.tv_num.text = "无限制 ${item.codeTypeTimeRange}"
+//            }
+//            ConstantString.MY_CODE_PASS_TYPE_WORKDAYS -> {
+//                holder.tv_num.text = "工作日 ${item.codeTypeTimeRange}"
+//            }
+//            else -> {
+//                holder.tv_num.text = "${item.codeTypeTimeRange}"
+//            }
+//        }
 
 
 

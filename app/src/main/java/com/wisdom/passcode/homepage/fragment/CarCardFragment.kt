@@ -67,6 +67,14 @@ class CarCardFragment : Fragment() {
 
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if(isVisibleToUser){
+            page = 1
+            getCardsData(ConstantString.RECYCLER_PULL_REFRESH)
+        }
+    }
+
 
     /**
      *  @describe 获取“我的卡证”数据

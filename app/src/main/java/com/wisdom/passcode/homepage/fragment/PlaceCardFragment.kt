@@ -11,7 +11,6 @@ import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
-import com.wisdom.passcode.homepage.adapter.PersonCardListAdapter
 import com.wisdom.passcode.homepage.adapter.PlaceCardListAdapter
 import com.wisdom.passcode.homepage.model.CodeListModel
 import com.wisdom.passcode.util.Tools
@@ -65,6 +64,7 @@ class PlaceCardFragment : Fragment() {
         getCardsData(ConstantString.RECYCLER_PULL_REFRESH)
 
     }
+
     /**
      *  @describe 获取“我的卡证”数据
      *  @return
@@ -106,11 +106,11 @@ class PlaceCardFragment : Fragment() {
                     if (code == 0) {
                         //访问成功，封装数据源
                         val jsonStr = jsonObject.optJSONObject("data").optString("list")
-                        val data = Gson().fromJson<List<CodeListModel>>(jsonStr, object:
-                            TypeToken<List<CodeListModel>>(){}.type)
+                        val data = Gson().fromJson<List<CodeListModel>>(jsonStr, object :
+                            TypeToken<List<CodeListModel>>() {}.type)
 
                         if (!data.isNullOrEmpty()) {
-                            tv_nodata.visibility=View.GONE
+                            tv_nodata.visibility = View.GONE
                             if (pullFlag == ConstantString.RECYCLER_PULL_REFRESH) {
                                 //刷新
                                 recyclerView.setPullLoadMoreCompleted()
@@ -124,8 +124,8 @@ class PlaceCardFragment : Fragment() {
                             recyclerView.setPullLoadMoreCompleted()
                             if (pullFlag == ConstantString.RECYCLER_PULL_LOADMORE) {
                                 toast(R.string.no_more_data)
-                            }else{
-                                tv_nodata.visibility=View.VISIBLE
+                            } else {
+                                tv_nodata.visibility = View.VISIBLE
                             }
                         }
                     } else {
