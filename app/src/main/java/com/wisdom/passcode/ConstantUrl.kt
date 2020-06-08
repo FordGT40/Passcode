@@ -72,6 +72,11 @@ class ConstantUrl {
 //        17. 我的通行证申请记录
         const val PASSCODE_APPLYLIST_URL="/v1/passCode/applyList"
 
+//        11. 修改头像
+        const val USER_UPDATEAVATAR_URL="/v1/user/updateAvatar"
+//        12. 修改密码
+        const val USER_UPDATEPASSWORD_URL="/v1/user/updatePassword"
+
 
     }
 

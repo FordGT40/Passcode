@@ -207,6 +207,9 @@
     <string name="card_record_outoff_date">已过期</string>
     <string name="card_record_useless">已失效</string>
     <string name="title_reset_psw">修改密码</string>
+    <string name="phone_empty_hint">电话不能为空</string>
+    <string name="psw_empty_error">密码不能为空</string>
+    <string name="reset_success">密码重置成功！</string>
 
 
 </resources>
