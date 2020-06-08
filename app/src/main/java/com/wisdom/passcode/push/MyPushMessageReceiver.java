@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
+import com.lzy.okgo.model.HttpParams;
+import com.wisdom.passcode.helper.Helper;
 import com.wisdom.passcode.util.LogUtil;
 
 import org.json.JSONException;
@@ -66,10 +68,15 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         if (errorCode == 0) {
             // 绑定成功
             Log.d(TAG, "绑定成功");
+            //将百度返回的绑定参数添加到后台接口中
+            Helper.Companion.setChannelId(channelId);
         }
         // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
         updateContent(context, responseString);
     }
+
+
+
 
     /**
      * 接收透传消息的函数。
@@ -279,5 +286,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        context.getApplicationContext().startActivity(intent);
     }
+
+
 
 }

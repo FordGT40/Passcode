@@ -3,6 +3,7 @@ package com.wisdom.passcode.helper
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.os.TokenWatcher
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
@@ -373,7 +374,36 @@ class Helper {
         }
 
 
+        /**
+         * 将channelId传递到后台。
+         * @param channelId
+         */
+         fun setChannelId(channelId: String) {
+            val params=HttpParams()
+            params.put("channelId",channelId)
+            params.put("channelType","1")
+            val paramsList= listOf("channelId$channelId","channelType1").toMutableList()
+            HttpUtil.httpPostWithStampAndSignToken(ConstantUrl.USER_SETPUSHINFO_URL,params,paramsList,object :StringsCallback(object:OnTokenRefreshSuccessListener{
+                override fun onRefreshSuccess() {
+                    setChannelId(channelId)
+                }
 
+                override fun onRefreshFail(msg: String?) {
+                   LogUtil.getInstance().e(msg)
+                }
+            }){
+                override fun onInterfaceSuccess(
+                    jsonObject: JSONObject?,
+                    call: Call?,
+                    response: Response?
+                ) {
+                   val code=jsonObject!!.optInt("code")
+                   val msg=jsonObject!!.optString("msg")
+                    LogUtil.getInstance().e("绑定channelId：$code")
+                    LogUtil.getInstance().e("绑定channelId：$msg")
+                }
+            })
+        }
 
     }
 

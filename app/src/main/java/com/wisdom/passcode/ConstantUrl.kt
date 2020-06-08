@@ -77,6 +77,8 @@ class ConstantUrl {
 //        12. 修改密码
         const val USER_UPDATEPASSWORD_URL="/v1/user/updatePassword"
 
+//        14. 修改个人推送信息
+        const val USER_SETPUSHINFO_URL="/v1/user/setPushInfo"
 
     }
 
