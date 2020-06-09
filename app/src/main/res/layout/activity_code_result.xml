@@ -137,7 +137,7 @@
             android:id="@+id/tv_time"
             android:layout_below="@+id/tv_place"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="2020年5月30日 18:00(入内)"
+            android:text="2020年5月30日 18:00(进入)"
             android:textColor="@color/color_666666"/>
     </RelativeLayout>
 

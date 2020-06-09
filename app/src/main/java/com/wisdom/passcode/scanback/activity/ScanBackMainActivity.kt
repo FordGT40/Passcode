@@ -49,7 +49,7 @@ class ScanBackMainActivity : BaseActivity() {
         iv_back.setOnClickListener { finish() }
         //设置特殊字体
         Tools.setFont(this, tv_place_name)
-        //设置”入内“，”外出“ 点击切换事件
+        //设置”进入“，”离开“ 点击切换事件
         rg_in_out.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rb_in -> {
@@ -67,7 +67,7 @@ class ScanBackMainActivity : BaseActivity() {
                     tv_out.setCompoundDrawables(drawable_out, null, null, null)
                 }
                 R.id.rb_out -> {
-                    //选中外出
+                    //选中离开
                     type = ConstantString.SCAN_CODE_TYPE_OUT
                     ll_out.setBackgroundResource(R.drawable.shape_sacn_reslt_in_out_green)
                     ll_in.setBackgroundResource(R.drawable.shape_sacn_reslt_in_or_out)

@@ -55,12 +55,12 @@ class CodeResultActivity : BaseActivity() {
         val sdTime = SimpleDateFormat(strTime)
         when (type) {
             ConstantString.SCAN_CODE_TYPE_IN -> {
-//                入内
+//                进入
                 tv_time.text =
                     "${sdDate.format(Date())}  ${sdTime.format(Date())}${getString(R.string.in_out_state_in)}"
             }
             ConstantString.SCAN_CODE_TYPE_OUT -> {
-//                外出
+//                离开
                 tv_time.text =
                     "${sdDate.format(Date())}  ${sdTime.format(Date())}${getString(R.string.in_out_state_out)}"
             }

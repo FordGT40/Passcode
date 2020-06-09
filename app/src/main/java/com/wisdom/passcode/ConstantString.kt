@@ -67,8 +67,8 @@ class ConstantString {
         const val SCAN_CODE_TYPE_ADMIN_SCAN_CAR_PASS = "4"//4：管理员扫车通行证
         const val SCAN_CODE_TYPE_ADMIN_SCAN_PLATE = "5"//5：管理员扫车牌号
 
-        const val SCAN_CODE_TYPE_IN="1"//出入类型  1：入内   2：外出
-        const val SCAN_CODE_TYPE_OUT="2"//出入类型  1：入内   2：外出
+        const val SCAN_CODE_TYPE_IN="1"//出入类型  1：进入   2：离开
+        const val SCAN_CODE_TYPE_OUT="2"//出入类型  1：进入   2：离开
 
         const val SCAN_TYPE_SCAN="1"//扫码类型  1：扫码  2：通行证
         const val SCAN_TYPE_LICENCE="2"//扫码类型  1：扫码  2：通行证

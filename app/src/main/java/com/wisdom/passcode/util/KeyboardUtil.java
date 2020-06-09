@@ -87,7 +87,7 @@ public class KeyboardUtil {
                 }
             } else if (primaryCode == -3) {
                 if (editable != null && editable.length() > 0) {
-                    //没有输入内容时软键盘重置为省份简称软键盘
+                    //没有输进入容时软键盘重置为省份简称软键盘
                     if (editable.length() == 1) {
                         changeKeyboard(false);
                     }

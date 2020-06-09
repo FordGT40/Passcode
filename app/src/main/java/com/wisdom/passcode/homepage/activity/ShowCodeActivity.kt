@@ -1,5 +1,6 @@
 package com.wisdom.passcode.homepage.activity
 
+import android.view.View
 import cn.bertsir.zbar.QrManager
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.R
@@ -44,6 +45,14 @@ class ShowCodeActivity : BaseActivity() {
             //用户名
             val name = SharedPreferenceUtil.getPersonalInfoModel(this).nickName
             tv_line_1.text = PrivacyUtil.nameDesensitization(name)
+            cb_eye.visibility= View.VISIBLE
+            cb_eye.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked){
+                    tv_line_1.text = name
+                }else{
+                    tv_line_1.text = PrivacyUtil.nameDesensitization(name)
+                }
+            }
         }
     }
 

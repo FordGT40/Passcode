@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @change
  */
 public class UploadScanFormModel implements Serializable {
-    private String type;//出入类型  1：入内  // 2：外出
+    private String type;//出入类型  1：进入  // 2：离开
     private String scanType;//扫码类型   1：扫码    2：通行证
     private String placeCodeEncryption;//场所id 标识
     private String userIdEncryption;//用户id 标识

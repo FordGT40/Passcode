@@ -40,7 +40,7 @@ class Helper {
     companion object {
 
         /**
-         *  @describe 登录页面控件输入内容的监听方法
+         *  @describe 登录页面控件输进入容的监听方法
          *  @return
          *  @author HanXueFeng
          *  @time 2020/5/12 0012  13:27

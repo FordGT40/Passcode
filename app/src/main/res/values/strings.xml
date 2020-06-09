@@ -179,7 +179,7 @@
     <string name="hint46">推荐人电话不正确，请查证</string>
     <string name="hint47">请输入车牌号</string>
     <string name="in_out_state">出行状态</string>
-    <string name="in_out_state_in">入内</string>
+    <string name="in_out_state_in">进入</string>
     <string name="contact_name">联络人姓名</string>
     <string name="hint_contact_name">请输入联络人姓名</string>
     <string name="contact_phone">联络人电话</string>
@@ -188,7 +188,7 @@
     <string name="hint_contact_dep">请输入联络人所在部门</string>
     <string name="contact_reason">事由</string>
     <string name="hint_contact_reason">请输入事由</string>
-    <string name="in_out_state_out">外出</string>
+    <string name="in_out_state_out">离开</string>
     <string name="scan_result_licence">我已阅读本申报所列事项并确认以上填报信息真实有效</string>
     <string name="title_scan_result">通行凭证</string>
     <string name="real_name">已实名</string>

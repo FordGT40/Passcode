@@ -124,7 +124,7 @@ public class SecurityCodeView extends RelativeLayout {
     }
 
     /**
-     * 清空输入内容
+     * 清空输进入容
      */
     public void clearEditText() {
         stringBuffer.delete(0, stringBuffer.length());
