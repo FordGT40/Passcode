@@ -46,7 +46,6 @@ class PlaceCardFragment : Fragment() {
             dataList,
             object : PlaceCardListAdapter.OnItemClickListener {
                 override fun onItemClick(item: CodeListModel?) {
-
                     val bundle = Bundle()
                     bundle.putSerializable("data", item)
                     val intent = Intent(context, CardDetailActivity::class.java)

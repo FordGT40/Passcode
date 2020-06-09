@@ -59,10 +59,7 @@ class PersonCardListAdapter(
         holder: ViewHolder,
         position: Int
     ) {
-        //子项点击事件
-        holder.itemView.setOnClickListener {
-            mListener?.onItemClick(mList[position])
-        }
+        var isOutOffDate=""
         val item = mList[position]
         //计算过期时间
         //即将过期衡量标准
@@ -71,17 +68,20 @@ class PersonCardListAdapter(
         val temp = item.expireTime.toLong() - System.currentTimeMillis()
         if (temp > 0 && temp > nearlyOutOfDate) {
             //没过期
+            isOutOffDate="0"
             holder.ll_parent.backgroundDrawable = mContext.resources.getDrawable(R.drawable.kz_b)
             holder.tv_out_off_date.visibility = View.INVISIBLE
             holder.tv_out_off_date_already.visibility = View.INVISIBLE
         } else if (temp in 1 until nearlyOutOfDate || temp == nearlyOutOfDate) {
             //即将过期
+            isOutOffDate="1"
             holder.ll_parent.backgroundDrawable =
                 mContext.resources.getDrawable(R.drawable.kz_b)
             holder.tv_out_off_date.visibility = View.VISIBLE
             holder.tv_out_off_date_already.visibility = View.INVISIBLE
         } else {
             //彻底过期了
+            isOutOffDate="2"
             holder.ll_parent.backgroundDrawable =
                 mContext.resources.getDrawable(R.drawable.kz_b_grey)
             holder.tv_dep.setTextColor(Color.parseColor("#333333"))
@@ -103,7 +103,7 @@ class PersonCardListAdapter(
         }
         var userName = SharedPreferenceUtil.getPersonalInfoModel(mContext).nickName
         holder.tv_name.text = "【${PrivacyUtil.nameDesensitization(userName)}】人员出入证"
-        holder.itemView.setOnClickListener { mListener.onItemClick(item) }
+        holder.itemView.setOnClickListener { mListener.onItemClick(item,isOutOffDate) }
     }
 
     override fun getItemCount(): Int {
@@ -111,7 +111,7 @@ class PersonCardListAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: CodeListModel?)
+        fun onItemClick(item: CodeListModel?,isOutOffDate:String)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

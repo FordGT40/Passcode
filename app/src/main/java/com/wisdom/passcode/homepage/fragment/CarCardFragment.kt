@@ -1,5 +1,6 @@
 package com.wisdom.passcode.homepage.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
+import com.wisdom.passcode.homepage.activity.CardDetailActivity
 import com.wisdom.passcode.homepage.adapter.CarCardListAdapter
 import com.wisdom.passcode.homepage.model.CodeListModel
 import com.wisdom.passcode.util.Tools
@@ -45,8 +47,15 @@ class CarCardFragment : Fragment() {
             context!!,
             dataList,
             object : CarCardListAdapter.OnItemClickListener {
-                override fun onItemClick(item: CodeListModel?) {
-                    //TODO  子项点击事件
+                override fun onItemClick(item: CodeListModel?, isOutOffDate: String) {
+                    // 子项点击事件
+                    val bundle = Bundle()
+                    bundle.putSerializable("data", item)
+                    val intent = Intent(context, CardDetailActivity::class.java)
+                    intent.putExtra("outOffDate", isOutOffDate)
+                    intent.putExtra("tag", ConstantString.DETAIL_CAR_CARD)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
                 }
             })
         recyclerView.setLinearLayout()
@@ -69,7 +78,7 @@ class CarCardFragment : Fragment() {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if(isVisibleToUser){
+        if (isVisibleToUser) {
             page = 1
             getCardsData(ConstantString.RECYCLER_PULL_REFRESH)
         }
@@ -117,11 +126,11 @@ class CarCardFragment : Fragment() {
                     if (code == 0) {
                         //访问成功，封装数据源
                         val jsonStr = jsonObject.optJSONObject("data").optString("list")
-                        val data = Gson().fromJson<List<CodeListModel>>(jsonStr, object:
-                            TypeToken<List<CodeListModel>>(){}.type)
+                        val data = Gson().fromJson<List<CodeListModel>>(jsonStr, object :
+                            TypeToken<List<CodeListModel>>() {}.type)
 
                         if (!data.isNullOrEmpty()) {
-                            tv_nodata.visibility=View.GONE
+                            tv_nodata.visibility = View.GONE
                             if (pullFlag == ConstantString.RECYCLER_PULL_REFRESH) {
                                 //刷新
                                 recyclerView.setPullLoadMoreCompleted()
@@ -135,8 +144,8 @@ class CarCardFragment : Fragment() {
                             recyclerView.setPullLoadMoreCompleted()
                             if (pullFlag == ConstantString.RECYCLER_PULL_LOADMORE) {
                                 toast(R.string.no_more_data)
-                            }else{
-                                tv_nodata.visibility=View.VISIBLE
+                            } else {
+                                tv_nodata.visibility = View.VISIBLE
                             }
                         }
                     } else {

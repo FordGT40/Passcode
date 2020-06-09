@@ -28,57 +28,79 @@
             android:id="@+id/tv_dep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_18"
-            android:layout_marginTop="@dimen/dp_18"
-            android:text="【省政府】"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="省政府"
             android:textColor="#00447B"
             android:textSize="@dimen/sp_18"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_user_name"
+            android:id="@+id/tv_line_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_dep"
             android:layout_marginLeft="@dimen/dp_28"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="姓名：张某某"
-            android:textColor="#00447B"
+            android:text="【黑A7GC07】车辆通行证"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:id="@+id/tv_line_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_line_1"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="工作日10:00-15:00可用"
+            android:textColor="#333333"
             android:textSize="@dimen/sp_14" />
 
         <TextView
-            android:id="@+id/tv_user_dep"
+            android:visibility="gone"
+            android:id="@+id/tv_date_useful"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_user_name"
-            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_below="@+id/tv_line_2"
+            android:layout_marginLeft="@dimen/dp_30"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="部门：研发部"
-            android:textColor="#00447B"
+            android:background="@drawable/shape_date_blue"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:text="长期(一年)"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_14" />
 
         <TextView
-            android:id="@+id/tv_user_num"
+            android:visibility="gone"
+            android:id="@+id/tv_out_off_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_user_dep"
-            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_below="@+id/tv_line_2"
+            android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="证号：No.2301023254562"
-            android:textColor="#00447B"
+            android:layout_toRightOf="@+id/tv_date_useful"
+            android:background="@drawable/shape_date_red"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:text="即将过期"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_14" />
 
         <FrameLayout
+            android:id="@+id/frame"
             android:layout_width="@dimen/dp_200"
             android:layout_height="@dimen/dp_200"
-            android:layout_below="@+id/tv_user_num"
+            android:layout_below="@+id/tv_date_useful"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:background="@drawable/shape_circle_coner_white">
 
             <ImageView
-                android:layout_width="@dimen/dp_170"
-                android:layout_height="@dimen/dp_170"
+                android:id="@+id/iv_qr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/qrcode" />
 
@@ -123,12 +145,27 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/frame"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_10"
             android:text="有效期至：2020-06-01"
-            android:textColor="#A1C4E4"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
+
+        <Button
+            android:id="@+id/btn_reapply"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_33"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@drawable/shape_bt_reply"
+            android:gravity="center"
+            android:text="@string/reapply"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_15"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <ImageView

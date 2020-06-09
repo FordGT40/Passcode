@@ -1,5 +1,6 @@
 package com.wisdom.passcode.homepage.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
+import com.wisdom.passcode.homepage.activity.CardDetailActivity
 import com.wisdom.passcode.homepage.adapter.PersonCardListAdapter
 import com.wisdom.passcode.homepage.model.CodeListModel
 import com.wisdom.passcode.util.Tools
@@ -45,8 +47,14 @@ class PersonCardFragment : Fragment() {
             context!!,
             dataList,
             object : PersonCardListAdapter.OnItemClickListener {
-                override fun onItemClick(item: CodeListModel?) {
-                    //TODO  子项点击事件
+                override fun onItemClick(item: CodeListModel?,isOutOffDate:String) {
+                    val bundle = Bundle()
+                    bundle.putSerializable("data", item)
+                    val intent = Intent(context, CardDetailActivity::class.java)
+                    intent.putExtra("outOffDate", isOutOffDate)
+                    intent.putExtra("tag", ConstantString.DETAIL_PERSON_CARD)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
                 }
             })
         recyclerView.setLinearLayout()

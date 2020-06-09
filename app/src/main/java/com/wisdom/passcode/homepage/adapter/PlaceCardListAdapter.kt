@@ -58,10 +58,10 @@ class PlaceCardListAdapter(
         holder: ViewHolder,
         position: Int
     ) {
-        //子项点击事件
-        holder.itemView.setOnClickListener {
-            mListener?.onItemClick(mList[position])
-        }
+//        //子项点击事件
+//        holder.itemView.setOnClickListener {
+//            mListener?.onItemClick(mList[position])
+//        }
 
         val item = mList[position]
         var userName = SharedPreferenceUtil.getPersonalInfoModel(mContext).nickName

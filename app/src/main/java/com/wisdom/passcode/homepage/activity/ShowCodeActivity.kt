@@ -43,7 +43,7 @@ class ShowCodeActivity : BaseActivity() {
             iv_qr.setImageBitmap(bitmap)
             //用户名
             val name = SharedPreferenceUtil.getPersonalInfoModel(this).nickName
-            tv_user_name.text = PrivacyUtil.nameDesensitization(name)
+            tv_line_1.text = PrivacyUtil.nameDesensitization(name)
         }
     }
 

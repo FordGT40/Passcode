@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_30"
             android:text=""
-            android:id="@+id/tv_user_name"
+            android:id="@+id/tv_line_1"
             android:layout_marginLeft="@dimen/dp_45"
             android:layout_gravity="left"
             android:textColor="@color/textcolor"

@@ -210,6 +210,7 @@
     <string name="phone_empty_hint">电话不能为空</string>
     <string name="psw_empty_error">密码不能为空</string>
     <string name="reset_success">密码重置成功！</string>
+    <string name="reapply">重新申请</string>
 
 
 </resources>
