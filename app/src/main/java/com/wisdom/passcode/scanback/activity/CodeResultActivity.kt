@@ -53,16 +53,17 @@ class CodeResultActivity : BaseActivity() {
         val strTime = "HH:mm"
         val sdDate = SimpleDateFormat(strDate)
         val sdTime = SimpleDateFormat(strTime)
+        tv_time.text =
+            "${sdDate.format(Date())}  ${sdTime.format(Date())}"
         when (type) {
+
             ConstantString.SCAN_CODE_TYPE_IN -> {
 //                进入
-                tv_time.text =
-                    "${sdDate.format(Date())}  ${sdTime.format(Date())}${getString(R.string.in_out_state_in)}"
+                tv_in_out.text="${getString(R.string.in_out_state_in)}"
             }
             ConstantString.SCAN_CODE_TYPE_OUT -> {
 //                离开
-                tv_time.text =
-                    "${sdDate.format(Date())}  ${sdTime.format(Date())}${getString(R.string.in_out_state_out)}"
+                tv_in_out.text="${getString(R.string.in_out_state_out)}"
             }
         }
 
