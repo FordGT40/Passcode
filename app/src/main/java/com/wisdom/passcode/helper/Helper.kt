@@ -3,10 +3,10 @@ package com.wisdom.passcode.helper
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.os.TokenWatcher
 import android.text.Editable
-import android.text.LoginFilter
 import android.text.TextWatcher
+import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.Button
 import android.widget.EditText
 import com.google.gson.Gson
@@ -26,6 +26,7 @@ import okhttp3.Call
 import okhttp3.Response
 import org.jetbrains.anko.backgroundDrawable
 import org.json.JSONObject
+
 
 /**
  * @ProjectName project： Passcode
@@ -406,7 +407,18 @@ class Helper {
             })
         }
 
+        fun setMargins(v: View, l: Int, t: Int, r: Int, b: Int) {
+            if (v.layoutParams is MarginLayoutParams) {
+                val p = v.layoutParams as MarginLayoutParams
+                p.setMargins(l, t, r, b)
+                v.requestLayout()
+            }
+        }
+
     }
+
+
+
 
     interface OnPersonalInfoCompletedListener {
         fun onPersonalInfoCompleted()

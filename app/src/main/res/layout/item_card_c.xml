@@ -12,6 +12,15 @@
         android:layout_marginTop="@dimen/dp_15"
         android:background="@drawable/kz_c">
 
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:layout_marginTop="@dimen/dp_18"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+
         <TextView
             android:id="@+id/tv_dep"
             android:layout_width="wrap_content"
@@ -19,6 +28,7 @@
             android:layout_marginLeft="@dimen/dp_18"
             android:layout_marginTop="@dimen/dp_18"
             android:layout_marginRight="@dimen/dp_55"
+            android:layout_toRightOf="@+id/iv_logo"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="省政省政府省政府省政府省政府省政府府"
@@ -52,13 +62,13 @@
         <TextView
             android:id="@+id/tv_job"
             android:layout_width="wrap_content"
-            android:layout_marginRight="@dimen/dp_55"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_55"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="开发部-程序员"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_15" />

@@ -42,6 +42,8 @@ public class CodeListModel implements Serializable {
     private String id;
     private String placeName;
     private String logoApp;
+    private String postName;
+    private String deptName;
 
     public String getCodeTypeName() {
         return codeTypeName;
@@ -145,5 +147,21 @@ public class CodeListModel implements Serializable {
 
     public void setLogoApp(String logoApp) {
         this.logoApp = logoApp;
+    }
+
+    public String getPostName() {
+        return postName;
+    }
+
+    public void setPostName(String postName) {
+        this.postName = postName;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 }

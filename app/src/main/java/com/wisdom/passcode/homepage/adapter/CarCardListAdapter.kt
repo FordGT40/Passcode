@@ -5,9 +5,11 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.wisdom.passcode.R
 import com.wisdom.passcode.homepage.model.CodeListModel
 import org.jetbrains.anko.backgroundDrawable
@@ -86,6 +88,12 @@ class CarCardListAdapter(
         with(item) {
             holder.tv_dep.text = "${placeName}"
             holder.tv_name.text="【${carNumber}】车辆出入证"
+            if(logoApp.isNullOrEmpty()){
+                holder.iv_logo.visibility=View.GONE
+            }else{
+                holder.iv_logo.visibility=View.VISIBLE
+                Glide.with(mContext).load(logoApp).into(holder.iv_logo)
+            }
         }
 
 
@@ -108,12 +116,14 @@ class CarCardListAdapter(
         val ll_parent: RelativeLayout
         val tv_name: TextView
         val tv_dep: TextView
+        val iv_logo: ImageView
 
         val tv_date_useful: TextView
         val tv_out_off_date: TextView
 
 
         init {
+            iv_logo = itemView.findViewById(R.id.iv_logo)
             ll_parent = itemView.findViewById(R.id.ll_parent)
             tv_name = itemView.findViewById(R.id.tv_name)
             tv_out_off_date = itemView.findViewById(R.id.tv_out_off_date)

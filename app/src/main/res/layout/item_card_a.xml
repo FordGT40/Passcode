@@ -10,6 +10,16 @@
     android:layout_gravity="center"
     android:layout_marginTop="@dimen/dp_15"
     android:background="@drawable/kz_a">
+    <ImageView
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginTop="@dimen/dp_18"
+        android:id="@+id/iv_logo"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,6 +30,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:layout_marginTop="@dimen/dp_18"
+       android:layout_toRightOf="@+id/iv_logo"
         android:layout_marginLeft="@dimen/dp_18"
         android:textStyle="bold"
         android:text="省政府"

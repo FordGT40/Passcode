@@ -5,9 +5,11 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.homepage.model.CodeListModel
@@ -88,6 +90,12 @@ class PersonCardListAdapter(
         with(item) {
             holder.tv_dep.text = "$placeName"
             holder.tv_date_useful.text = "$codeTypeName($codeTypeLable)"
+            if(logoApp.isNullOrEmpty()){
+                holder.iv_logo.visibility=View.GONE
+            }else{
+                holder.iv_logo.visibility=View.VISIBLE
+                Glide.with(mContext).load(logoApp).into(holder.iv_logo)
+            }
         }
         var userName = SharedPreferenceUtil.getPersonalInfoModel(mContext).nickName
         holder.tv_name.text = "【${PrivacyUtil.nameDesensitization(userName)}】人员出入证"
@@ -106,6 +114,7 @@ class PersonCardListAdapter(
         val ll_parent: RelativeLayout
         val tv_name: TextView
         val tv_dep: TextView
+        val iv_logo: ImageView
 
         val tv_date_useful: TextView
         val tv_out_off_date: TextView
@@ -113,6 +122,7 @@ class PersonCardListAdapter(
 
         init {
             ll_parent = itemView.findViewById(R.id.ll_parent)
+            iv_logo = itemView.findViewById(R.id.iv_logo)
             tv_name = itemView.findViewById(R.id.tv_name)
             tv_out_off_date = itemView.findViewById(R.id.tv_out_off_date)
             tv_date_useful = itemView.findViewById(R.id.tv_date_useful)

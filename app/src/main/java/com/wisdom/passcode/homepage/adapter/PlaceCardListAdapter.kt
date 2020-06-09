@@ -4,14 +4,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.SharedPreferenceUtil
+import com.wisdom.passcode.helper.Helper
 import com.wisdom.passcode.homepage.model.CodeListModel
-import com.wisdom.passcode.util.EncrypAndDecrypUtil
 import com.wisdom.passcode.util.PrivacyUtil
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 
 /**
@@ -67,7 +70,18 @@ class PlaceCardListAdapter(
         with(item) {
             holder.tv_dep.text = placeName
             holder.tv_name.text = "【${PrivacyUtil.nameDesensitization(userName)}】工作证"
-//            holder.tv_job.text=
+            if (postName.isNullOrEmpty()) {
+                holder.tv_job.text = "$deptName"
+            } else {
+                holder.tv_job.text = "$deptName--$postName"
+            }
+            //logo是否显示的判断逻辑
+            if (logoApp.isNullOrEmpty()) {
+                holder.iv_logo.visibility = View.GONE
+            } else {
+                holder.iv_logo.visibility = View.VISIBLE
+                Glide.with(mContext).load(logoApp).into(holder.iv_logo)
+            }
         }
 
 
@@ -87,10 +101,12 @@ class PlaceCardListAdapter(
         val tv_dep: TextView
         val tv_name: TextView
         val tv_job: TextView
+        val iv_logo: ImageView
 
 
         init {
             ll_parent = itemView.findViewById(R.id.ll_parent)
+            iv_logo = itemView.findViewById(R.id.iv_logo)
             tv_name = itemView.findViewById(R.id.tv_name)
             tv_job = itemView.findViewById(R.id.tv_job)
             tv_dep = itemView.findViewById(R.id.tv_dep)
