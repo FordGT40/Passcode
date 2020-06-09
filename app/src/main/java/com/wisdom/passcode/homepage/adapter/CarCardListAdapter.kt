@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.R
 import com.wisdom.passcode.homepage.model.CodeListModel
-import com.wisdom.passcode.util.Tools
 import org.jetbrains.anko.backgroundDrawable
 import java.text.SimpleDateFormat
 
@@ -26,7 +24,7 @@ import java.text.SimpleDateFormat
 class CarCardListAdapter(
     private val mContext: Context,
     private var mList: List<CodeListModel>,
-    private val mListener:OnItemClickListener
+    private val mListener: OnItemClickListener
 ) : RecyclerView.Adapter<CarCardListAdapter.ViewHolder>() {
     private val sp: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     override fun onCreateViewHolder(
@@ -37,6 +35,7 @@ class CarCardListAdapter(
         val view = inflater.inflate(R.layout.item_card_a, parent, false)
         return ViewHolder(view)
     }
+
     //    上拉加载更多时候使用的方法
     fun loadMoreData(moreList: List<CodeListModel>) {
         moreList.forEach { item ->
@@ -69,41 +68,27 @@ class CarCardListAdapter(
         if (temp > 0 && temp > nearlyOutOfDate) {
             //没过期
             holder.ll_parent.backgroundDrawable = mContext.resources.getDrawable(R.drawable.kz_a)
-            holder.tv_date.text = "有效期至：${sp.format(item.expireTime.toLong())}"
+            holder.tv_out_off_date.visibility = View.INVISIBLE
         } else if (temp in 1 until nearlyOutOfDate || temp == nearlyOutOfDate) {
-            //即将过期
             //即将过期
             holder.ll_parent.backgroundDrawable =
                 mContext.resources.getDrawable(R.drawable.kz_a)
-            val str = Tools.getClickableSpan(
-                "有效期至：${sp.format(item.expireTime.toLong())} (即将过期)"
-                ,
-                15, 22, Color.parseColor("#FE3237"), false, null
-            )
-            holder.tv_date.text = str
+            holder.tv_out_off_date.visibility = View.VISIBLE
         } else {
             //彻底过期了
             holder.ll_parent.backgroundDrawable =
                 mContext.resources.getDrawable(R.drawable.kz_a_grey)
-            holder.tv_date.text = "有效期至：${sp.format(item.expireTime.toLong())}(已过期)"
             holder.tv_dep.setTextColor(Color.parseColor("#333333"))
-            holder.tv_card_name.setTextColor(Color.parseColor("#333333"))
-            holder.tv_num.setTextColor(Color.parseColor("#666666"))
-            holder.tv_date.setTextColor(Color.parseColor("#666666"))
+            holder.tv_name.setTextColor(Color.parseColor("#666666"))
+            holder.tv_out_off_date.visibility = View.INVISIBLE
         }
         //设置卡面上的相关数据
-        holder.tv_dep.text = "【${item.codeTypeLable}】${item.placeName}"
-        when (item.codeTypeDataType) {
-            ConstantString.MY_CODE_PASS_TYPE_NORMAL -> {
-                holder.tv_num.text = "无限制 ${item.codeTypeTimeRange}"
-            }
-            ConstantString.MY_CODE_PASS_TYPE_WORKDAYS -> {
-                holder.tv_num.text = "工作日 ${item.codeTypeTimeRange}"
-            }
-            else -> {
-                holder.tv_num.text = "${item.codeTypeTimeRange}"
-            }
+        with(item) {
+            holder.tv_dep.text = "${placeName}"
+            holder.tv_name.text="【${carNumber}】车辆出入证"
         }
+
+
 
 
 
@@ -121,17 +106,18 @@ class CarCardListAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ll_parent: RelativeLayout
-        val tv_date: TextView
+        val tv_name: TextView
         val tv_dep: TextView
-        val tv_card_name: TextView
-        val tv_num: TextView
+
+        val tv_date_useful: TextView
+        val tv_out_off_date: TextView
 
 
         init {
             ll_parent = itemView.findViewById(R.id.ll_parent)
-            tv_date = itemView.findViewById(R.id.tv_date)
-            tv_num = itemView.findViewById(R.id.tv_num)
-            tv_card_name = itemView.findViewById(R.id.tv_card_name)
+            tv_name = itemView.findViewById(R.id.tv_name)
+            tv_out_off_date = itemView.findViewById(R.id.tv_out_off_date)
+            tv_date_useful = itemView.findViewById(R.id.tv_date_useful)
             tv_dep = itemView.findViewById(R.id.tv_dep)
         }
     }
