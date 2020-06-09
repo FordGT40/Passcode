@@ -289,6 +289,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/dp_37"
                 android:button="@drawable/selector_cb_register_licence"
                 android:paddingLeft="@dimen/dp_8"

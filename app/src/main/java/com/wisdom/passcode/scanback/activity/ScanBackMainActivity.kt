@@ -96,11 +96,7 @@ class ScanBackMainActivity : BaseActivity() {
         tv_phoneNum.text = PrivacyUtil.phoneDesensitization(phoneNum)
 //提交按钮点击事件
         btn_submit.setOnClickListener {
-            if (cb_licences.isChecked) {
                 submitData(placeCode)
-            } else {
-                toast(R.string.choose_licence2)
-            }
         }
 
     }
