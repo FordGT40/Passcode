@@ -73,11 +73,13 @@ class PersonCardListAdapter(
             //没过期
             holder.ll_parent.backgroundDrawable = mContext.resources.getDrawable(R.drawable.kz_b)
             holder.tv_out_off_date.visibility = View.INVISIBLE
+            holder.tv_out_off_date_already.visibility = View.INVISIBLE
         } else if (temp in 1 until nearlyOutOfDate || temp == nearlyOutOfDate) {
             //即将过期
             holder.ll_parent.backgroundDrawable =
                 mContext.resources.getDrawable(R.drawable.kz_b)
             holder.tv_out_off_date.visibility = View.VISIBLE
+            holder.tv_out_off_date_already.visibility = View.INVISIBLE
         } else {
             //彻底过期了
             holder.ll_parent.backgroundDrawable =
@@ -85,15 +87,17 @@ class PersonCardListAdapter(
             holder.tv_dep.setTextColor(Color.parseColor("#333333"))
             holder.tv_name.setTextColor(Color.parseColor("#666666"))
             holder.tv_out_off_date.visibility = View.INVISIBLE
+            holder.tv_date_useful.visibility = View.INVISIBLE
+            holder.tv_out_off_date_already.visibility = View.VISIBLE
         }
         //设置卡面上的相关数据
         with(item) {
             holder.tv_dep.text = "$placeName"
             holder.tv_date_useful.text = "$codeTypeName($codeTypeLable)"
-            if(logoApp.isNullOrEmpty()){
-                holder.iv_logo.visibility=View.GONE
-            }else{
-                holder.iv_logo.visibility=View.VISIBLE
+            if (logoApp.isNullOrEmpty()) {
+                holder.iv_logo.visibility = View.GONE
+            } else {
+                holder.iv_logo.visibility = View.VISIBLE
                 Glide.with(mContext).load(logoApp).into(holder.iv_logo)
             }
         }
@@ -118,6 +122,7 @@ class PersonCardListAdapter(
 
         val tv_date_useful: TextView
         val tv_out_off_date: TextView
+        val tv_out_off_date_already: TextView
 
 
         init {
@@ -125,6 +130,7 @@ class PersonCardListAdapter(
             iv_logo = itemView.findViewById(R.id.iv_logo)
             tv_name = itemView.findViewById(R.id.tv_name)
             tv_out_off_date = itemView.findViewById(R.id.tv_out_off_date)
+            tv_out_off_date_already = itemView.findViewById(R.id.tv_out_off_date_already)
             tv_date_useful = itemView.findViewById(R.id.tv_date_useful)
             tv_dep = itemView.findViewById(R.id.tv_dep)
         }

@@ -77,6 +77,20 @@
             android:text="即将过期"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14" />
+        <TextView
+            android:id="@+id/tv_out_off_date_already"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_toRightOf="@+id/tv_out_off_date"
+            android:background="@drawable/shape_date_grey"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:text="已过期"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14" />
 
         <ImageView
             android:layout_width="wrap_content"

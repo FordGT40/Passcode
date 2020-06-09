@@ -41,7 +41,6 @@ class CardDetailActivity : BaseActivity() {
                         rl_out_of_date.visibility = View.VISIBLE
 
                         tv_dep.setTextColor(Color.parseColor("#333333"))
-                        tv_name.setTextColor(Color.parseColor("#333333"))
                         tv_user_name.setTextColor(Color.parseColor("#666666"))
                         tv_user_dep.setTextColor(Color.parseColor("#666666"))
                         tv_user_num.setTextColor(Color.parseColor("#666666"))
@@ -59,7 +58,6 @@ class CardDetailActivity : BaseActivity() {
                         tv_date.text = str
 
                         tv_dep.setTextColor(Color.parseColor("#00447B"))
-                        tv_name.setTextColor(Color.parseColor("#00447B"))
                         tv_user_name.setTextColor(Color.parseColor("#00447B"))
                         tv_user_dep.setTextColor(Color.parseColor("#00447B"))
                         tv_user_num.setTextColor(Color.parseColor("#00447B"))
@@ -71,7 +69,6 @@ class CardDetailActivity : BaseActivity() {
                         rl_out_of_date.visibility = View.GONE
 
                         tv_dep.setTextColor(Color.parseColor("#00447B"))
-                        tv_name.setTextColor(Color.parseColor("#00447B"))
                         tv_user_name.setTextColor(Color.parseColor("#00447B"))
                         tv_user_dep.setTextColor(Color.parseColor("#00447B"))
                         tv_user_num.setTextColor(Color.parseColor("#00447B"))
@@ -88,7 +85,6 @@ class CardDetailActivity : BaseActivity() {
                         rl_code.setBackgroundResource(R.drawable.kz_b_big_grey)
                         rl_out_of_date.visibility = View.VISIBLE
                         tv_dep.setTextColor(Color.parseColor("#333333"))
-                        tv_name.setTextColor(Color.parseColor("#333333"))
                         tv_user_name.setTextColor(Color.parseColor("#666666"))
                         tv_user_dep.setTextColor(Color.parseColor("#666666"))
                         tv_user_num.setTextColor(Color.parseColor("#666666"))
@@ -106,7 +102,6 @@ class CardDetailActivity : BaseActivity() {
                         tv_date.text = str
 
                         tv_dep.setTextColor(Color.parseColor("#793600"))
-                        tv_name.setTextColor(Color.parseColor("#793600"))
                         tv_user_name.setTextColor(Color.parseColor("#793600"))
                         tv_user_dep.setTextColor(Color.parseColor("#793600"))
                         tv_user_num.setTextColor(Color.parseColor("#793600"))
@@ -118,7 +113,6 @@ class CardDetailActivity : BaseActivity() {
                         rl_out_of_date.visibility = View.GONE
 
                         tv_dep.setTextColor(Color.parseColor("#793600"))
-                        tv_name.setTextColor(Color.parseColor("#793600"))
                         tv_user_name.setTextColor(Color.parseColor("#793600"))
                         tv_user_dep.setTextColor(Color.parseColor("#793600"))
                         tv_user_num.setTextColor(Color.parseColor("#793600"))
@@ -135,7 +129,6 @@ class CardDetailActivity : BaseActivity() {
                         rl_out_of_date.visibility = View.VISIBLE
 
                         tv_dep.setTextColor(Color.parseColor("#333333"))
-                        tv_name.setTextColor(Color.parseColor("#333333"))
                         tv_user_name.setTextColor(Color.parseColor("#666666"))
                         tv_user_dep.setTextColor(Color.parseColor("#666666"))
                         tv_user_num.setTextColor(Color.parseColor("#666666"))
@@ -153,7 +146,6 @@ class CardDetailActivity : BaseActivity() {
                         tv_date.text = str
 
                         tv_dep.setTextColor(Color.parseColor("#1E017B"))
-                        tv_name.setTextColor(Color.parseColor("#1E017B"))
                         tv_user_name.setTextColor(Color.parseColor("#1E017B"))
                         tv_user_dep.setTextColor(Color.parseColor("#1E017B"))
                         tv_user_num.setTextColor(Color.parseColor("#1E017B"))
@@ -165,7 +157,6 @@ class CardDetailActivity : BaseActivity() {
                         rl_out_of_date.visibility = View.GONE
 
                         tv_dep.setTextColor(Color.parseColor("#1E017B"))
-                        tv_name.setTextColor(Color.parseColor("#1E017B"))
                         tv_user_name.setTextColor(Color.parseColor("#1E017B"))
                         tv_user_dep.setTextColor(Color.parseColor("#1E017B"))
                         tv_user_num.setTextColor(Color.parseColor("#1E017B"))
