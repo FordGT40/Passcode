@@ -68,8 +68,8 @@ var isOutOffDate=""
             //没过期
             isOutOffDate="0"
             holder.ll_parent.backgroundDrawable = mContext.resources.getDrawable(R.drawable.kz_a)
-            holder.tv_out_off_date.visibility = View.INVISIBLE
-            holder.tv_out_off_date_already.visibility = View.INVISIBLE
+            holder.tv_out_off_date.visibility = View.GONE
+            holder.tv_out_off_date_already.visibility = View.GONE
 
         } else if (temp in 1 until nearlyOutOfDate || temp == nearlyOutOfDate) {
             //即将过期
@@ -77,7 +77,7 @@ var isOutOffDate=""
             holder.ll_parent.backgroundDrawable =
                 mContext.resources.getDrawable(R.drawable.kz_a)
             holder.tv_out_off_date.visibility = View.VISIBLE
-            holder.tv_out_off_date_already.visibility = View.INVISIBLE
+            holder.tv_out_off_date_already.visibility = View.GONE
         } else {
             //彻底过期了
             isOutOffDate="2"
@@ -85,8 +85,8 @@ var isOutOffDate=""
                 mContext.resources.getDrawable(R.drawable.kz_a_grey)
             holder.tv_dep.setTextColor(Color.parseColor("#333333"))
             holder.tv_name.setTextColor(Color.parseColor("#666666"))
-            holder.tv_out_off_date.visibility = View.INVISIBLE
-            holder.tv_date_useful.visibility = View.INVISIBLE
+            holder.tv_out_off_date.visibility = View.GONE
+            holder.tv_date_useful.visibility = View.GONE
             holder.tv_out_off_date_already.visibility = View.VISIBLE
         }
 
