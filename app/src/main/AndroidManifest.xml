@@ -147,7 +147,9 @@
         <activity android:name=".apply.activity.PlaceNameSearchActivity" /> <!-- 车辆出入证成功页 -->
         <activity android:name=".apply.activity.CardApplySuccessActivity" />
         <!-- 亮码页面 -->
-        <activity android:name=".homepage.activity.ShowCodeActivity">
+        <activity android:name=".homepage.activity.ShowCodeActivity"
+            android:launchMode="singleInstance"
+            >
             <intent-filter>
                 <action android:name="com.wisdom.showcode" />
             </intent-filter>

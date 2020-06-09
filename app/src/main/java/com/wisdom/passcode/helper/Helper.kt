@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.TokenWatcher
 import android.text.Editable
+import android.text.LoginFilter
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText

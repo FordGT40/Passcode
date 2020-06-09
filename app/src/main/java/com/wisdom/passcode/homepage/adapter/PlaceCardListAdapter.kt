@@ -1,18 +1,17 @@
 package com.wisdom.passcode.homepage.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.R
+import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.homepage.model.CodeListModel
-import com.wisdom.passcode.util.Tools
-import org.jetbrains.anko.backgroundDrawable
+import com.wisdom.passcode.util.EncrypAndDecrypUtil
+import com.wisdom.passcode.util.PrivacyUtil
 import java.text.SimpleDateFormat
 
 /**
@@ -62,64 +61,14 @@ class PlaceCardListAdapter(
         }
 
         val item = mList[position]
-        //计算过期时间
-        //即将过期衡量标准
-        val nearlyOutOfDate = if(item.advanceTime!=null){
-            item.advanceTime.toLong() * 24 * 3600 * 1000
-        }else{
-            //如果返回的advanceTime为null，那么过期时间为50年
-            50*12*30*24*3600
-        }
-        //过期时间与当前时间戳的差值
-        val temp = item.expireTime.toLong() - System.currentTimeMillis()
-        if (temp > 0 && temp > nearlyOutOfDate) {
-            //没过期
-            holder.ll_parent.backgroundDrawable =
-                mContext.resources.getDrawable(R.drawable.kz_c)
-            holder.tv_date.text = "有效期至：${sp.format(item.expireTime.toLong())}"
-        } else if (temp in 1 until nearlyOutOfDate || temp == nearlyOutOfDate) {
-            //即将过期
-            holder.ll_parent.backgroundDrawable =
-                mContext.resources.getDrawable(R.drawable.kz_c)
-            val str = Tools.getClickableSpan(
-                "有效期至：${sp.format(item.expireTime.toLong())} (即将过期)"
-                ,
-                15, 22, Color.parseColor("#FE3237"), false, null
-            )
-            holder.tv_date.text = str
-        } else {
-            //彻底过期了
-            holder.ll_parent.backgroundDrawable =
-                mContext.resources.getDrawable(R.drawable.kz_c_grey)
-            holder.tv_date.text = "有效期至：${sp.format(item.expireTime.toLong())}(已过期)"
-            holder.tv_dep.setTextColor(Color.parseColor("#333333"))
-            holder.tv_card_name.setTextColor(Color.parseColor("#333333"))
-            holder.tv_num.setTextColor(Color.parseColor("#666666"))
-            holder.tv_date.setTextColor(Color.parseColor("#666666"))
-        }
-
+        var userName = SharedPreferenceUtil.getPersonalInfoModel(mContext).nickName
+//        userName = EncrypAndDecrypUtil.decrypt(userName)
         //设置卡面上的相关数据
-        holder.tv_dep.visibility=View.GONE
-        holder.tv_num.visibility=View.GONE
-
-//        holder.tv_dep.text = "【${item.codeTypeLable}】${item.placeName}"
-//        when (item.codeTypeDataType) {
-//            ConstantString.MY_CODE_PASS_TYPE_NORMAL -> {
-//                holder.tv_num.text = "无限制 ${item.codeTypeTimeRange}"
-//            }
-//            ConstantString.MY_CODE_PASS_TYPE_WORKDAYS -> {
-//                holder.tv_num.text = "工作日 ${item.codeTypeTimeRange}"
-//            }
-//            else -> {
-//                holder.tv_num.text = "${item.codeTypeTimeRange}"
-//            }
-//        }
-
-
-
-
-
-
+        with(item) {
+            holder.tv_dep.text = placeName
+            holder.tv_name.text = "【${PrivacyUtil.nameDesensitization(userName)}】工作证"
+//            holder.tv_job.text=
+        }
 
 
         holder.itemView.setOnClickListener { mListener.onItemClick(item) }
@@ -135,17 +84,15 @@ class PlaceCardListAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ll_parent: RelativeLayout
-        val tv_date: TextView
         val tv_dep: TextView
-        val tv_card_name: TextView
-        val tv_num: TextView
+        val tv_name: TextView
+        val tv_job: TextView
 
 
         init {
             ll_parent = itemView.findViewById(R.id.ll_parent)
-            tv_date = itemView.findViewById(R.id.tv_date)
-            tv_num = itemView.findViewById(R.id.tv_num)
-            tv_card_name = itemView.findViewById(R.id.tv_card_name)
+            tv_name = itemView.findViewById(R.id.tv_name)
+            tv_job = itemView.findViewById(R.id.tv_job)
             tv_dep = itemView.findViewById(R.id.tv_dep)
         }
     }
