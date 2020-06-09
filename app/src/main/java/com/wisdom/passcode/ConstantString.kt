@@ -89,6 +89,11 @@ class ConstantString {
         const val PASSCODE_RECORD_TYPE_PERSON="1"//我的通行证申请记录 查询类型 1.车辆证  2.通行证
         const val PASSCODE_RECORD_TYPE_CAR="2"//我的通行证申请记录 查询类型 1.车辆证  2.通行证
 
+        const val DETAIL_PLACE_CARD="2"//由工作证跳详情页面
+        const val DETAIL_CAR_CARD="0"//由车辆出入证证跳详情页面
+        const val DETAIL_PERSON_CARD="1"//由人员出入证跳详情页面
+
+
         var timeStamp = 0L//时间戳 初始值
         var accessToken = ""//短时间token
         var refreshToken = ""//长效时间戳

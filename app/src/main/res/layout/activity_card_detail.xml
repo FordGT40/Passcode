@@ -9,9 +9,20 @@
     <RelativeLayout
         android:id="@+id/rl_code"
         android:layout_width="@dimen/dp_319"
-        android:layout_height="@dimen/dp_405"
+        android:layout_height="@dimen/dp_450"
         android:layout_centerInParent="true"
         android:background="@drawable/kz_a_big">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_18"
+            android:layout_marginRight="@dimen/dp_18"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/tv_dep"
@@ -25,20 +36,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_18"
-            android:layout_toRightOf="@+id/tv_dep"
-            android:text="车辆通行证"
-            android:textColor="#00447B"
-            android:textSize="@dimen/sp_18" />
-
-        <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_name"
+            android:layout_below="@+id/tv_dep"
             android:layout_marginLeft="@dimen/dp_28"
             android:layout_marginTop="@dimen/dp_10"
             android:text="姓名：张某某"
@@ -83,17 +84,17 @@
 
             <RelativeLayout
                 android:id="@+id/rl_out_of_date"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FAFFFFFF">
+                android:background="#FAFFFFFF"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:gravity="center_horizontal"
                     android:background="@color/transparent"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <TextView

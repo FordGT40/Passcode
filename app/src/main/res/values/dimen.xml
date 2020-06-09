@@ -18,6 +18,7 @@
     <dimen name="dp_90">90dp</dimen>
     <dimen name="dp_9">9dp</dimen>
     <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_450">450dp</dimen>
     <dimen name="dp_405">405dp</dimen>
     <dimen name="dp_110">110dp</dimen>
     <dimen name="dp_115">115dp</dimen>

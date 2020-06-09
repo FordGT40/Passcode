@@ -2,8 +2,10 @@ package com.wisdom.passcode.homepage.activity
 
 import android.graphics.Color
 import android.view.View
+import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
+import com.wisdom.passcode.homepage.model.CodeListModel
 import com.wisdom.passcode.util.Tools
 import kotlinx.android.synthetic.main.activity_card_detail.*
 
@@ -12,10 +14,11 @@ class CardDetailActivity : BaseActivity() {
 
     override fun initViews() {
         iv_close.setOnClickListener { finish() }
-        val ifDateOf = intent.getStringExtra("data")
+        val ifDateOf = intent.getStringExtra("outOffDate")
         val tag = intent.getStringExtra("tag")
+        val data=intent.extras.getSerializable("data") as CodeListModel
         //根据不同卡证设置不同的背景
-        setUiEffect(ifDateOf, tag)
+        setUiEffect(ifDateOf, tag,data)
 
     }
 
@@ -24,9 +27,13 @@ class CardDetailActivity : BaseActivity() {
     }
 
 
-    private fun setUiEffect(ifDateOf: String?, tag: String?) {
+    private fun setUiEffect(
+        ifDateOf: String?,
+        tag: String?,
+        data: CodeListModel
+    ) {
         when (tag) {
-            "0" -> {
+            ConstantString.DETAIL_CAR_CARD -> {
                 when (ifDateOf) {
                     "2" -> {
                         //过期了
@@ -59,7 +66,7 @@ class CardDetailActivity : BaseActivity() {
                         tv_date.setTextColor(Color.parseColor("#A1C4E4"))
                     }
                     else -> {
-            //                    没过期
+                        //                    没过期
                         rl_code.setBackgroundResource(R.drawable.kz_a_big)
                         rl_out_of_date.visibility = View.GONE
 
@@ -74,7 +81,7 @@ class CardDetailActivity : BaseActivity() {
 
 
             }
-            "1" -> {
+            ConstantString.DETAIL_PERSON_CARD -> {
                 when (ifDateOf) {
                     "2" -> {
                         //过期了
@@ -106,7 +113,7 @@ class CardDetailActivity : BaseActivity() {
                         tv_date.setTextColor(Color.parseColor("#DDBB83"))
                     }
                     else -> {
-            //                    没过期
+                        //                    没过期
                         rl_code.setBackgroundResource(R.drawable.kz_b_big)
                         rl_out_of_date.visibility = View.GONE
 
@@ -120,7 +127,7 @@ class CardDetailActivity : BaseActivity() {
                 }
 
             }
-            "2" -> {
+            ConstantString.DETAIL_PLACE_CARD -> {
                 when (ifDateOf) {
                     "2" -> {
                         //过期了
@@ -153,7 +160,7 @@ class CardDetailActivity : BaseActivity() {
                         tv_date.setTextColor(Color.parseColor("#A391DB"))
                     }
                     else -> {
-            //                    没过期
+                        //                    没过期
                         rl_code.setBackgroundResource(R.drawable.kz_c_big)
                         rl_out_of_date.visibility = View.GONE
 
