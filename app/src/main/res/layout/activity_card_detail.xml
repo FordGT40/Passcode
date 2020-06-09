@@ -127,6 +127,7 @@
                         android:textSize="@dimen/sp_25" />
 
                     <TextView
+                        android:id="@+id/tv_reapplay"
                         android:layout_width="@dimen/dp_100"
                         android:layout_height="@dimen/dp_33"
                         android:layout_marginTop="@dimen/dp_15"
