@@ -8,25 +8,19 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- Push service 运行需要的权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- Push service 运行需要的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-
-
-    <!-- Push service 运行的可选权限 -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- 适配 Android N 系统必需的 ContentProvider 写权限声明，写权限包含应用包名-->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- Push service 运行的可选权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 适配 Android N 系统必需的 ContentProvider 写权限声明，写权限包含应用包名 -->
     <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.wisdom.passcode" />
+
     <permission
         android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.wisdom.passcode"
-        android:protectionLevel="signature"></permission>
-    <!-- Push service 运行需要的权限 END -->
-
+        android:protectionLevel="signature" />
 
     <application
         android:name=".AppApplication"
@@ -36,6 +30,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".homepage.activity.ShowCodeRecordActivity"></activity>
         <!-- push 应用定义消息 receiver 声明 -->
         <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
@@ -52,9 +47,9 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".push.MyPushMessageReceiver">
             <intent-filter>
+
                 <!-- 接收 push 消息 -->
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
                 <!-- 接收 bind、 setTags 等 method 的返回结果 -->
@@ -64,8 +59,7 @@
                 <!-- 使用华为代理功能必须声明,用于接收华为的透传 -->
                 <action android:name="com.huawei.android.push.intent.RECEIVE" />
             </intent-filter>
-        </receiver>
-        <!-- Push 服务接收客户端发送的各种请求-->
+        </receiver> <!-- Push 服务接收客户端发送的各种请求 -->
         <receiver
             android:name="com.baidu.android.pushservice.RegistrationReceiver"
             android:process=":bdservice_v1">
@@ -73,6 +67,7 @@
                 <action android:name="com.baidu.android.pushservice.action.METHOD" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
@@ -80,33 +75,25 @@
             <intent-filter>
                 <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
             </intent-filter>
-        </service>
-        <!-- 4.4 版本新增的 CommandService 声明，提升小米和魅族手机上的实际推送到达率 -->
+        </service> <!-- 4.4 版本新增的 CommandService 声明，提升小米和魅族手机上的实际推送到达率 -->
         <service
             android:name="com.baidu.android.pushservice.CommandService"
-            android:exported="true" />
-        <!-- 适配 Android N 系统必需的 ContentProvider 声明，写权限包含应用包名-->
+            android:exported="true" /> <!-- 适配 Android N 系统必需的 ContentProvider 声明，写权限包含应用包名 -->
         <provider
             android:name="com.baidu.android.pushservice.PushInfoProvider"
             android:authorities="com.wisdom.passcode.bdpush"
             android:exported="true"
             android:process=":bdservice_v1"
             android:protectionLevel="signature"
-            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.wisdom.passcode" />
-        <!-- 可选声明, 提升 push 消息送达率 -->
+            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.wisdom.passcode" /> <!-- 可选声明, 提升 push 消息送达率 -->
         <service
             android:name="com.baidu.android.pushservice.job.PushJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":bdservice_v1" />
-        <!-- push 必须的组件声明 END -->
-
+            android:process=":bdservice_v1" /> <!-- push 必须的组件声明 END -->
         <activity android:name=".mine.activity.AlterPhoneActivity" />
         <activity android:name=".mine.activity.MyProfileActivity" /> <!-- 扫完码，填完信息之后显示的结果页面 -->
-        <activity android:name=".scanback.activity.CodeResultActivity" />
-
-        <!-- 扫完二维码后展示的页面（填报进入或离开） -->
+        <activity android:name=".scanback.activity.CodeResultActivity" /> <!-- 扫完二维码后展示的页面（填报进入或离开） -->
         <activity android:name=".scanback.activity.ScanBackMainActivity" />
-
         <activity android:name=".apply.activity.CarCardApplyActivity" /> <!-- 选择出入证类型 -->
         <activity android:name=".apply.activity.CardTypeChooseActivity" /> <!-- 人员出入证申请 -->
         <activity android:name=".apply.activity.PersonCardApplyActivity" /> <!-- 上传公函 -->
@@ -145,11 +132,10 @@
         <activity android:name=".mine.activity.RegisterActivity" /> <!-- 登录 -->
         <activity android:name=".mine.activity.LoginActivity" /> <!-- 车辆出入证申请搜索页 -->
         <activity android:name=".apply.activity.PlaceNameSearchActivity" /> <!-- 车辆出入证成功页 -->
-        <activity android:name=".apply.activity.CardApplySuccessActivity" />
-        <!-- 亮码页面 -->
-        <activity android:name=".homepage.activity.ShowCodeActivity"
-            android:launchMode="singleInstance"
-            >
+        <activity android:name=".apply.activity.CardApplySuccessActivity" /> <!-- 亮码页面 -->
+        <activity
+            android:name=".homepage.activity.ShowCodeActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="com.wisdom.showcode" />
             </intent-filter>

@@ -7,7 +7,10 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.mine.activity.LoginActivity
-import com.wisdom.passcode.util.*
+import com.wisdom.passcode.util.AlertUtil
+import com.wisdom.passcode.util.PrivacyUtil
+import com.wisdom.passcode.util.QrCodeUtils
+import com.wisdom.passcode.util.Tools
 import kotlinx.android.synthetic.main.activity_show_code.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -22,6 +25,12 @@ class ShowCodeActivity : BaseActivity() {
             Tools.startScanActivity(this, this,
                 QrManager.OnScanResultCallback { result -> toast(result.toString()) })
         }
+        //亮码记录点击事件
+        tv_right.setOnClickListener {
+            startActivity<ShowCodeRecordActivity>()
+        }
+
+
         //生成个人码
         createMyCode()
     }
@@ -45,11 +54,11 @@ class ShowCodeActivity : BaseActivity() {
             //用户名
             val name = SharedPreferenceUtil.getPersonalInfoModel(this).nickName
             tv_line_1.text = PrivacyUtil.nameDesensitization(name)
-            cb_eye.visibility= View.VISIBLE
+            cb_eye.visibility = View.VISIBLE
             cb_eye.setOnCheckedChangeListener { buttonView, isChecked ->
-                if(isChecked){
+                if (isChecked) {
                     tv_line_1.text = name
-                }else{
+                } else {
                     tv_line_1.text = PrivacyUtil.nameDesensitization(name)
                 }
             }

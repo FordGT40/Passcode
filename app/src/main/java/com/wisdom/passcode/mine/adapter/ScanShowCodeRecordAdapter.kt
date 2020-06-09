@@ -27,7 +27,7 @@ class ScanShowCodeRecordAdapter(
 
 
     inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvName = itemView.findViewById<TextView>(R.id.tv_card)
+        var tvName = itemView.findViewById<TextView>(R.id.tv_place)
         var tvDate = itemView.findViewById<TextView>(R.id.tv_date)
         var llDelete = itemView.findViewById<LinearLayout>(R.id.btnDelete)
     }

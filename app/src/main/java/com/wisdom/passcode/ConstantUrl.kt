@@ -66,19 +66,23 @@ class ConstantUrl {
         //更新手机号
         const val UPDATE_PHONE_URL = "/v1/user/updatePhone"
 
-//        16. 我的通行证
-        const val PASSCODE_MINE_URL="/v1/passCode/mine"
+        //        16. 我的通行证
+        const val PASSCODE_MINE_URL = "/v1/passCode/mine"
 
-//        17. 我的通行证申请记录
-        const val PASSCODE_APPLYLIST_URL="/v1/passCode/applyList"
+        //        17. 我的通行证申请记录
+        const val PASSCODE_APPLYLIST_URL = "/v1/passCode/applyList"
 
-//        11. 修改头像
-        const val USER_UPDATEAVATAR_URL="/v1/user/updateAvatar"
-//        12. 修改密码
-        const val USER_UPDATEPASSWORD_URL="/v1/user/updatePassword"
+        //        11. 修改头像
+        const val USER_UPDATEAVATAR_URL = "/v1/user/updateAvatar"
 
-//        14. 修改个人推送信息
-        const val USER_SETPUSHINFO_URL="/v1/user/setPushInfo"
+        //        12. 修改密码
+        const val USER_UPDATEPASSWORD_URL = "/v1/user/updatePassword"
+
+        //        14. 修改个人推送信息
+        const val USER_SETPUSHINFO_URL = "/v1/user/setPushInfo"
+
+        //        亮证记录
+        const val RECORD_SHOW_URL = "/v1/record/show"
 
     }
 

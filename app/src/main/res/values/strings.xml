@@ -211,6 +211,7 @@
     <string name="psw_empty_error">密码不能为空</string>
     <string name="reset_success">密码重置成功！</string>
     <string name="reapply">重新申请</string>
+    <string name="title_show_code_record">亮码记录</string>
 
 
 </resources>

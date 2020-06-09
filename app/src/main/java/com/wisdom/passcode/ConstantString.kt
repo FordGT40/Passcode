@@ -67,31 +67,40 @@ class ConstantString {
         const val SCAN_CODE_TYPE_ADMIN_SCAN_CAR_PASS = "4"//4：管理员扫车通行证
         const val SCAN_CODE_TYPE_ADMIN_SCAN_PLATE = "5"//5：管理员扫车牌号
 
-        const val SCAN_CODE_TYPE_IN="1"//出入类型  1：进入   2：离开
-        const val SCAN_CODE_TYPE_OUT="2"//出入类型  1：进入   2：离开
+        const val SCAN_CODE_TYPE_IN = "1"//出入类型  1：进入   2：离开
+        const val SCAN_CODE_TYPE_OUT = "2"//出入类型  1：进入   2：离开
 
-        const val SCAN_TYPE_SCAN="1"//扫码类型  1：扫码  2：通行证
-        const val SCAN_TYPE_LICENCE="2"//扫码类型  1：扫码  2：通行证
+        const val SCAN_TYPE_SCAN = "1"//扫码类型  1：扫码  2：通行证
+        const val SCAN_TYPE_LICENCE = "2"//扫码类型  1：扫码  2：通行证
 
-        const val PASS_CODE_TYPE_CAR="1"//我的通行证,查询类型----车辆证
-        const val PASS_CODE_TYPE_PERSON="2"//我的通行证,查询类型----通行证
-        const val PASS_CODE_TYPE_WORK="3"//我的通行证,查询类型----工作证
+        const val PASS_CODE_TYPE_CAR = "1"//我的通行证,查询类型----车辆证
+        const val PASS_CODE_TYPE_PERSON = "2"//我的通行证,查询类型----通行证
+        const val PASS_CODE_TYPE_WORK = "3"//我的通行证,查询类型----工作证
 
-        const val MY_CODE_PASS_TYPE_NORMAL="2"//通行日期类型1:工作日 2:无限制
-        const val MY_CODE_PASS_TYPE_WORKDAYS="1"//通行日期类型 1:工作日 2:无限制
+        const val MY_CODE_PASS_TYPE_NORMAL = "2"//通行日期类型1:工作日 2:无限制
+        const val MY_CODE_PASS_TYPE_WORKDAYS = "1"//通行日期类型 1:工作日 2:无限制
 
-        const val MY_APPLY_CARD_RECORD_UNDERCHECK="1"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
-        const val MY_APPLY_CARD_RECORD_USEING="2"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
-        const val MY_APPLY_CARD_RECORD_REFUSED="3"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
-        const val MY_APPLY_CARD_RECORD_OUT_OFF_DATE="4"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
-        const val MY_APPLY_CARD_RECORD_USELESS="5"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+        const val MY_APPLY_CARD_RECORD_UNDERCHECK =
+            "1"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+        const val MY_APPLY_CARD_RECORD_USEING =
+            "2"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+        const val MY_APPLY_CARD_RECORD_REFUSED =
+            "3"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+        const val MY_APPLY_CARD_RECORD_OUT_OFF_DATE =
+            "4"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
+        const val MY_APPLY_CARD_RECORD_USELESS =
+            "5"//我的卡(人员、车辆)申请记录----1.待审核 2.正常使用 3.被拒绝 4.已过期 5.已失效
 
-        const val PASSCODE_RECORD_TYPE_PERSON="1"//我的通行证申请记录 查询类型 1.车辆证  2.通行证
-        const val PASSCODE_RECORD_TYPE_CAR="2"//我的通行证申请记录 查询类型 1.车辆证  2.通行证
+        const val PASSCODE_RECORD_TYPE_PERSON = "1"//我的通行证申请记录 查询类型 1.车辆证  2.通行证
+        const val PASSCODE_RECORD_TYPE_CAR = "2"//我的通行证申请记录 查询类型 1.车辆证  2.通行证
 
-        const val DETAIL_PLACE_CARD="2"//由工作证跳详情页面
-        const val DETAIL_CAR_CARD="0"//由车辆出入证证跳详情页面
-        const val DETAIL_PERSON_CARD="1"//由人员出入证跳详情页面
+        const val DETAIL_PLACE_CARD = "2"//由工作证跳详情页面
+        const val DETAIL_CAR_CARD = "0"//由车辆出入证证跳详情页面
+        const val DETAIL_PERSON_CARD = "1"//由人员出入证跳详情页面
+
+        const val SHOW_CARD_RECORD_ALL = "0"//亮码记录--查询类型 0：全查  1：亮人员码  2：亮通行证
+        const val SHOW_CARD_RECORD_PERSON = "1"//亮码记录--查询类型 0：全查  1：亮人员码  2：亮通行证
+        const val SHOW_CARD_RECORD_PASSCODE = "2"//亮码记录--查询类型 0：全查  1：亮人员码  2：亮通行证
 
 
         var timeStamp = 0L//时间戳 初始值

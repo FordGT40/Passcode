@@ -1,12 +1,14 @@
 package com.wisdom.passcode.scanback.activity
 
 import android.view.View
+import com.google.gson.Gson
 import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
+import com.wisdom.passcode.scanback.model.ScanBackModel
 import com.wisdom.passcode.scanback.model.UploadScanFormModel
 import com.wisdom.passcode.util.*
 import com.wisdom.passcode.util.httpUtil.HttpUtil
@@ -96,7 +98,7 @@ class ScanBackMainActivity : BaseActivity() {
         tv_phoneNum.text = PrivacyUtil.phoneDesensitization(phoneNum)
 //提交按钮点击事件
         btn_submit.setOnClickListener {
-                submitData(placeCode)
+            submitData(placeCode)
         }
 
     }
@@ -164,17 +166,17 @@ class ScanBackMainActivity : BaseActivity() {
                     val msg = jsonObject!!.optString("msg")
                     if (code == 0) {
                         //获得数据、
-                        val jsonData = jsonObject.optJSONObject("data")
-                        val auth = jsonData.optString("auth")
-                        val black = jsonData.optString("black")
-                        val agree = jsonData.optString("agree")
-                        startActivity<CodeResultActivity>(
-                            "auth" to auth,
-                            "black" to black,
-                            "agree" to agree,
-                            "placeName" to tv_place_name.text.toString(),
-                            "type" to type
-                        )
+                        val jsonData = jsonObject.optString("data")
+                        val model = Gson().fromJson(jsonData, ScanBackModel::class.java)
+                        with(model) {
+                            startActivity<CodeResultActivity>(
+                                "auth" to auth,
+                                "black" to black,
+                                "agree" to agree,
+                                "placeName" to tv_place_name.text.toString(),
+                                "type" to type
+                            )
+                        }
                         finish()
                     } else {
                         toast(msg)

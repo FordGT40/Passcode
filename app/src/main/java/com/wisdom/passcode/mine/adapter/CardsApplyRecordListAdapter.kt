@@ -9,9 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.R
-import com.wisdom.passcode.homepage.model.CodeListModel
 import com.wisdom.passcode.mine.model.MyCardsApplyListModel
-import com.wisdom.passcode.mine.model.PlaceCodeRecordModel
 import com.wisdom.passcode.util.Tools
 
 /**
@@ -121,7 +119,7 @@ class CardsApplyRecordListAdapter(
         val tv_state: TextView
 
         init {
-            tv_name = itemView.findViewById(R.id.tv_card)
+            tv_name = itemView.findViewById(R.id.tv_place)
             tv_date = itemView.findViewById(R.id.tv_date)
             tv_hint = itemView.findViewById(R.id.tv_hint)
             tv_state = itemView.findViewById(R.id.tv_state)
