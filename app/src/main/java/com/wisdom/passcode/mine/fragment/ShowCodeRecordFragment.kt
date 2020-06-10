@@ -1,20 +1,18 @@
 package com.wisdom.passcode.mine.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
-
 import com.wisdom.passcode.R
 import com.wisdom.passcode.homepage.adapter.ShowCodeRecordAdapter
-import com.wisdom.passcode.homepage.model.CodeListModel
-import com.wisdom.passcode.homepage.model.ShowOrScanCodeRecordModel
+import com.wisdom.passcode.homepage.model.ShowCodeRecordModel
 import com.wisdom.passcode.util.Tools
 import com.wisdom.passcode.util.httpUtil.HttpUtil
 import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
@@ -23,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_show_code_record.*
 import okhttp3.Call
 import okhttp3.Response
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import org.json.JSONObject
 
 
@@ -36,7 +33,7 @@ class ShowCodeRecordFragment : Fragment() {
     private var page = 1
     private var pageSize = 10
     private lateinit var adapter: ShowCodeRecordAdapter
-    private var dataList: List<ShowOrScanCodeRecordModel> = ArrayList()
+    private var dataList: List<ShowCodeRecordModel> = ArrayList()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,11 +44,14 @@ class ShowCodeRecordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter=ShowCodeRecordAdapter(context!!,dataList,object :ShowCodeRecordAdapter.OnItemClickListener{
-            override fun onItemClick(item: CodeListModel?, isOutOffDate: String) {
-                //TODO 子项点击事件
-            }
-        })
+        adapter = ShowCodeRecordAdapter(
+            context!!,
+            dataList,
+            object : ShowCodeRecordAdapter.OnItemClickListener {
+                override fun onItemClick(item: ShowCodeRecordModel) {
+                    //TODO 子项点击事件
+                }
+            })
         recyclerView.setLinearLayout()
         recyclerView.setAdapter(adapter)
         recyclerView.setOnPullLoadMoreListener(object :
@@ -110,8 +110,8 @@ class ShowCodeRecordFragment : Fragment() {
                     if (code == 0) {
                         //访问成功，封装数据源
                         val jsonStr = jsonObject.optJSONObject("data").optString("list")
-                        val data = Gson().fromJson<List<ShowOrScanCodeRecordModel>>(jsonStr, object :
-                            TypeToken<List<ShowOrScanCodeRecordModel>>() {}.type)
+                        val data = Gson().fromJson<List<ShowCodeRecordModel>>(jsonStr, object :
+                            TypeToken<List<ShowCodeRecordModel>>() {}.type)
 
                         if (!data.isNullOrEmpty()) {
                             tv_nodata.visibility = View.GONE

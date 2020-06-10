@@ -10,7 +10,7 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.homepage.adapter.ShowCodeRecordAdapter
 import com.wisdom.passcode.homepage.model.CodeListModel
-import com.wisdom.passcode.homepage.model.ShowOrScanCodeRecordModel
+import com.wisdom.passcode.homepage.model.ShowCodeRecordModel
 import com.wisdom.passcode.util.Tools
 import com.wisdom.passcode.util.httpUtil.HttpUtil
 import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
@@ -25,13 +25,13 @@ class ShowCodeRecordActivity : BaseActivity() {
     private var page = 1
     private var pageSize = 10
     private lateinit var adapter: ShowCodeRecordAdapter
-    private var dataList: List<ShowOrScanCodeRecordModel> = ArrayList()
+    private var dataList: List<ShowCodeRecordModel> = ArrayList()
 
 
     override fun initViews() {
        setTitle(R.string.title_show_code_record)
         adapter=ShowCodeRecordAdapter(this,dataList,object :ShowCodeRecordAdapter.OnItemClickListener{
-            override fun onItemClick(item: CodeListModel?, isOutOffDate: String) {
+            override fun onItemClick(item: ShowCodeRecordModel) {
                 //TODO 子项点击事件
             }
         })
@@ -99,8 +99,8 @@ class ShowCodeRecordActivity : BaseActivity() {
                     if (code == 0) {
                         //访问成功，封装数据源
                         val jsonStr = jsonObject.optJSONObject("data").optString("list")
-                        val data = Gson().fromJson<List<ShowOrScanCodeRecordModel>>(jsonStr, object :
-                            TypeToken<List<ShowOrScanCodeRecordModel>>() {}.type)
+                        val data = Gson().fromJson<List<ShowCodeRecordModel>>(jsonStr, object :
+                            TypeToken<List<ShowCodeRecordModel>>() {}.type)
 
                         if (!data.isNullOrEmpty()) {
                             tv_nodata.visibility = View.GONE

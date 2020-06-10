@@ -84,7 +84,7 @@ class MineFragment : Fragment(), View.OnClickListener {
             }
             R.id.rl_scan_show_record -> {
                 //扫码、亮码记录
-                startActivity<ScanShowCodeRecordActivity>()
+                startActivity<ScanOrShowCodeRecordActivity>()
             }
             R.id.btn_search -> {
                 //退出登录

@@ -84,6 +84,9 @@ class ConstantUrl {
         //        亮证记录
         const val RECORD_SHOW_URL = "/v1/record/show"
 
+        //扫码记录
+        const val RECORD_SCAN_URL = "/v1/record/scan"
+
     }
 
 }

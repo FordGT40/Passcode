@@ -103,8 +103,9 @@ class ConstantString {
         const val SHOW_CARD_RECORD_PASSCODE = "2"//亮码记录--查询类型 0：全查  1：亮人员码  2：亮通行证
 
         const val SCAN_CARD_RECORD_ALL = "0"//31. 扫码记录--查询类型 0全部 1:身为管理员扫用户 2:身为用户扫场所码
-        const val SCAN_CARD_RECORD_PERSON = "1"//扫码记录--查询类型 0全部 1:身为管理员扫用户 2:身为用户扫场所码
-        const val SCAN_CARD_RECORD_PASSCODE = "2"//扫码记录--查询类型 0全部 1:身为管理员扫用户 2:身为用户扫场所码
+        const val SCAN_CARD_RECORD_ADMIN = "1"//扫码记录--查询类型 0全部 1:身为管理员扫用户 2:身为用户扫场所码
+        const val SCAN_CARD_RECORD_USER = "2"//扫码记录--查询类型 0全部 1:身为管理员扫用户 2:身为用户扫场所码
+
 
 
         var timeStamp = 0L//时间戳 初始值

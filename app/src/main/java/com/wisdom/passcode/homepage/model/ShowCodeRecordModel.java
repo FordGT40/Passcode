@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @time 2020/6/9 0009 16:00
  * @change
  */
-public class ShowOrScanCodeRecordModel implements Serializable {
+public class ShowCodeRecordModel implements Serializable {
 
 
     /**
