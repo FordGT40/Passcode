@@ -56,7 +56,7 @@ class ShowCodeRecordAdapter(
             holder.tv_place.text = placeName
             val typeStr = when (type) {
                 "1" -> "进入"
-                "2" -> "外出"
+                "2" -> "离开"
                 else -> "经过"
             }
             holder.tv_date.text = "${sp.format(scanDate.toLong())} $typeStr"

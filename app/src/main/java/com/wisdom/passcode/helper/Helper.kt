@@ -5,6 +5,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.Button
@@ -364,7 +366,8 @@ class Helper {
                         val code = jsonObject?.optInt("code")
                         if (code == 0) {
                             val data = jsonObject.optString("data")
-                            val locationModelList = Gson().fromJson<List<LocationModel>>(data,
+                            val locationModelList = Gson().fromJson<List<LocationModel>>(
+                                data,
                                 object : TypeToken<List<LocationModel>>() {}.type
                             )
                         } else {
@@ -380,31 +383,35 @@ class Helper {
          * 将channelId传递到后台。
          * @param channelId
          */
-         fun setChannelId(channelId: String) {
-            val params=HttpParams()
-            params.put("channelId",channelId)
-            params.put("channelType","1")
-            val paramsList= listOf("channelId$channelId","channelType1").toMutableList()
-            HttpUtil.httpPostWithStampAndSignToken(ConstantUrl.USER_SETPUSHINFO_URL,params,paramsList,object :StringsCallback(object:OnTokenRefreshSuccessListener{
-                override fun onRefreshSuccess() {
-                    setChannelId(channelId)
-                }
+        fun setChannelId(channelId: String) {
+            val params = HttpParams()
+            params.put("channelId", channelId)
+            params.put("channelType", "1")
+            val paramsList = listOf("channelId$channelId", "channelType1").toMutableList()
+            HttpUtil.httpPostWithStampAndSignToken(
+                ConstantUrl.USER_SETPUSHINFO_URL,
+                params,
+                paramsList,
+                object : StringsCallback(object : OnTokenRefreshSuccessListener {
+                    override fun onRefreshSuccess() {
+                        setChannelId(channelId)
+                    }
 
-                override fun onRefreshFail(msg: String?) {
-                   LogUtil.getInstance().e(msg)
-                }
-            }){
-                override fun onInterfaceSuccess(
-                    jsonObject: JSONObject?,
-                    call: Call?,
-                    response: Response?
-                ) {
-                   val code=jsonObject!!.optInt("code")
-                   val msg=jsonObject!!.optString("msg")
-                    LogUtil.getInstance().e("绑定channelId：$code")
-                    LogUtil.getInstance().e("绑定channelId：$msg")
-                }
-            })
+                    override fun onRefreshFail(msg: String?) {
+                        LogUtil.getInstance().e(msg)
+                    }
+                }) {
+                    override fun onInterfaceSuccess(
+                        jsonObject: JSONObject?,
+                        call: Call?,
+                        response: Response?
+                    ) {
+                        val code = jsonObject!!.optInt("code")
+                        val msg = jsonObject!!.optString("msg")
+                        LogUtil.getInstance().e("绑定channelId：$code")
+                        LogUtil.getInstance().e("绑定channelId：$msg")
+                    }
+                })
         }
 
         fun setMargins(v: View, l: Int, t: Int, r: Int, b: Int) {
@@ -415,13 +422,31 @@ class Helper {
             }
         }
 
+        /**
+         *  @describe 监测页面的滚动情况
+         *  @return
+         *  @author HanXueFeng
+         *  @time 2020/6/10 0010  09:50
+         */
+        fun detectPageScroll(context: Context, view: View, listener: OnScrollPageListener) {
+            val gesDetector = GestureDetector(context, GestureSmoothDetector(listener))
+            view.setOnTouchListener { _, event ->
+                gesDetector.onTouchEvent(event)
+                true
+            }
+        }
+
     }
-
-
 
 
     interface OnPersonalInfoCompletedListener {
         fun onPersonalInfoCompleted()
+    }
+
+    interface OnScrollPageListener {
+        fun onPageUp()
+        fun onPageDown()
+        fun onOthers()
     }
 
 }

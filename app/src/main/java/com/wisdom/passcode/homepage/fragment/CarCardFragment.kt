@@ -12,6 +12,7 @@ import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
+import com.wisdom.passcode.helper.Helper
 import com.wisdom.passcode.homepage.activity.CardDetailActivity
 import com.wisdom.passcode.homepage.adapter.CarCardListAdapter
 import com.wisdom.passcode.homepage.model.CodeListModel
@@ -72,6 +73,7 @@ class CarCardFragment : Fragment() {
                 getCardsData(ConstantString.RECYCLER_PULL_REFRESH)
             }
         })
+
         getCardsData(ConstantString.RECYCLER_PULL_REFRESH)
 
     }
@@ -129,12 +131,14 @@ class CarCardFragment : Fragment() {
                         val data = Gson().fromJson<List<CodeListModel>>(jsonStr, object :
                             TypeToken<List<CodeListModel>>() {}.type)
 
+
                         if (!data.isNullOrEmpty()) {
                             tv_nodata.visibility = View.GONE
                             if (pullFlag == ConstantString.RECYCLER_PULL_REFRESH) {
                                 //刷新
                                 recyclerView.setPullLoadMoreCompleted()
                                 adapter.refreshData(data)
+                                rl_no_more_data.visibility = View.GONE
                             } else {
                                 //加载更多
                                 recyclerView.setPullLoadMoreCompleted()
@@ -144,6 +148,7 @@ class CarCardFragment : Fragment() {
                             recyclerView.setPullLoadMoreCompleted()
                             if (pullFlag == ConstantString.RECYCLER_PULL_LOADMORE) {
                                 toast(R.string.no_more_data)
+                                rl_no_more_data.visibility = View.VISIBLE
                             } else {
                                 tv_nodata.visibility = View.VISIBLE
                             }

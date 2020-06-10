@@ -1,13 +1,17 @@
-package com.wisdom.passcode.homepage.activity
+package com.wisdom.passcode.mine.fragment
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
+
 import com.wisdom.passcode.R
-import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.homepage.adapter.ShowCodeRecordAdapter
 import com.wisdom.passcode.homepage.model.CodeListModel
 import com.wisdom.passcode.homepage.model.ShowOrScanCodeRecordModel
@@ -15,22 +19,35 @@ import com.wisdom.passcode.util.Tools
 import com.wisdom.passcode.util.httpUtil.HttpUtil
 import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
-import kotlinx.android.synthetic.main.fragment_place_card.*
+import kotlinx.android.synthetic.main.fragment_show_code_record.*
 import okhttp3.Call
 import okhttp3.Response
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 
-class ShowCodeRecordActivity : BaseActivity() {
+
+/**
+ * A simple [Fragment] subclass.
+ * Use the [ShowCodeRecordFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class ShowCodeRecordFragment : Fragment() {
     private var page = 1
     private var pageSize = 10
     private lateinit var adapter: ShowCodeRecordAdapter
     private var dataList: List<ShowOrScanCodeRecordModel> = ArrayList()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
+        return inflater.inflate(R.layout.fragment_show_code_record, container, false)
+    }
 
-    override fun initViews() {
-       setTitle(R.string.title_show_code_record)
-        adapter=ShowCodeRecordAdapter(this,dataList,object :ShowCodeRecordAdapter.OnItemClickListener{
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        adapter=ShowCodeRecordAdapter(context!!,dataList,object :ShowCodeRecordAdapter.OnItemClickListener{
             override fun onItemClick(item: CodeListModel?, isOutOffDate: String) {
                 //TODO 子项点击事件
             }
@@ -50,13 +67,7 @@ class ShowCodeRecordActivity : BaseActivity() {
             }
         })
         getRecordsData(ConstantString.RECYCLER_PULL_REFRESH)
-
     }
-
-    override fun setlayoutIds() {
-        setContentView(R.layout.activity_show_code_record)
-    }
-
 
     /**
      *  @describe 获取“亮码记录”数据
@@ -69,11 +80,11 @@ class ShowCodeRecordActivity : BaseActivity() {
         val params = HttpParams()
         params.put("pageSize", pageSize)
         params.put("pageNum", page)
-        params.put("type", ConstantString.SHOW_CARD_RECORD_PERSON)
+        params.put("type", ConstantString.SHOW_CARD_RECORD_ALL)
         val paramsList = listOf(
             "pageSize$pageSize",
             "pageNum$page",
-            "type${ConstantString.SHOW_CARD_RECORD_PERSON}"
+            "type${ConstantString.SHOW_CARD_RECORD_ALL}"
         ).toMutableList()
         HttpUtil.httpPostWithStampAndSignToken(
             ConstantUrl.RECORD_SHOW_URL,
@@ -128,4 +139,5 @@ class ShowCodeRecordActivity : BaseActivity() {
                 }
             })
     }
+
 }

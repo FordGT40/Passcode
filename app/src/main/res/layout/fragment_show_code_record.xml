@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mine.fragment.ShowCodeRecordFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foregroundGravity="center">
+
+        <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv_nodata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/image_empty"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/no_data"
+            android:textColor="@color/textcolor"
+            android:textSize="@dimen/sp_18"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

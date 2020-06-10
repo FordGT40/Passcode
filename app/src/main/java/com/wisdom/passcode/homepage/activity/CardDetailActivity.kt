@@ -12,6 +12,7 @@ import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.homepage.model.CodeListModel
 import com.wisdom.passcode.util.EncrypAndDecrypUtil
+import com.wisdom.passcode.util.PrivacyUtil
 import com.wisdom.passcode.util.QrCodeUtils
 import kotlinx.android.synthetic.main.activity_card_detail.*
 import org.jetbrains.anko.startActivity
@@ -19,12 +20,13 @@ import java.text.SimpleDateFormat
 
 class CardDetailActivity : BaseActivity(), View.OnClickListener {
 
-    var tag=""
+    var tag = ""
+
     @SuppressLint("SimpleDateFormat")
     override fun initViews() {
         iv_close.setOnClickListener { finish() }
         val ifDateOf = intent.getStringExtra("outOffDate")
-         tag = intent.getStringExtra("tag")
+        tag = intent.getStringExtra("tag")
         val data = intent.extras.getSerializable("data") as CodeListModel
         //生成二维码
         //对placeId进行加密操作
@@ -61,6 +63,7 @@ class CardDetailActivity : BaseActivity(), View.OnClickListener {
             ConstantString.DETAIL_CAR_CARD -> {
                 //车辆通行证
                 with(data) {
+                    cb_eye.visibility = View.GONE
                     tv_line_1.text = "【${carNumber}】车辆出入证"
                     val limit = when (codeTypeDataType) {
                         MY_CODE_PASS_TYPE_WORKDAYS -> {
@@ -105,8 +108,17 @@ class CardDetailActivity : BaseActivity(), View.OnClickListener {
             ConstantString.DETAIL_PERSON_CARD -> {
                 //人员通行证
                 with(data) {
-                    tv_line_1.text =
-                        "【${SharedPreferenceUtil.getPersonalInfoModel(this@CardDetailActivity).nickName}】人员出入证"
+                    //设置脱敏信息可以自由切换
+                    val name =
+                        SharedPreferenceUtil.getPersonalInfoModel(this@CardDetailActivity).nickName
+                    tv_line_1.text = "【${PrivacyUtil.nameDesensitization(name)}】人员出入证"
+                    cb_eye.setOnCheckedChangeListener { buttonView, isChecked ->
+                        if (isChecked) {
+                            tv_line_1.text = "【$name】人员出入证"
+                        } else {
+                            tv_line_1.text = "【${PrivacyUtil.nameDesensitization(name)}】人员出入证"
+                        }
+                    }
                     val limit = when (codeTypeDataType) {
                         MY_CODE_PASS_TYPE_WORKDAYS -> {
                             "工作日"
@@ -147,8 +159,17 @@ class CardDetailActivity : BaseActivity(), View.OnClickListener {
             ConstantString.DETAIL_PLACE_CARD -> {
                 //工作证
                 //设置前两行信息
-                val name = SharedPreferenceUtil.getPersonalInfoModel(this).nickName
-                tv_line_1.text = "【${name}】工作证"
+                //设置脱敏信息可以自由切换
+                val name =
+                    SharedPreferenceUtil.getPersonalInfoModel(this@CardDetailActivity).nickName
+                tv_line_1.text = "【${PrivacyUtil.nameDesensitization(name)}】工作证"
+                cb_eye.setOnCheckedChangeListener { buttonView, isChecked ->
+                    if (isChecked) {
+                        tv_line_1.text = "【$name】工作证"
+                    } else {
+                        tv_line_1.text = "【${PrivacyUtil.nameDesensitization(name)}】工作证"
+                    }
+                }
                 if (data.postName.isNullOrEmpty()) {
                     tv_line_2.text = data.deptName
                 } else {
@@ -170,21 +191,21 @@ class CardDetailActivity : BaseActivity(), View.OnClickListener {
      *  @time 2020/6/9 0009  17:08
      */
     override fun onClick(v: View?) {
-       when(v!!.id){
-           R.id.tv_reapplay,R.id.btn_reapply->{
+        when (v!!.id) {
+            R.id.tv_reapplay, R.id.btn_reapply -> {
 //               重新申请按钮点击事件
-               when(tag){
-                   ConstantString.DETAIL_CAR_CARD->{
-                       //车辆通行证重新申请
-                       startActivity<CarCardApplyActivity>()
-                   }
-                   ConstantString.DETAIL_PERSON_CARD->{
-                       //人员通行证重新申请
-                       startActivity<PersonCardApplyActivity>()
-                   }
-               }
-           }
-       }
+                when (tag) {
+                    ConstantString.DETAIL_CAR_CARD -> {
+                        //车辆通行证重新申请
+                        startActivity<CarCardApplyActivity>()
+                    }
+                    ConstantString.DETAIL_PERSON_CARD -> {
+                        //人员通行证重新申请
+                        startActivity<PersonCardApplyActivity>()
+                    }
+                }
+            }
+        }
     }
 
 

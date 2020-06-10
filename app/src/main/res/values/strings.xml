@@ -212,6 +212,9 @@
     <string name="reset_success">密码重置成功！</string>
     <string name="reapply">重新申请</string>
     <string name="title_show_code_record">亮码记录</string>
+    <string name="title_scan_or_show_record">扫码/亮码记录</string>
+    <string name="tab_text_show">亮码</string>
+    <string name="tab_text_scan">扫码</string>
 
 
 </resources>

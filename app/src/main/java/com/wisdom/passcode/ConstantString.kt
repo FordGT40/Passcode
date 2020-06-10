@@ -102,6 +102,10 @@ class ConstantString {
         const val SHOW_CARD_RECORD_PERSON = "1"//亮码记录--查询类型 0：全查  1：亮人员码  2：亮通行证
         const val SHOW_CARD_RECORD_PASSCODE = "2"//亮码记录--查询类型 0：全查  1：亮人员码  2：亮通行证
 
+        const val SCAN_CARD_RECORD_ALL = "0"//31. 扫码记录--查询类型 0全部 1:身为管理员扫用户 2:身为用户扫场所码
+        const val SCAN_CARD_RECORD_PERSON = "1"//扫码记录--查询类型 0全部 1:身为管理员扫用户 2:身为用户扫场所码
+        const val SCAN_CARD_RECORD_PASSCODE = "2"//扫码记录--查询类型 0全部 1:身为管理员扫用户 2:身为用户扫场所码
+
 
         var timeStamp = 0L//时间戳 初始值
         var accessToken = ""//短时间token
@@ -111,6 +115,7 @@ class ConstantString {
         var loginState = false//系统的登录状态
         var userPhone = ""//当前登录用户的手机号
         var PIC_LOCATE = "" //拍照后图片缓存的地址
+
 
 
         val LICENCEPAPER =

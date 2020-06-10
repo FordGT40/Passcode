@@ -1,4 +1,4 @@
-package com.wisdom.passcode.homepage.activity
+package com.wisdom.passcode.mine.activity
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -6,32 +6,27 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
-import com.wisdom.passcode.homepage.fragment.CarCardFragment
-import com.wisdom.passcode.homepage.fragment.PersonCardFragment
-import com.wisdom.passcode.homepage.fragment.PlaceCardFragment
-import kotlinx.android.synthetic.main.activity_my_cards.*
+import com.wisdom.passcode.mine.fragment.ScanCodeRecordFragment
+import com.wisdom.passcode.mine.fragment.ShowCodeRecordFragment
+import kotlinx.android.synthetic.main.activity_apply_record_list.*
 
-
-class MyCardsActivity : BaseActivity() {
-    //Fragment 数组
-    private val TAB_FRAGMENTS = arrayOf(
-        PlaceCardFragment(), PersonCardFragment(), CarCardFragment()
-    )
-
+class ScanOrShowCodeRecordActivity : BaseActivity() {
     val tabString = arrayOf(
-        R.string.tab_text_3, R.string.tab_text_2, R.string.tab_text_1
+        R.string.tab_text_show, R.string.tab_text_scan
+    )
+    private val TAB_FRAGMENTS = arrayOf(
+        ShowCodeRecordFragment(), ScanCodeRecordFragment()
     )
 
     override fun initViews() {
-        setTitle(R.string.title_my_cards)
+        setTitle(R.string.title_scan_or_show_record)
 
     }
 
     override fun setlayoutIds() {
-        setContentView(R.layout.activity_my_cards)
+        setContentView(R.layout.activity_scan_or_show_code_record)
         mEnhanceTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
@@ -51,9 +46,8 @@ class MyCardsActivity : BaseActivity() {
             ColorStateList.valueOf(Color.parseColor("#00ffffff"))
         val adapter = MyViewPagerAdapter(supportFragmentManager)
         mViewPager.adapter = adapter
-        mViewPager.addOnPageChangeListener(TabLayoutOnPageChangeListener(mEnhanceTabLayout.tabLayout))
+        mViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(mEnhanceTabLayout.tabLayout))
         mEnhanceTabLayout.setupWithViewPager(mViewPager)
-
     }
 
     /**

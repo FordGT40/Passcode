@@ -30,8 +30,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".homepage.activity.ShowCodeRecordActivity"></activity>
-        <!-- push 应用定义消息 receiver 声明 -->
+        <activity android:name=".mine.activity.ScanOrShowCodeRecordActivity"></activity>
+        <activity android:name=".homepage.activity.ShowCodeRecordActivity" /> <!-- push 应用定义消息 receiver 声明 -->
         <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
             android:process=":bdservice_v1">
