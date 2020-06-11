@@ -31,6 +31,7 @@ class ConstantString {
         const val APP_SECRET = "androidsecret"
         const val IS_FIRST_LOAD = "firstLoad"
         const val USER_INFO = "user_info"//存储用户模型常量
+        const val SCAN_INFO = "scan_info"//存储当次提交过后的信息常量
         const val USER_STATE_TRUE = "1"//用户实名状态：已实名
         const val USER_STATE_FALSE = "0"//用户实名状态：未实名
         const val BROADCAST_FINISH_TAG = "finish"//广播标识，用来关闭某页面

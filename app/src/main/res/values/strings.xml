@@ -215,6 +215,9 @@
     <string name="title_scan_or_show_record">扫码/亮码记录</string>
     <string name="tab_text_show">亮码</string>
     <string name="tab_text_scan">扫码</string>
+    <string name="title_scan_success">提交申请成功</string>
+    <string name="title_agree_success">审核申请信息</string>
+    <string name="apply_again_success">请求成功,请等待回复</string>
 
 
 </resources>

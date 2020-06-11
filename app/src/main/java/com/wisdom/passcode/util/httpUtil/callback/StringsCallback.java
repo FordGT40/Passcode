@@ -7,6 +7,7 @@ import com.wisdom.passcode.AppApplication;
 import com.wisdom.passcode.ConstantString;
 import com.wisdom.passcode.base.SharedPreferenceUtil;
 import com.wisdom.passcode.util.LogUtil;
+import com.wisdom.passcode.util.Tools;
 import com.wisdom.passcode.util.httpUtil.HttpUtil;
 
 import org.json.JSONException;
@@ -42,15 +43,18 @@ public abstract class StringsCallback extends StringCallback {
                         super.onError(call, response, e);
                         if (listener != null) {
                             listener.onRefreshFail(e.getMessage());
+                            Tools.Companion.closeDialog();
                         }
                     }
 
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
                         try {
+                            Tools.Companion.closeDialog();
                             JSONObject jsonObject1 = new JSONObject(s);
                             int code = jsonObject1.optInt("code");
                             if (code == 0) {
+
                                 //刷新Token成功，解析返回数据中的token
                                 JSONObject jsonObject2 = jsonObject1.optJSONObject("data");
                                 String accessToken = jsonObject2.optString("accessToken");
@@ -62,10 +66,13 @@ public abstract class StringsCallback extends StringCallback {
                                 editor.putString("accessToken", accessToken);
                                 editor.putString("refreshToken", refreshToken);
                                 editor.apply();
+                                Tools.Companion.closeDialog();
+                                listener.onRefreshSuccess();
                                 //
                             } else {
                                 //刷新Token失败，将失败原因回调到业务处理部分
                                 if (listener != null) {
+                                    Tools.Companion.closeDialog();
                                     listener.onRefreshFail(HttpUtil.Companion.getErrorMsgByCode(code + ""));
                                     LogUtil.getInstance().e(HttpUtil.Companion.getErrorMsgByCode(code + ""));
                                 }

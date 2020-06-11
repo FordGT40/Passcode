@@ -218,7 +218,7 @@
                     android:background="@null"
                     android:hint="@string/hint_contact_phone"
                     android:inputType="phone"
-                    android:text="15045689372"
+                    android:text="13999999999"
                     android:textColor="@color/textcolor"
                     android:textColorHint="@color/ysf_grey_999999"
                     android:textSize="@dimen/sp_15" />

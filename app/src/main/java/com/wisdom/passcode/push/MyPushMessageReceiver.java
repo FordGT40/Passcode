@@ -1,25 +1,30 @@
 package com.wisdom.passcode.push;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
-import com.lzy.okgo.model.HttpParams;
+import com.google.gson.Gson;
+import com.wisdom.passcode.base.SharedPreferenceUtil;
 import com.wisdom.passcode.helper.Helper;
-import com.wisdom.passcode.util.LogUtil;
+import com.wisdom.passcode.scanback.activity.AgreeAccessActivity;
+import com.wisdom.passcode.scanback.activity.CodeResultActivity;
+import com.wisdom.passcode.scanback.model.ScanBackModel;
+import com.wisdom.passcode.util.ToastUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 /*
- * Pushæ¶ˆæ¯å¤„ç†receiverã€‚è¯·ç¼–å†™æ‚¨éœ€è¦çš„å›è°ƒå‡½æ•°ï¼Œ ä¸€èˆ¬æ¥è¯´ï¼š onBindæ˜¯å¿…é¡»çš„ï¼Œç”¨æ¥å¤„ç†startWorkè¿”å›å€¼ï¼›
- * onMessageç”¨æ¥æ¥æ”¶é€ä¼ æ¶ˆæ¯ï¼› onSetTagsã€onDelTagsã€onListTagsæ˜¯tagç›¸å…³æ“ä½œçš„å›è°ƒï¼›
- * onNotificationClickedåœ¨é€šçŸ¥è¢«ç‚¹å‡»æ—¶å›è°ƒï¼› onUnbindæ˜¯stopWorkæ¥å£çš„è¿”å›å€¼å›è°ƒ
- * è¿”å›å€¼ä¸­çš„errorCodeï¼Œè§£é‡Šå¦‚ä¸‹ï¼š
+ * PushÏûÏ¢´¦Àíreceiver¡£Çë±àĞ´ÄúĞèÒªµÄ»Øµ÷º¯Êı£¬ Ò»°ãÀ´Ëµ£º onBindÊÇ±ØĞëµÄ£¬ÓÃÀ´´¦ÀístartWork·µ»ØÖµ£»
+ * onMessageÓÃÀ´½ÓÊÕÍ¸´«ÏûÏ¢£» onSetTags¡¢onDelTags¡¢onListTagsÊÇtagÏà¹Ø²Ù×÷µÄ»Øµ÷£»
+ * onNotificationClickedÔÚÍ¨Öª±»µã»÷Ê±»Øµ÷£» onUnbindÊÇstopWork½Ó¿ÚµÄ·µ»ØÖµ»Øµ÷
+ * ·µ»ØÖµÖĞµÄerrorCode£¬½âÊÍÈçÏÂ£º
  * 0 - Success
  * 10001 - Network Problem
  * 10101 - Integrate Check Error
@@ -33,9 +38,10 @@ import java.util.List;
  * 30607 - Channel Token Timeout
  * 30608 - Bind Relation Not Found
  * 30609 - Bind Number Too Many
- * å½“æ‚¨é‡åˆ°ä»¥ä¸Šè¿”å›é”™è¯¯æ—¶ï¼Œå¦‚æœè§£é‡Šä¸äº†æ‚¨çš„é—®é¢˜ï¼Œè¯·ç”¨åŒä¸€è¯·æ±‚çš„è¿”å›å€¼requestIdå’ŒerrorCodeè”ç³»æˆ‘ä»¬è¿½æŸ¥é—®é¢˜ã€‚
+ * µ±ÄúÓöµ½ÒÔÉÏ·µ»Ø´íÎóÊ±£¬Èç¹û½âÊÍ²»ÁËÄúµÄÎÊÌâ£¬ÇëÓÃÍ¬Ò»ÇëÇóµÄ·µ»ØÖµrequestIdºÍerrorCodeÁªÏµÎÒÃÇ×·²éÎÊÌâ¡£
  *
  */
+
 
 public class MyPushMessageReceiver extends PushMessageReceiver {
     /**
@@ -45,16 +51,16 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
             .getSimpleName();
 
     /**
-     * è°ƒç”¨PushManager.startWorkåï¼Œsdkå°†å¯¹push
-     * serverå‘èµ·ç»‘å®šè¯·æ±‚ï¼Œè¿™ä¸ªè¿‡ç¨‹æ˜¯å¼‚æ­¥çš„ã€‚ç»‘å®šè¯·æ±‚çš„ç»“æœé€šè¿‡onBindè¿”å›ã€‚ å¦‚æœæ‚¨éœ€è¦ç”¨å•æ’­æ¨é€ï¼Œéœ€è¦æŠŠè¿™é‡Œè·å–çš„channel
-     * idå’Œuser idä¸Šä¼ åˆ°åº”ç”¨serverä¸­ï¼Œå†è°ƒç”¨serveræ¥å£ç”¨channel idå’Œuser idç»™å•ä¸ªæ‰‹æœºæˆ–è€…ç”¨æˆ·æ¨é€ã€‚
+     * µ÷ÓÃPushManager.startWorkºó£¬sdk½«¶Ôpush
+     * server·¢Æğ°ó¶¨ÇëÇó£¬Õâ¸ö¹ı³ÌÊÇÒì²½µÄ¡£°ó¶¨ÇëÇóµÄ½á¹ûÍ¨¹ıonBind·µ»Ø¡£ Èç¹ûÄúĞèÒªÓÃµ¥²¥ÍÆËÍ£¬ĞèÒª°ÑÕâÀï»ñÈ¡µÄchannel
+     * idºÍuser idÉÏ´«µ½Ó¦ÓÃserverÖĞ£¬ÔÙµ÷ÓÃserver½Ó¿ÚÓÃchannel idºÍuser id¸øµ¥¸öÊÖ»ú»òÕßÓÃ»§ÍÆËÍ¡£
      *
-     * @param context   BroadcastReceiverçš„æ‰§è¡ŒContext
-     * @param errorCode ç»‘å®šæ¥å£è¿”å›å€¼ï¼Œ0 - æˆåŠŸ
-     * @param appid     åº”ç”¨idã€‚errorCodeé0æ—¶ä¸ºnull
-     * @param userId    åº”ç”¨user idã€‚errorCodeé0æ—¶ä¸ºnull
-     * @param channelId åº”ç”¨channel idã€‚errorCodeé0æ—¶ä¸ºnull
-     * @param requestId å‘æœåŠ¡ç«¯å‘èµ·çš„è¯·æ±‚idã€‚åœ¨è¿½æŸ¥é—®é¢˜æ—¶æœ‰ç”¨ï¼›
+     * @param context   BroadcastReceiverµÄÖ´ĞĞContext
+     * @param errorCode °ó¶¨½Ó¿Ú·µ»ØÖµ£¬0 - ³É¹¦
+     * @param appid     Ó¦ÓÃid¡£errorCode·Ç0Ê±Îªnull
+     * @param userId    Ó¦ÓÃuser id¡£errorCode·Ç0Ê±Îªnull
+     * @param channelId Ó¦ÓÃchannel id¡£errorCode·Ç0Ê±Îªnull
+     * @param requestId Ïò·şÎñ¶Ë·¢ÆğµÄÇëÇóid¡£ÔÚ×·²éÎÊÌâÊ±ÓĞÓÃ£»
      * @return none
      */
     @Override
@@ -66,33 +72,29 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         Log.d(TAG, responseString);
 
         if (errorCode == 0) {
-            // ç»‘å®šæˆåŠŸ
-            Log.d(TAG, "ç»‘å®šæˆåŠŸ");
-            //å°†ç™¾åº¦è¿”å›çš„ç»‘å®šå‚æ•°æ·»åŠ åˆ°åå°æ¥å£ä¸­
             Helper.Companion.setChannelId(channelId);
+            // °ó¶¨³É¹¦
+            Log.d(TAG, "°ó¶¨³É¹¦");
         }
-        // Demoæ›´æ–°ç•Œé¢å±•ç¤ºä»£ç ï¼Œåº”ç”¨è¯·åœ¨è¿™é‡ŒåŠ å…¥è‡ªå·±çš„å¤„ç†é€»è¾‘
-        updateContent(context, responseString);
+        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+
     }
 
-
-
-
     /**
-     * æ¥æ”¶é€ä¼ æ¶ˆæ¯çš„å‡½æ•°ã€‚
+     * ½ÓÊÕÍ¸´«ÏûÏ¢µÄº¯Êı¡£
      *
-     * @param context             ä¸Šä¸‹æ–‡
-     * @param message             æ¨é€çš„æ¶ˆæ¯
-     * @param customContentString è‡ªå®šä¹‰å†…å®¹,ä¸ºç©ºæˆ–è€…jsonå­—ç¬¦ä¸²
+     * @param context             ÉÏÏÂÎÄ
+     * @param message             ÍÆËÍµÄÏûÏ¢
+     * @param customContentString ×Ô¶¨ÒåÄÚÈİ,Îª¿Õ»òÕßjson×Ö·û´®
      */
     @Override
     public void onMessage(Context context, String message,
                           String customContentString) {
-        String messageString = "é€ä¼ æ¶ˆæ¯ onMessage=\"" + message
+        String messageString = "Í¸´«ÏûÏ¢ onMessage=\"" + message
                 + "\" customContentString=" + customContentString;
         Log.d(TAG, messageString);
 
-        // è‡ªå®šä¹‰å†…å®¹è·å–æ–¹å¼ï¼Œmykeyå’Œmyvalueå¯¹åº”é€ä¼ æ¶ˆæ¯æ¨é€æ—¶è‡ªå®šä¹‰å†…å®¹ä¸­è®¾ç½®çš„é”®å’Œå€¼
+        // ×Ô¶¨ÒåÄÚÈİ»ñÈ¡·½Ê½£¬mykeyºÍmyvalue¶ÔÓ¦Í¸´«ÏûÏ¢ÍÆËÍÊ±×Ô¶¨ÒåÄÚÈİÖĞÉèÖÃµÄ¼üºÍÖµ
         if (!TextUtils.isEmpty(customContentString)) {
             JSONObject customJson = null;
             try {
@@ -106,68 +108,29 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
             }
         }
 
-        // Demoæ›´æ–°ç•Œé¢å±•ç¤ºä»£ç ï¼Œåº”ç”¨è¯·åœ¨è¿™é‡ŒåŠ å…¥è‡ªå·±çš„å¤„ç†é€»è¾‘
-        updateContent(context, messageString);
+        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+
     }
 
     /**
-     * æ¥æ”¶é€šçŸ¥åˆ°è¾¾çš„å‡½æ•°ã€‚
+     * ½ÓÊÕÍ¨Öªµ½´ïµÄº¯Êı¡£
      *
-     * @param context             ä¸Šä¸‹æ–‡
-     * @param title               æ¨é€çš„é€šçŸ¥çš„æ ‡é¢˜
-     * @param description         æ¨é€çš„é€šçŸ¥çš„æè¿°
-     * @param customContentString è‡ªå®šä¹‰å†…å®¹ï¼Œä¸ºç©ºæˆ–è€…jsonå­—ç¬¦ä¸²
+     * @param context             ÉÏÏÂÎÄ
+     * @param title               ÍÆËÍµÄÍ¨ÖªµÄ±êÌâ
+     * @param description         ÍÆËÍµÄÍ¨ÖªµÄÃèÊö
+     * @param customContentString ×Ô¶¨ÒåÄÚÈİ£¬Îª¿Õ»òÕßjson×Ö·û´®
      */
 
     @Override
     public void onNotificationArrived(Context context, String title,
                                       String description, String customContentString) {
 
-        String notifyString = "é€šçŸ¥åˆ°è¾¾ onNotificationArrived  title=\"" + title
+        String notifyString = "Í¨Öªµ½´ï onNotificationArrived  title=\"" + title
                 + "\" description=\"" + description + "\" customContent="
                 + customContentString;
-        try {
-            LogUtil.getInstance().e(new JSONObject(description).toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         Log.d(TAG, notifyString);
 
-        // è‡ªå®šä¹‰å†…å®¹è·å–æ–¹å¼ï¼Œmykeyå’Œmyvalueå¯¹åº”é€šçŸ¥æ¨é€æ—¶è‡ªå®šä¹‰å†…å®¹ä¸­è®¾ç½®çš„é”®å’Œå€¼
-//        if (!TextUtils.isEmpty(customContentString)) {
-//            JSONObject customJson = null;
-//            try {
-//                customJson = new JSONObject(customContentString);
-//                String myvalue = null;
-//                if (!customJson.isNull("mykey")) {
-//                    myvalue = customJson.getString("mykey");
-//                }
-//            } catch (JSONException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-//        }
-        // Demoæ›´æ–°ç•Œé¢å±•ç¤ºä»£ç ï¼Œåº”ç”¨è¯·åœ¨è¿™é‡ŒåŠ å…¥è‡ªå·±çš„å¤„ç†é€»è¾‘
-        // ä½ å¯ä»¥åƒè€ƒ onNotificationClickedä¸­çš„æç¤ºä»è‡ªå®šä¹‰å†…å®¹è·å–å…·ä½“å€¼
-//        updateContent(context, notifyString);
-    }
-
-    /**
-     * æ¥æ”¶é€šçŸ¥ç‚¹å‡»çš„å‡½æ•°ã€‚
-     *
-     * @param context             ä¸Šä¸‹æ–‡
-     * @param title               æ¨é€çš„é€šçŸ¥çš„æ ‡é¢˜
-     * @param description         æ¨é€çš„é€šçŸ¥çš„æè¿°
-     * @param customContentString è‡ªå®šä¹‰å†…å®¹ï¼Œä¸ºç©ºæˆ–è€…jsonå­—ç¬¦ä¸²
-     */
-    @Override
-    public void onNotificationClicked(Context context, String title,
-                                      String description, String customContentString) {
-        String notifyString = "é€šçŸ¥ç‚¹å‡» onNotificationClicked title=\"" + title + "\" description=\""
-                + description + "\" customContent=" + customContentString;
-        Log.d(TAG, notifyString);
-
-        // è‡ªå®šä¹‰å†…å®¹è·å–æ–¹å¼ï¼Œmykeyå’Œmyvalueå¯¹åº”é€šçŸ¥æ¨é€æ—¶è‡ªå®šä¹‰å†…å®¹ä¸­è®¾ç½®çš„é”®å’Œå€¼
+        // ×Ô¶¨ÒåÄÚÈİ»ñÈ¡·½Ê½£¬mykeyºÍmyvalue¶ÔÓ¦Í¨ÖªÍÆËÍÊ±×Ô¶¨ÒåÄÚÈİÖĞÉèÖÃµÄ¼üºÍÖµ
         if (!TextUtils.isEmpty(customContentString)) {
             JSONObject customJson = null;
             try {
@@ -177,22 +140,71 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                     myvalue = customJson.getString("mykey");
                 }
             } catch (JSONException e) {
+                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
 
-        // Demoæ›´æ–°ç•Œé¢å±•ç¤ºä»£ç ï¼Œåº”ç”¨è¯·åœ¨è¿™é‡ŒåŠ å…¥è‡ªå·±çš„å¤„ç†é€»è¾‘
-        updateContent(context, notifyString);
+
     }
 
     /**
-     * setTags() çš„å›è°ƒå‡½æ•°ã€‚
+     * ½ÓÊÕÍ¨Öªµã»÷µÄº¯Êı¡£
      *
-     * @param context     ä¸Šä¸‹æ–‡
-     * @param errorCode   é”™è¯¯ç ã€‚0è¡¨ç¤ºæŸäº›tagå·²ç»è®¾ç½®æˆåŠŸï¼›é0è¡¨ç¤ºæ‰€æœ‰tagçš„è®¾ç½®å‡å¤±è´¥ã€‚
-     * @param successTags è®¾ç½®æˆåŠŸçš„tag
-     * @param failTags    è®¾ç½®å¤±è´¥çš„tag
-     * @param requestId   åˆ†é…ç»™å¯¹äº‘æ¨é€çš„è¯·æ±‚çš„id
+     * @param context             ÉÏÏÂÎÄ
+     * @param title               ÍÆËÍµÄÍ¨ÖªµÄ±êÌâ
+     * @param description         ÍÆËÍµÄÍ¨ÖªµÄÃèÊö
+     * @param customContentString ×Ô¶¨ÒåÄÚÈİ£¬Îª¿Õ»òÕßjson×Ö·û´®
+     */
+    @Override
+    public void onNotificationClicked(Context context, String title,
+                                      String description, String customContentString) {
+        String notifyString = "Í¨Öªµã»÷ onNotificationClicked title=\"" + title + "\" description=\""
+                + description + "\" customContent=" + customContentString;
+        Log.d(TAG, notifyString);
+
+        // ×Ô¶¨ÒåÄÚÈİ»ñÈ¡·½Ê½£¬mykeyºÍmyvalue¶ÔÓ¦Í¨ÖªÍÆËÍÊ±×Ô¶¨ÒåÄÚÈİÖĞÉèÖÃµÄ¼üºÍÖµ
+        if (!TextUtils.isEmpty(customContentString)) {
+            ScanBackModel.PushDataBean pushBean = new Gson().fromJson(customContentString, ScanBackModel.PushDataBean.class);
+            Intent intentNext = new Intent();
+            if ("1".equals(pushBean.getPushType())) {
+//               1£ºÍÆËÍ¸ø±»°İ·ÃÈË
+                intentNext.setClass(context, AgreeAccessActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", pushBean);
+                intentNext.putExtras(bundle);
+                context.startActivity(intentNext);
+            } else if ("2".equals(pushBean.getPushType())) {
+//        2£º°İ·ÃÈËµã»÷Í¬Òâ·ñ£¬ÍÆËÍ¸øÏà¹ØÈËÔ±
+                if ("1".equals(pushBean.getAgree())) {
+                    ScanBackModel model = SharedPreferenceUtil.getScanBackModel(context);
+                    intentNext.setClass(context, CodeResultActivity.class);
+                    intentNext.putExtra("auth", model.getAuth());
+                    intentNext.putExtra("black", model.getBlack());
+                    intentNext.putExtra("agree", model.getAgree());
+                    intentNext.putExtra("placeName", pushBean.getPlaceCodeName());
+                    intentNext.putExtra("type", pushBean.getType());
+                    context.startActivity(intentNext);
+                } else {
+                    ToastUtil.Companion.showToast("ÒÑ±»¾Ü¾ø£º" + pushBean.getRejectReason());
+                }
+
+            } else {
+
+            }
+        }
+
+
+    }
+
+    /**
+     * setTags() µÄ»Øµ÷º¯Êı¡£
+     *
+     * @param context     ÉÏÏÂÎÄ
+     * @param errorCode   ´íÎóÂë¡£0±íÊ¾Ä³Ğ©tagÒÑ¾­ÉèÖÃ³É¹¦£»·Ç0±íÊ¾ËùÓĞtagµÄÉèÖÃ¾ùÊ§°Ü¡£
+     * @param successTags ÉèÖÃ³É¹¦µÄtag
+     * @param failTags    ÉèÖÃÊ§°ÜµÄtag
+     * @param requestId   ·ÖÅä¸ø¶ÔÔÆÍÆËÍµÄÇëÇóµÄid
      */
     @Override
     public void onSetTags(Context context, int errorCode,
@@ -202,18 +214,18 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 + " requestId=" + requestId;
         Log.d(TAG, responseString);
 
-        // Demoæ›´æ–°ç•Œé¢å±•ç¤ºä»£ç ï¼Œåº”ç”¨è¯·åœ¨è¿™é‡ŒåŠ å…¥è‡ªå·±çš„å¤„ç†é€»è¾‘
-        updateContent(context, responseString);
+        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+
     }
 
     /**
-     * delTags() çš„å›è°ƒå‡½æ•°ã€‚
+     * delTags() µÄ»Øµ÷º¯Êı¡£
      *
-     * @param context     ä¸Šä¸‹æ–‡
-     * @param errorCode   é”™è¯¯ç ã€‚0è¡¨ç¤ºæŸäº›tagå·²ç»åˆ é™¤æˆåŠŸï¼›é0è¡¨ç¤ºæ‰€æœ‰tagå‡åˆ é™¤å¤±è´¥ã€‚
-     * @param successTags æˆåŠŸåˆ é™¤çš„tag
-     * @param failTags    åˆ é™¤å¤±è´¥çš„tag
-     * @param requestId   åˆ†é…ç»™å¯¹äº‘æ¨é€çš„è¯·æ±‚çš„id
+     * @param context     ÉÏÏÂÎÄ
+     * @param errorCode   ´íÎóÂë¡£0±íÊ¾Ä³Ğ©tagÒÑ¾­É¾³ı³É¹¦£»·Ç0±íÊ¾ËùÓĞtag¾ùÉ¾³ıÊ§°Ü¡£
+     * @param successTags ³É¹¦É¾³ıµÄtag
+     * @param failTags    É¾³ıÊ§°ÜµÄtag
+     * @param requestId   ·ÖÅä¸ø¶ÔÔÆÍÆËÍµÄÇëÇóµÄid
      */
     @Override
     public void onDelTags(Context context, int errorCode,
@@ -223,17 +235,17 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 + " requestId=" + requestId;
         Log.d(TAG, responseString);
 
-        // Demoæ›´æ–°ç•Œé¢å±•ç¤ºä»£ç ï¼Œåº”ç”¨è¯·åœ¨è¿™é‡ŒåŠ å…¥è‡ªå·±çš„å¤„ç†é€»è¾‘
-        updateContent(context, responseString);
+        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+
     }
 
     /**
-     * listTags() çš„å›è°ƒå‡½æ•°ã€‚
+     * listTags() µÄ»Øµ÷º¯Êı¡£
      *
-     * @param context   ä¸Šä¸‹æ–‡
-     * @param errorCode é”™è¯¯ç ã€‚0è¡¨ç¤ºåˆ—ä¸¾tagæˆåŠŸï¼›é0è¡¨ç¤ºå¤±è´¥ã€‚
-     * @param tags      å½“å‰åº”ç”¨è®¾ç½®çš„æ‰€æœ‰tagã€‚
-     * @param requestId åˆ†é…ç»™å¯¹äº‘æ¨é€çš„è¯·æ±‚çš„id
+     * @param context   ÉÏÏÂÎÄ
+     * @param errorCode ´íÎóÂë¡£0±íÊ¾ÁĞ¾Ùtag³É¹¦£»·Ç0±íÊ¾Ê§°Ü¡£
+     * @param tags      µ±Ç°Ó¦ÓÃÉèÖÃµÄËùÓĞtag¡£
+     * @param requestId ·ÖÅä¸ø¶ÔÔÆÍÆËÍµÄÇëÇóµÄid
      */
     @Override
     public void onListTags(Context context, int errorCode, List<String> tags,
@@ -242,16 +254,16 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 + tags;
         Log.d(TAG, responseString);
 
-        // Demoæ›´æ–°ç•Œé¢å±•ç¤ºä»£ç ï¼Œåº”ç”¨è¯·åœ¨è¿™é‡ŒåŠ å…¥è‡ªå·±çš„å¤„ç†é€»è¾‘
-        updateContent(context, responseString);
+        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+
     }
 
     /**
-     * PushManager.stopWork() çš„å›è°ƒå‡½æ•°ã€‚
+     * PushManager.stopWork() µÄ»Øµ÷º¯Êı¡£
      *
-     * @param context   ä¸Šä¸‹æ–‡
-     * @param errorCode é”™è¯¯ç ã€‚0è¡¨ç¤ºä»äº‘æ¨é€è§£ç»‘å®šæˆåŠŸï¼›é0è¡¨ç¤ºå¤±è´¥ã€‚
-     * @param requestId åˆ†é…ç»™å¯¹äº‘æ¨é€çš„è¯·æ±‚çš„id
+     * @param context   ÉÏÏÂÎÄ
+     * @param errorCode ´íÎóÂë¡£0±íÊ¾´ÓÔÆÍÆËÍ½â°ó¶¨³É¹¦£»·Ç0±íÊ¾Ê§°Ü¡£
+     * @param requestId ·ÖÅä¸ø¶ÔÔÆÍÆËÍµÄÇëÇóµÄid
      */
     @Override
     public void onUnbind(Context context, int errorCode, String requestId) {
@@ -260,33 +272,12 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         Log.d(TAG, responseString);
 
         if (errorCode == 0) {
-            // è§£ç»‘å®šæˆåŠŸ
-            Log.d(TAG, "è§£ç»‘æˆåŠŸ");
+            // ½â°ó¶¨³É¹¦
+            Log.d(TAG, "½â°ó³É¹¦");
         }
-        // Demoæ›´æ–°ç•Œé¢å±•ç¤ºä»£ç ï¼Œåº”ç”¨è¯·åœ¨è¿™é‡ŒåŠ å…¥è‡ªå·±çš„å¤„ç†é€»è¾‘
-        updateContent(context, responseString);
+        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+
     }
-
-    private void updateContent(Context context, String content) {
-        Log.d(TAG, "updateContent");
-//        String logText = "" + Utils.logStringCache;
-
-//        if (!logText.equals("")) {
-//            logText += "\n";
-//        }
-
-        SimpleDateFormat sDateFormat = new SimpleDateFormat("HH-mm-ss");
-//        logText += sDateFormat.format(new Date()) + ": ";
-//        logText += content;
-
-//        Utils.logStringCache = logText;
-
-//        Intent intent = new Intent();
-//        intent.setClass(context.getApplicationContext(), PushDemoActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.getApplicationContext().startActivity(intent);
-    }
-
 
 
 }

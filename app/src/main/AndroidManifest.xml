@@ -30,14 +30,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mine.activity.ScanOrShowCodeRecordActivity"></activity>
+        <activity android:name=".scanback.activity.AgreeAccessActivity"></activity>
+        <activity android:name=".scanback.activity.ScanSuccessActivity" />
+        <activity android:name=".mine.activity.ScanOrShowCodeRecordActivity" />
         <activity android:name=".homepage.activity.ShowCodeRecordActivity" /> <!-- push 应用定义消息 receiver 声明 -->
         <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
             android:process=":bdservice_v1">
             <intent-filter>
                 <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
-
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
                 <!-- 以下六项为可选的action声明，可大大提高service存活率和消息到达速度 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

@@ -86,6 +86,11 @@ class ConstantUrl {
 
         //扫码记录
         const val RECORD_SCAN_URL = "/v1/record/scan"
+        //        29. 被拜访人是否同意
+        const val SCAN_AGREE_URL="/v1/scan/agree"
+
+//        28. 再次推送信息
+       const val SCAN_PUSHAGAIN_URL="/v1/scan/pushAgain"
 
     }
 

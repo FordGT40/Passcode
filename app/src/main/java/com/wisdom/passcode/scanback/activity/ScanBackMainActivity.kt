@@ -1,5 +1,7 @@
 package com.wisdom.passcode.scanback.activity
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import com.google.gson.Gson
 import com.lzy.okgo.model.HttpParams
@@ -16,7 +18,6 @@ import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import kotlinx.android.synthetic.main.activity_scan_back_main.*
 import okhttp3.Call
 import okhttp3.Response
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 
@@ -168,15 +169,24 @@ class ScanBackMainActivity : BaseActivity() {
                         //获得数据、
                         val jsonData = jsonObject.optString("data")
                         val model = Gson().fromJson(jsonData, ScanBackModel::class.java)
-                        with(model) {
-                            startActivity<CodeResultActivity>(
-                                "auth" to auth,
-                                "black" to black,
-                                "agree" to agree,
-                                "placeName" to tv_place_name.text.toString(),
-                                "type" to type
-                            )
-                        }
+                        SharedPreferenceUtil.setScanBackModel(this@ScanBackMainActivity, model)
+
+                        val bundle = Bundle()
+                        bundle.putSerializable("data", model.pushData)
+                        val intentNext =
+                            Intent(this@ScanBackMainActivity, ScanSuccessActivity::class.java)
+                        intentNext.putExtras(bundle)
+                        startActivity(intentNext)
+//                        with(model) {
+//                            startActivity<CodeResultActivity>(
+//                                "auth" to auth,
+//                                "black" to black,
+//                                "agree" to agree,
+//                                "placeName" to tv_place_name.text.toString(),
+//                                "type" to type
+//                            )
+//                        }
+
                         finish()
                     } else {
                         toast(msg)

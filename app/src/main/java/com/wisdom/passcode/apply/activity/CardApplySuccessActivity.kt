@@ -10,7 +10,7 @@ class CardApplySuccessActivity : BaseActivity() {
 
     override fun initViews() {
       setTitle(intent.getIntExtra("title",R.string.title_apply_code_place))
-        btn_back_to_main.setOnClickListener {
+        btn_apply_again.setOnClickListener {
             ActivityManager.getActivityManagerInstance().clearAllActivity()
             this.finish()
         }

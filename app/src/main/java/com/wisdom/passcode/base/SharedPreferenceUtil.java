@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.wisdom.passcode.ConstantString;
 import com.wisdom.passcode.mine.model.PersonalInfoModel;
+import com.wisdom.passcode.scanback.model.ScanBackModel;
 
 
 /**
@@ -30,5 +31,15 @@ public class SharedPreferenceUtil {
 
     public static void setPersonalInfoModel(Context context, PersonalInfoModel model) {
         getConfig(context).putSerializable(ConstantString.USER_INFO, model);
+    }
+
+
+
+    public static ScanBackModel getScanBackModel(Context context) {
+        return (ScanBackModel) getConfig(context).getSerializable(ConstantString.SCAN_INFO);
+    }
+
+    public static void setScanBackModel(Context context, ScanBackModel model) {
+        getConfig(context).putSerializable(ConstantString.SCAN_INFO, model);
     }
 }

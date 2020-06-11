@@ -1,6 +1,7 @@
 package com.wisdom.passcode.scanback.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author HanXueFeng
@@ -23,6 +24,8 @@ public class ScanBackModel implements Serializable {
     private String agree;
     private String auth;
     private PushDataBean pushData;
+    private List<PlaceInfomationBean> placeInfomation;
+    private List<PlaceInfomationUserBean> placeInfomationUser;
 
     public String getBlack() {
         return black;
@@ -56,7 +59,23 @@ public class ScanBackModel implements Serializable {
         this.pushData = pushData;
     }
 
-    public static class PushDataBean {
+    public List<PlaceInfomationBean> getPlaceInfomation() {
+        return placeInfomation;
+    }
+
+    public void setPlaceInfomation(List<PlaceInfomationBean> placeInfomation) {
+        this.placeInfomation = placeInfomation;
+    }
+
+    public List<PlaceInfomationUserBean> getPlaceInfomationUser() {
+        return placeInfomationUser;
+    }
+
+    public void setPlaceInfomationUser(List<PlaceInfomationUserBean> placeInfomationUser) {
+        this.placeInfomationUser = placeInfomationUser;
+    }
+
+    public static class PushDataBean implements Serializable {
         /**
          * visitorsUserId : 205
          * visitorsUserPhone : wglwkTFXEqxbw35IAsJqyw==
@@ -86,6 +105,24 @@ public class ScanBackModel implements Serializable {
         private String visitorsUserName;
         private String logId;
         private String remarks;
+        private String agree;//被拜访人是否同意 1：同意 2：不同意
+        private String rejectReason;//拒绝原因
+
+        public String getAgree() {
+            return agree;
+        }
+
+        public void setAgree(String agree) {
+            this.agree = agree;
+        }
+
+        public String getRejectReason() {
+            return rejectReason;
+        }
+
+        public void setRejectReason(String rejectReason) {
+            this.rejectReason = rejectReason;
+        }
 
         public String getVisitorsUserId() {
             return visitorsUserId;
@@ -189,6 +226,78 @@ public class ScanBackModel implements Serializable {
 
         public void setRemarks(String remarks) {
             this.remarks = remarks;
+        }
+    }
+
+    public static class PlaceInfomationBean implements Serializable {
+        /**
+         * title : 场所信息1
+         * content : 产股搜信息内容1
+         * reportUserName : 9372
+         */
+
+        private String title;
+        private String content;
+        private String reportUserName;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getReportUserName() {
+            return reportUserName;
+        }
+
+        public void setReportUserName(String reportUserName) {
+            this.reportUserName = reportUserName;
+        }
+    }
+
+    public static class PlaceInfomationUserBean implements Serializable {
+        /**
+         * title : 人员信息1
+         * content : 人员信息内容1
+         * reportUserName : 9372
+         */
+
+        private String title;
+        private String content;
+        private String reportUserName;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getReportUserName() {
+            return reportUserName;
+        }
+
+        public void setReportUserName(String reportUserName) {
+            this.reportUserName = reportUserName;
         }
     }
 }
