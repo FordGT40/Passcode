@@ -56,6 +56,8 @@ class ScanSuccessActivity : BaseActivity() {
             params.put("visitorsUserName", visitorsUserName)
             params.put("visitorsUserPhone", visitorsUserPhone)
             params.put("visitorsUserDept", visitorsUserDept)
+            params.put("userPhone", userPhone)
+            params.put("scanDate", scanDate)
 
             listParams.add("logId$logId")
             listParams.add("pushType$pushType")
@@ -63,6 +65,8 @@ class ScanSuccessActivity : BaseActivity() {
             listParams.add("placeCodeName$placeCodeName")
             listParams.add("userName$userName")
             listParams.add("userId$userId")
+            listParams.add("scanDate$scanDate")
+            listParams.add("userPhone$userPhone")
             //TODO
             if (adminName!=null) {
                 listParams.add("adminName$adminName")

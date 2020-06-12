@@ -107,6 +107,24 @@ public class ScanBackModel implements Serializable {
         private String remarks;
         private String agree;//被拜访人是否同意 1：同意 2：不同意
         private String rejectReason;//拒绝原因
+        private String scanDate;//扫码时间（毫秒时间戳）
+        private String userPhone;//用户手机号（传输加密）
+
+        public String getScanDate() {
+            return scanDate;
+        }
+
+        public void setScanDate(String scanDate) {
+            this.scanDate = scanDate;
+        }
+
+        public String getUserPhone() {
+            return userPhone;
+        }
+
+        public void setUserPhone(String userPhone) {
+            this.userPhone = userPhone;
+        }
 
         public String getAgree() {
             return agree;

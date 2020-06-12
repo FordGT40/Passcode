@@ -30,7 +30,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".scanback.activity.AgreeAccessActivity"></activity>
+        <activity android:name=".scanback.activity.VisitorResultActivity"></activity>
+        <activity android:name=".scanback.activity.AgreeAccessActivity" />
         <activity android:name=".scanback.activity.ScanSuccessActivity" />
         <activity android:name=".mine.activity.ScanOrShowCodeRecordActivity" />
         <activity android:name=".homepage.activity.ShowCodeRecordActivity" /> <!-- push 应用定义消息 receiver 声明 -->
