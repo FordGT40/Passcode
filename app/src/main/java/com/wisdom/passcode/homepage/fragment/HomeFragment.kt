@@ -1,5 +1,7 @@
 package com.wisdom.passcode.homepage.fragment
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -60,15 +62,24 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
         ll_show_card.setOnClickListener(this)
         tv_head_show_card.setOnClickListener(this)
         ll_top.setOnClickListener(this)
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         if (ConstantString.isAdmin.toBoolean()) {
             //是管理员
             rl_admin.visibility = View.VISIBLE
             //设置管理员场所信息
             if (SharedPreferenceUtil.getAdminPlaceInfo(context) != null) {
                 //存在之前选的
+                ConstantString.adminPlaceModel = SharedPreferenceUtil.getAdminPlaceInfo(context)
                 tv_place_name.text = SharedPreferenceUtil.getAdminPlaceInfo(context).placeName
             } else {
                 //不存在之前选好的地点信息
+                ConstantString.adminPlaceModel =
+                    SharedPreferenceUtil.getPersonalInfoModel(context).placeList[0]
                 tv_place_name.text =
                     SharedPreferenceUtil.getPersonalInfoModel(context).placeList[0].placeName
             }
@@ -77,14 +88,15 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
             //非管理员
             rl_admin.visibility = View.GONE
         }
-
     }
-
     override fun onClick(v: View) {
         when (v.id) {
             R.id.ll_top -> {
                 //管理员选择场所
-                startActivityForResult<AdminPlaceChooseActivity>(ConstantString.REQUEST_CODE)
+                val intent=Intent(context,AdminPlaceChooseActivity::class.java)
+                intent.putExtra("placeName",tv_place_name.text.toString())
+                ll_place.visibility=View.INVISIBLE
+                startActivityForResult(intent,ConstantString.REQUEST_CODE, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
             }
             R.id.iv_ad -> {
                 startActivity<ScanBackMainActivity>()
@@ -173,6 +185,16 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
         super.onDestroy()
         if (app_bar != null) {
             app_bar.removeOnOffsetChangedListener(this)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(resultCode){
+            ConstantString.CODE_PLACE_CHOOSE->{
+//                选择完场所了
+                ll_place.visibility=View.VISIBLE
+            }
         }
     }
 

@@ -43,6 +43,7 @@
     android:paddingLeft="@dimen/dp_12"
     android:paddingRight="@dimen/dp_12"
     android:gravity="center"
+    android:id="@+id/ll_place"
     android:layout_marginLeft="@dimen/dp_14"
     >
     <TextView

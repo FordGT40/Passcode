@@ -1,5 +1,7 @@
 package com.wisdom.passcode
 
+import com.wisdom.passcode.mine.model.PersonalInfoModel
+
 /**
  * @ProjectName project： Passcode
  * @class package：com.wisdom.passcode
@@ -11,7 +13,8 @@ package com.wisdom.passcode
 class ConstantString {
     companion object {
 
-        val RESULT_CODE_CHOOSE_CARD_TYPE: Int = 0x113//申请人员码----选择卡类型后的结果码
+        const  val CODE_PLACE_CHOOSE: Int = 0x114//管理员在首页切换完场所信息后的返回
+        const val RESULT_CODE_CHOOSE_CARD_TYPE: Int = 0x113//申请人员码----选择卡类型后的结果码
         const val RESULT_CODE_CHOOSE_PLACE: Int = 0x111//申请人员码或车辆吗----选择场所后的结果码
 
 
@@ -109,7 +112,6 @@ class ConstantString {
         const val SCAN_CARD_RECORD_USER = "2"//扫码记录--查询类型 0全部 1:身为管理员扫用户 2:身为用户扫场所码
 
 
-
         var timeStamp = 0L//时间戳 初始值
         var accessToken = ""//短时间token
         var refreshToken = ""//长效时间戳
@@ -118,7 +120,7 @@ class ConstantString {
         var loginState = false//系统的登录状态
         var userPhone = ""//当前登录用户的手机号
         var PIC_LOCATE = "" //拍照后图片缓存的地址
-
+        var adminPlaceModel: PersonalInfoModel.PlaceListBean? = null//管理员角色存储的当前选定场所信息
 
 
         val LICENCEPAPER =
