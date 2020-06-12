@@ -9,6 +9,7 @@ import com.baidu.android.pushservice.PushMessageReceiver
 import com.google.gson.Gson
 import com.wisdom.passcode.helper.Helper.Companion.setChannelId
 import com.wisdom.passcode.scanback.activity.AgreeAccessActivity
+import com.wisdom.passcode.scanback.activity.GuardResultActivity
 import com.wisdom.passcode.scanback.activity.VisitorResultActivity
 import com.wisdom.passcode.scanback.model.ScanBackModel.PushDataBean
 import com.wisdom.passcode.util.AlertUtil
@@ -152,26 +153,37 @@ class MyPushMessageReceiver : PushMessageReceiver() {
             val pushBean =
                 Gson().fromJson(customContentString, PushDataBean::class.java)
             val intentNext = Intent()
-            if ("1" == pushBean.pushType) {
-//               1推送给被拜访人
-                intentNext.setClass(context, AgreeAccessActivity::class.java)
-                val bundle = Bundle()
-                bundle.putSerializable("data", pushBean)
-                intentNext.putExtras(bundle)
-                context.startActivity(intentNext)
-            } else if ("2" == pushBean.pushType) {
-//       2.拜访人点击同意否，推送给扫码用户
-                val isAgree= "1" == pushBean.agree
-                val intent = Intent(context, VisitorResultActivity::class.java)
-                val bundle = Bundle()
-                bundle.putSerializable("data", pushBean)
-                intent.putExtras(bundle)
-                intent.putExtra("isAgree", isAgree)
-                context.startActivity(intent)
-            } else if ("3" == pushBean.agree) {
-//               3. 拜访人点击同意否，推送给场所码相关人员(门卫处)
-                AlertUtil.showMsgAlert(context, "门卫收到消息")
-            } else {
+            when {
+                "1" == pushBean.pushType -> {
+        //               1推送给被拜访人
+                    intentNext.setClass(context, AgreeAccessActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putSerializable("data", pushBean)
+                    intentNext.putExtras(bundle)
+                    context.startActivity(intentNext)
+                }
+                "2" == pushBean.pushType -> {
+        //       2.拜访人点击同意否，推送给扫码用户
+                    val isAgree= "1" == pushBean.agree
+                    val intent = Intent(context, VisitorResultActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putSerializable("data", pushBean)
+                    intent.putExtras(bundle)
+                    intent.putExtra("isAgree", isAgree)
+                    context.startActivity(intent)
+                }
+                "3" == pushBean.agree -> {
+        //               3. 拜访人点击同意否，推送给场所码相关人员(门卫处)
+                    val isAgree= "1" == pushBean.agree
+                    val intent = Intent(context, GuardResultActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putSerializable("data", pushBean)
+                    intent.putExtras(bundle)
+                    intent.putExtra("isAgree", isAgree)
+                    context.startActivity(intent)
+                }
+                else -> {
+                }
             }
         }
     }

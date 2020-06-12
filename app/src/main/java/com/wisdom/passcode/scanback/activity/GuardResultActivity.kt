@@ -6,9 +6,10 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.scanback.model.ScanBackModel
 import com.wisdom.passcode.util.Tools
-import kotlinx.android.synthetic.main.activity_visitor_result.*
+import kotlinx.android.synthetic.main.activity_guard_result.*
 
-class VisitorResultActivity : BaseActivity() {
+class GuardResultActivity : BaseActivity() {
+
 
     override fun initViews() {
 //沉浸式状态栏
@@ -21,6 +22,10 @@ class VisitorResultActivity : BaseActivity() {
         setPageData(model)
     }
 
+    override fun setlayoutIds() {
+        setContentView(R.layout.activity_guard_result)
+    }
+
     /**
      *  @describe 设置页面数据
      *  @return
@@ -30,27 +35,25 @@ class VisitorResultActivity : BaseActivity() {
     private fun setPageData(model: ScanBackModel.PushDataBean) {
         val isAgree = intent.getBooleanExtra("isAgree", false)
         with(model) {
-            tv_place_name.text=placeCodeName
-            tv_name.text=visitorsUserName
+            tv_place_name.text = placeCodeName
+            tv_name.text = visitorsUserName
+            tv_name2.text = userName
             if (isAgree) {
-              //同意了
+                //同意了
                 iv_img.setImageResource(R.drawable.pass)
-                tv_name.setTextColor(Color.parseColor("#00c775"))
-                tv_hint.text="已经同意了您的约见申请"
-                tv_in.visibility= View.VISIBLE
-
+                tv_hint.text = "同意了"
+                tv_in.visibility = View.VISIBLE
+                tv_name.setTextColor(Color.parseColor("#00C775"))
+                tv_name2.setTextColor(Color.parseColor("#00C775"))
             } else {
-                 //不同意
+                //不同意
                 iv_img.setImageResource(R.drawable.stop)
+                tv_hint.text = "拒绝了"
+                tv_in.visibility = View.GONE
                 tv_name.setTextColor(Color.parseColor("#F65252"))
-                tv_hint.text="拒绝了您的约见申请"
-                tv_in.visibility= View.GONE
+                tv_name2.setTextColor(Color.parseColor("#F65252"))
             }
         }
 
-    }
-
-    override fun setlayoutIds() {
-        setContentView(R.layout.activity_visitor_result)
     }
 }
