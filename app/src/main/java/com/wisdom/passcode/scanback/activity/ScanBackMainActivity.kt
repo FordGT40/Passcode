@@ -18,6 +18,7 @@ import com.wisdom.passcode.util.httpUtil.callback.StringsCallback
 import kotlinx.android.synthetic.main.activity_scan_back_main.*
 import okhttp3.Call
 import okhttp3.Response
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 
@@ -170,22 +171,28 @@ class ScanBackMainActivity : BaseActivity() {
                         val jsonData = jsonObject.optString("data")
                         val model = Gson().fromJson(jsonData, ScanBackModel::class.java)
                         SharedPreferenceUtil.setScanBackModel(this@ScanBackMainActivity, model)
-
-                        val bundle = Bundle()
-                        bundle.putSerializable("data", model.pushData)
-                        val intentNext =
-                            Intent(this@ScanBackMainActivity, ScanSuccessActivity::class.java)
-                        intentNext.putExtras(bundle)
-                        startActivity(intentNext)
-//                        with(model) {
-//                            startActivity<CodeResultActivity>(
-//                                "auth" to auth,
-//                                "black" to black,
-//                                "agree" to agree,
-//                                "placeName" to tv_place_name.text.toString(),
-//                                "type" to type
-//                            )
-//                        }
+                        //判断该场所是否需要经过内部人员同意才能进入
+                        if (model.agree.toBoolean()) {
+                            //需要里面的人员点击同意或者拒绝
+                            val bundle = Bundle()
+                            bundle.putSerializable("data", model.pushData)
+                            val intentNext =
+                                Intent(this@ScanBackMainActivity, ScanSuccessActivity::class.java)
+                            intentNext.putExtras(bundle)
+                            startActivity(intentNext)
+                        } else {
+                            //不需要里面的人点同意或者拒绝
+                            with(model) {
+                                startActivity<CodeResultActivity>(
+                                    "auth" to auth,
+                                    "black" to black,
+                                    "agree" to agree,
+                                    "placeName" to tv_place_name.text.toString(),
+                                    "type" to type
+                                )
+                            }
+                        }
+//
 
                         finish()
                     } else {

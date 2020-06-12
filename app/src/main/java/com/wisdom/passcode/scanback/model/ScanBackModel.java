@@ -110,6 +110,7 @@ public class ScanBackModel implements Serializable {
         private String scanDate;//扫码时间（毫秒时间戳）
         private String userPhone;//用户手机号（传输加密）
 
+
         public String getScanDate() {
             return scanDate;
         }

@@ -1,24 +1,19 @@
-package com.wisdom.passcode.push;
+package com.wisdom.passcode.push
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-
-import com.baidu.android.pushservice.PushMessageReceiver;
-import com.google.gson.Gson;
-import com.wisdom.passcode.base.SharedPreferenceUtil;
-import com.wisdom.passcode.helper.Helper;
-import com.wisdom.passcode.scanback.activity.AgreeAccessActivity;
-import com.wisdom.passcode.scanback.activity.CodeResultActivity;
-import com.wisdom.passcode.scanback.model.ScanBackModel;
-import com.wisdom.passcode.util.AlertUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
+import com.baidu.android.pushservice.PushMessageReceiver
+import com.google.gson.Gson
+import com.wisdom.passcode.helper.Helper.Companion.setChannelId
+import com.wisdom.passcode.scanback.activity.AgreeAccessActivity
+import com.wisdom.passcode.scanback.activity.VisitorResultActivity
+import com.wisdom.passcode.scanback.model.ScanBackModel.PushDataBean
+import com.wisdom.passcode.util.AlertUtil
+import org.json.JSONException
+import org.json.JSONObject
 
 /*
  * Push��Ϣ����receiver�����д����Ҫ�Ļص������� һ����˵�� onBind�Ǳ���ģ���������startWork����ֵ��
@@ -41,15 +36,7 @@ import java.util.List;
  * �����������Ϸ��ش���ʱ��������Ͳ����������⣬����ͬһ����ķ���ֵrequestId��errorCode��ϵ����׷�����⡣
  *
  */
-
-
-public class MyPushMessageReceiver extends PushMessageReceiver {
-    /**
-     * TAG to Log
-     */
-    public static final String TAG = MyPushMessageReceiver.class
-            .getSimpleName();
-
+class MyPushMessageReceiver : PushMessageReceiver() {
     /**
      * ����PushManager.startWork��sdk����push
      * server�������������������첽�ġ�������Ľ��ͨ��onBind���ء� �������Ҫ�õ������ͣ���Ҫ�������ȡ��channel
@@ -63,21 +50,20 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
      * @param requestId �����˷��������id����׷������ʱ���ã�
      * @return none
      */
-    @Override
-    public void onBind(Context context, int errorCode, String appid,
-                       String userId, String channelId, String requestId) {
-        String responseString = "onBind errorCode=" + errorCode + " appid="
+    override fun onBind(
+        context: Context, errorCode: Int, appid: String,
+        userId: String, channelId: String, requestId: String
+    ) {
+        val responseString = ("onBind errorCode=" + errorCode + " appid="
                 + appid + " userId=" + userId + " channelId=" + channelId
-                + " requestId=" + requestId;
-        Log.d(TAG, responseString);
-
+                + " requestId=" + requestId)
+        Log.d(TAG, responseString)
         if (errorCode == 0) {
-            Helper.Companion.setChannelId(channelId);
+            setChannelId(channelId)
             // �󶨳ɹ�
-            Log.d(TAG, "�󶨳ɹ�");
+            Log.d(TAG, "�󶨳ɹ�")
         }
         // Demo���½���չʾ���룬Ӧ��������������Լ��Ĵ����߼�
-
     }
 
     /**
@@ -87,29 +73,29 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
      * @param message             ���͵���Ϣ
      * @param customContentString �Զ�������,Ϊ�ջ���json�ַ���
      */
-    @Override
-    public void onMessage(Context context, String message,
-                          String customContentString) {
-        String messageString = "͸����Ϣ onMessage=\"" + message
-                + "\" customContentString=" + customContentString;
-        Log.d(TAG, messageString);
+    override fun onMessage(
+        context: Context, message: String,
+        customContentString: String
+    ) {
+        val messageString = ("͸����Ϣ onMessage=\"" + message
+                + "\" customContentString=" + customContentString)
+        Log.d(TAG, messageString)
 
         // �Զ������ݻ�ȡ��ʽ��mykey��myvalue��Ӧ͸����Ϣ����ʱ�Զ������������õļ���ֵ
         if (!TextUtils.isEmpty(customContentString)) {
-            JSONObject customJson = null;
+            var customJson: JSONObject? = null
             try {
-                customJson = new JSONObject(customContentString);
-                String myvalue = null;
+                customJson = JSONObject(customContentString)
+                var myvalue: String? = null
                 if (!customJson.isNull("mykey")) {
-                    myvalue = customJson.getString("mykey");
+                    myvalue = customJson.getString("mykey")
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } catch (e: JSONException) {
+                e.printStackTrace()
             }
         }
 
         // Demo���½���չʾ���룬Ӧ��������������Լ��Ĵ����߼�
-
     }
 
     /**
@@ -120,32 +106,29 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
      * @param description         ���͵�֪ͨ������
      * @param customContentString �Զ������ݣ�Ϊ�ջ���json�ַ���
      */
-
-    @Override
-    public void onNotificationArrived(Context context, String title,
-                                      String description, String customContentString) {
-
-        String notifyString = "֪ͨ���� onNotificationArrived  title=\"" + title
+    override fun onNotificationArrived(
+        context: Context, title: String,
+        description: String, customContentString: String
+    ) {
+        val notifyString = ("֪ͨ���� onNotificationArrived  title=\"" + title
                 + "\" description=\"" + description + "\" customContent="
-                + customContentString;
-        Log.d(TAG, notifyString);
+                + customContentString)
+        Log.d(TAG, notifyString)
 
         // �Զ������ݻ�ȡ��ʽ��mykey��myvalue��Ӧ֪ͨ����ʱ�Զ������������õļ���ֵ
         if (!TextUtils.isEmpty(customContentString)) {
-            JSONObject customJson = null;
+            var customJson: JSONObject? = null
             try {
-                customJson = new JSONObject(customContentString);
-                String myvalue = null;
+                customJson = JSONObject(customContentString)
+                var myvalue: String? = null
                 if (!customJson.isNull("mykey")) {
-                    myvalue = customJson.getString("mykey");
+                    myvalue = customJson.getString("mykey")
                 }
-            } catch (JSONException e) {
+            } catch (e: JSONException) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                e.printStackTrace()
             }
         }
-
-
     }
 
     /**
@@ -156,59 +139,54 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
      * @param description         ���͵�֪ͨ������
      * @param customContentString �Զ������ݣ�Ϊ�ջ���json�ַ���
      */
-    @Override
-    public void onNotificationClicked(Context context, String title,
-                                      String description, String customContentString) {
-        String notifyString = "֪ͨ��� onNotificationClicked title=\"" + title + "\" description=\""
-                + description + "\" customContent=" + customContentString;
-        Log.d(TAG, notifyString);
+    override fun onNotificationClicked(
+        context: Context, title: String,
+        description: String, customContentString: String
+    ) {
+        val notifyString =
+            ("֪ͨ��� onNotificationClicked title=\"" + title + "\" description=\""
+                    + description + "\" customContent=" + customContentString)
+        Log.d(TAG, notifyString)
         // 返回后自定义信息解析
         if (!TextUtils.isEmpty(customContentString)) {
-            ScanBackModel.PushDataBean pushBean = new Gson().fromJson(customContentString, ScanBackModel.PushDataBean.class);
-            Intent intentNext = new Intent();
-            if ("1".equals(pushBean.getPushType())) {
+            val pushBean =
+                Gson().fromJson(customContentString, PushDataBean::class.java)
+            val intentNext = Intent()
+            if ("1" == pushBean.pushType) {
 //               1推送给被拜访人
-                intentNext.setClass(context, AgreeAccessActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("data", pushBean);
-                intentNext.putExtras(bundle);
-                context.startActivity(intentNext);
-            } else if ("2".equals(pushBean.getPushType())) {
+                intentNext.setClass(context, AgreeAccessActivity::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable("data", pushBean)
+                intentNext.putExtras(bundle)
+                context.startActivity(intentNext)
+            } else if ("2" == pushBean.pushType) {
 //       2.拜访人点击同意否，推送给扫码用户
-                if ("1".equals(pushBean.getAgree())) {
-                    ScanBackModel model = SharedPreferenceUtil.getScanBackModel(context);
-                    intentNext.setClass(context, CodeResultActivity.class);
-                    intentNext.putExtra("auth", model.getAuth());
-                    intentNext.putExtra("black", model.getBlack());
-                    intentNext.putExtra("agree", model.getAgree());
-                    intentNext.putExtra("placeName", pushBean.getPlaceCodeName());
-                    intentNext.putExtra("type", pushBean.getType());
-                    context.startActivity(intentNext);
-                } else {
-                    AlertUtil.showMsgAlert(context, "您已被拒绝进入");
-                }
-            } else if ("3".equals(pushBean.getAgree())) {
+                val isAgree= "1" == pushBean.agree
+                val intent = Intent(context, VisitorResultActivity::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable("data", pushBean)
+                intent.putExtras(bundle)
+                intent.putExtra("isAgree", isAgree)
+                context.startActivity(intent)
+            } else if ("3" == pushBean.agree) {
 //               3. 拜访人点击同意否，推送给场所码相关人员(门卫处)
-                AlertUtil.showMsgAlert(context, "门卫收到消息");
-
+                AlertUtil.showMsgAlert(context, "门卫收到消息")
             } else {
-
             }
         }
-
-
     }
 
-
-    @Override
-    public void onSetTags(Context context, int errorCode,
-                          List<String> successTags, List<String> failTags, String requestId) {
-        String responseString = "onSetTags errorCode=" + errorCode
+    override fun onSetTags(
+        context: Context,
+        errorCode: Int,
+        successTags: List<String>,
+        failTags: List<String>,
+        requestId: String
+    ) {
+        val responseString = ("onSetTags errorCode=" + errorCode
                 + " successTags=" + successTags + " failTags=" + failTags
-                + " requestId=" + requestId;
-        Log.d(TAG, responseString);
-
-
+                + " requestId=" + requestId)
+        Log.d(TAG, responseString)
     }
 
     /**
@@ -219,14 +197,17 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
      * @param failTags    ɾ��ʧ�ܵ�tag
      * @param requestId   ������������͵������id
      */
-    @Override
-    public void onDelTags(Context context, int errorCode,
-                          List<String> successTags, List<String> failTags, String requestId) {
-        String responseString = "onDelTags errorCode=" + errorCode
+    override fun onDelTags(
+        context: Context,
+        errorCode: Int,
+        successTags: List<String>,
+        failTags: List<String>,
+        requestId: String
+    ) {
+        val responseString = ("onDelTags errorCode=" + errorCode
                 + " successTags=" + successTags + " failTags=" + failTags
-                + " requestId=" + requestId;
-        Log.d(TAG, responseString);
-
+                + " requestId=" + requestId)
+        Log.d(TAG, responseString)
     }
 
     /**
@@ -237,15 +218,17 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
      * @param tags      ��ǰӦ�����õ�����tag��
      * @param requestId ������������͵������id
      */
-    @Override
-    public void onListTags(Context context, int errorCode, List<String> tags,
-                           String requestId) {
-        String responseString = "onListTags errorCode=" + errorCode + " tags="
-                + tags;
-        Log.d(TAG, responseString);
+    override fun onListTags(
+        context: Context,
+        errorCode: Int,
+        tags: List<String>,
+        requestId: String
+    ) {
+        val responseString = ("onListTags errorCode=" + errorCode + " tags="
+                + tags)
+        Log.d(TAG, responseString)
 
         // Demo���½���չʾ���룬Ӧ��������������Լ��Ĵ����߼�
-
     }
 
     /**
@@ -255,19 +238,26 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
      * @param errorCode �����롣0��ʾ�������ͽ�󶨳ɹ�����0��ʾʧ�ܡ�
      * @param requestId ������������͵������id
      */
-    @Override
-    public void onUnbind(Context context, int errorCode, String requestId) {
-        String responseString = "onUnbind errorCode=" + errorCode
-                + " requestId = " + requestId;
-        Log.d(TAG, responseString);
-
+    override fun onUnbind(
+        context: Context,
+        errorCode: Int,
+        requestId: String
+    ) {
+        val responseString = ("onUnbind errorCode=" + errorCode
+                + " requestId = " + requestId)
+        Log.d(TAG, responseString)
         if (errorCode == 0) {
             // ��󶨳ɹ�
-            Log.d(TAG, "���ɹ�");
+            Log.d(TAG, "���ɹ�")
         }
         // Demo���½���չʾ���룬Ӧ��������������Լ��Ĵ����߼�
-
     }
 
-
+    companion object {
+        /**
+         * TAG to Log
+         */
+        val TAG = MyPushMessageReceiver::class.java
+            .simpleName
+    }
 }
