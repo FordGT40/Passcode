@@ -1,12 +1,17 @@
 package com.wisdom.passcode.util.httpUtil.callback;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.lzy.okgo.callback.StringCallback;
 import com.wisdom.passcode.AppApplication;
 import com.wisdom.passcode.ConstantString;
+import com.wisdom.passcode.R;
+import com.wisdom.passcode.base.ActivityManager;
 import com.wisdom.passcode.base.SharedPreferenceUtil;
+import com.wisdom.passcode.mine.activity.LoginActivity;
 import com.wisdom.passcode.util.LogUtil;
+import com.wisdom.passcode.util.ToastUtil;
 import com.wisdom.passcode.util.Tools;
 import com.wisdom.passcode.util.httpUtil.HttpUtil;
 
@@ -54,7 +59,6 @@ public abstract class StringsCallback extends StringCallback {
                             JSONObject jsonObject1 = new JSONObject(s);
                             int code = jsonObject1.optInt("code");
                             if (code == 0) {
-
                                 //刷新Token成功，解析返回数据中的token
                                 JSONObject jsonObject2 = jsonObject1.optJSONObject("data");
                                 String accessToken = jsonObject2.optString("accessToken");
@@ -69,6 +73,27 @@ public abstract class StringsCallback extends StringCallback {
                                 Tools.Companion.closeDialog();
                                 listener.onRefreshSuccess();
                                 //
+                            } else if (code == 403) {
+                                //刷新用的token也失效了，所以跳转登录页
+                                if (listener != null) {
+                                    Tools.Companion.closeDialog();
+                                    listener.onRefreshFail(HttpUtil.Companion.getErrorMsgByCode(code + ""));
+                                }
+                                SharedPreferenceUtil.getConfig(AppApplication.Companion.getInstance()).clearSharePrefernence();
+                                //本地关键信息置空
+                                ConstantString.Companion.setAccessToken("");
+                                ConstantString.Companion.setRefreshToken("");
+                                ConstantString.Companion.setTimeStamp(0L);
+                                ConstantString.Companion.setUserPhone("");
+                                ConstantString.Companion.setLoginState(false);
+                                ConstantString.Companion.setAdmin("");
+                                ConstantString.Companion.setUserIdEncryption("");
+
+                                ToastUtil.Companion.showToast(R.string.login_time_out);
+                                Intent intent = new Intent(AppApplication.Companion.getInstance(), LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                AppApplication.Companion.getInstance().startActivity(intent);
+                                ActivityManager.getActivityManagerInstance().clearAllActivity();
                             } else {
                                 //刷新Token失败，将失败原因回调到业务处理部分
                                 if (listener != null) {

@@ -124,10 +124,9 @@ class HttpUtil {
             //将时间戳添加到待加密数组中
             val params=HttpParams()
             val timeStamp = (Date().time + ConstantString.timeStamp)
-            val paramsList= listOf("timestamp${timeStamp}").toMutableList()
-
-            params.put("timestamp", timeStamp)
             val refreshToken =ConstantString.refreshToken
+            val paramsList= listOf("timestamp${timeStamp}").toMutableList()
+            params.put("timestamp", timeStamp)
             params.put("sign", getInterfaceSign(paramsList))
             OkGo.post(getAbsolteUrl(ConstantUrl.REFRESH_TOKEN_URL))
                 .cacheMode(CacheMode.DEFAULT)
@@ -136,6 +135,7 @@ class HttpUtil {
                 .headers("appkey", ConstantString.APP_KEY)
                 .headers("Content-Type", "multipart/form-data")
                 .execute(callback)
+
         }
 
 

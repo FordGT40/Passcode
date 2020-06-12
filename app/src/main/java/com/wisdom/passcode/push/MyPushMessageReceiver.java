@@ -13,7 +13,7 @@ import com.wisdom.passcode.helper.Helper;
 import com.wisdom.passcode.scanback.activity.AgreeAccessActivity;
 import com.wisdom.passcode.scanback.activity.CodeResultActivity;
 import com.wisdom.passcode.scanback.model.ScanBackModel;
-import com.wisdom.passcode.util.ToastUtil;
+import com.wisdom.passcode.util.AlertUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,10 +21,10 @@ import org.json.JSONObject;
 import java.util.List;
 
 /*
- * PushÏûÏ¢´¦Àíreceiver¡£Çë±àĞ´ÄúĞèÒªµÄ»Øµ÷º¯Êı£¬ Ò»°ãÀ´Ëµ£º onBindÊÇ±ØĞëµÄ£¬ÓÃÀ´´¦ÀístartWork·µ»ØÖµ£»
- * onMessageÓÃÀ´½ÓÊÕÍ¸´«ÏûÏ¢£» onSetTags¡¢onDelTags¡¢onListTagsÊÇtagÏà¹Ø²Ù×÷µÄ»Øµ÷£»
- * onNotificationClickedÔÚÍ¨Öª±»µã»÷Ê±»Øµ÷£» onUnbindÊÇstopWork½Ó¿ÚµÄ·µ»ØÖµ»Øµ÷
- * ·µ»ØÖµÖĞµÄerrorCode£¬½âÊÍÈçÏÂ£º
+ * Pushï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½receiverï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½Òªï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ò»ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ onBindï¿½Ç±ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½startWorkï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+ * onMessageï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ onSetTagsï¿½ï¿½onDelTagsï¿½ï¿½onListTagsï¿½ï¿½tagï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½
+ * onNotificationClickedï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Øµï¿½ï¿½ï¿½ onUnbindï¿½ï¿½stopWorkï¿½Ó¿ÚµÄ·ï¿½ï¿½ï¿½Öµï¿½Øµï¿½
+ * ï¿½ï¿½ï¿½ï¿½Öµï¿½Ğµï¿½errorCodeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½
  * 0 - Success
  * 10001 - Network Problem
  * 10101 - Integrate Check Error
@@ -38,7 +38,7 @@ import java.util.List;
  * 30607 - Channel Token Timeout
  * 30608 - Bind Relation Not Found
  * 30609 - Bind Number Too Many
- * µ±ÄúÓöµ½ÒÔÉÏ·µ»Ø´íÎóÊ±£¬Èç¹û½âÊÍ²»ÁËÄúµÄÎÊÌâ£¬ÇëÓÃÍ¬Ò»ÇëÇóµÄ·µ»ØÖµrequestIdºÍerrorCodeÁªÏµÎÒÃÇ×·²éÎÊÌâ¡£
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½Ø´ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ÖµrequestIdï¿½ï¿½errorCodeï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½â¡£
  *
  */
 
@@ -51,16 +51,16 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
             .getSimpleName();
 
     /**
-     * µ÷ÓÃPushManager.startWorkºó£¬sdk½«¶Ôpush
-     * server·¢Æğ°ó¶¨ÇëÇó£¬Õâ¸ö¹ı³ÌÊÇÒì²½µÄ¡£°ó¶¨ÇëÇóµÄ½á¹ûÍ¨¹ıonBind·µ»Ø¡£ Èç¹ûÄúĞèÒªÓÃµ¥²¥ÍÆËÍ£¬ĞèÒª°ÑÕâÀï»ñÈ¡µÄchannel
-     * idºÍuser idÉÏ´«µ½Ó¦ÓÃserverÖĞ£¬ÔÙµ÷ÓÃserver½Ó¿ÚÓÃchannel idºÍuser id¸øµ¥¸öÊÖ»ú»òÕßÓÃ»§ÍÆËÍ¡£
+     * ï¿½ï¿½ï¿½ï¿½PushManager.startWorkï¿½ï¿½sdkï¿½ï¿½ï¿½ï¿½push
+     * serverï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì²½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½Í¨ï¿½ï¿½onBindï¿½ï¿½ï¿½Ø¡ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½channel
+     * idï¿½ï¿½user idï¿½Ï´ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½serverï¿½Ğ£ï¿½ï¿½Ùµï¿½ï¿½ï¿½serverï¿½Ó¿ï¿½ï¿½ï¿½channel idï¿½ï¿½user idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Í¡ï¿½
      *
-     * @param context   BroadcastReceiverµÄÖ´ĞĞContext
-     * @param errorCode °ó¶¨½Ó¿Ú·µ»ØÖµ£¬0 - ³É¹¦
-     * @param appid     Ó¦ÓÃid¡£errorCode·Ç0Ê±Îªnull
-     * @param userId    Ó¦ÓÃuser id¡£errorCode·Ç0Ê±Îªnull
-     * @param channelId Ó¦ÓÃchannel id¡£errorCode·Ç0Ê±Îªnull
-     * @param requestId Ïò·şÎñ¶Ë·¢ÆğµÄÇëÇóid¡£ÔÚ×·²éÎÊÌâÊ±ÓĞÓÃ£»
+     * @param context   BroadcastReceiverï¿½ï¿½Ö´ï¿½ï¿½Context
+     * @param errorCode ï¿½ó¶¨½Ó¿Ú·ï¿½ï¿½ï¿½Öµï¿½ï¿½0 - ï¿½É¹ï¿½
+     * @param appid     Ó¦ï¿½ï¿½idï¿½ï¿½errorCodeï¿½ï¿½0Ê±Îªnull
+     * @param userId    Ó¦ï¿½ï¿½user idï¿½ï¿½errorCodeï¿½ï¿½0Ê±Îªnull
+     * @param channelId Ó¦ï¿½ï¿½channel idï¿½ï¿½errorCodeï¿½ï¿½0Ê±Îªnull
+     * @param requestId ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã£ï¿½
      * @return none
      */
     @Override
@@ -73,28 +73,28 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 
         if (errorCode == 0) {
             Helper.Companion.setChannelId(channelId);
-            // °ó¶¨³É¹¦
-            Log.d(TAG, "°ó¶¨³É¹¦");
+            // ï¿½ó¶¨³É¹ï¿½
+            Log.d(TAG, "ï¿½ó¶¨³É¹ï¿½");
         }
-        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+        // Demoï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½ë£¬Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 
     }
 
     /**
-     * ½ÓÊÕÍ¸´«ÏûÏ¢µÄº¯Êı¡£
+     * ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½
      *
-     * @param context             ÉÏÏÂÎÄ
-     * @param message             ÍÆËÍµÄÏûÏ¢
-     * @param customContentString ×Ô¶¨ÒåÄÚÈİ,Îª¿Õ»òÕßjson×Ö·û´®
+     * @param context             ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param message             ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½Ï¢
+     * @param customContentString ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Îªï¿½Õ»ï¿½ï¿½ï¿½jsonï¿½Ö·ï¿½ï¿½ï¿½
      */
     @Override
     public void onMessage(Context context, String message,
                           String customContentString) {
-        String messageString = "Í¸´«ÏûÏ¢ onMessage=\"" + message
+        String messageString = "Í¸ï¿½ï¿½ï¿½ï¿½Ï¢ onMessage=\"" + message
                 + "\" customContentString=" + customContentString;
         Log.d(TAG, messageString);
 
-        // ×Ô¶¨ÒåÄÚÈİ»ñÈ¡·½Ê½£¬mykeyºÍmyvalue¶ÔÓ¦Í¸´«ÏûÏ¢ÍÆËÍÊ±×Ô¶¨ÒåÄÚÈİÖĞÉèÖÃµÄ¼üºÍÖµ
+        // ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ»ï¿½È¡ï¿½ï¿½Ê½ï¿½ï¿½mykeyï¿½ï¿½myvalueï¿½ï¿½Ó¦Í¸ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄ¼ï¿½ï¿½ï¿½Öµ
         if (!TextUtils.isEmpty(customContentString)) {
             JSONObject customJson = null;
             try {
@@ -108,29 +108,29 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
             }
         }
 
-        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+        // Demoï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½ë£¬Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 
     }
 
     /**
-     * ½ÓÊÕÍ¨Öªµ½´ïµÄº¯Êı¡£
+     * ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½
      *
-     * @param context             ÉÏÏÂÎÄ
-     * @param title               ÍÆËÍµÄÍ¨ÖªµÄ±êÌâ
-     * @param description         ÍÆËÍµÄÍ¨ÖªµÄÃèÊö
-     * @param customContentString ×Ô¶¨ÒåÄÚÈİ£¬Îª¿Õ»òÕßjson×Ö·û´®
+     * @param context             ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param title               ï¿½ï¿½ï¿½Íµï¿½Í¨Öªï¿½Ä±ï¿½ï¿½ï¿½
+     * @param description         ï¿½ï¿½ï¿½Íµï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param customContentString ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ£ï¿½Îªï¿½Õ»ï¿½ï¿½ï¿½jsonï¿½Ö·ï¿½ï¿½ï¿½
      */
 
     @Override
     public void onNotificationArrived(Context context, String title,
                                       String description, String customContentString) {
 
-        String notifyString = "Í¨Öªµ½´ï onNotificationArrived  title=\"" + title
+        String notifyString = "Í¨Öªï¿½ï¿½ï¿½ï¿½ onNotificationArrived  title=\"" + title
                 + "\" description=\"" + description + "\" customContent="
                 + customContentString;
         Log.d(TAG, notifyString);
 
-        // ×Ô¶¨ÒåÄÚÈİ»ñÈ¡·½Ê½£¬mykeyºÍmyvalue¶ÔÓ¦Í¨ÖªÍÆËÍÊ±×Ô¶¨ÒåÄÚÈİÖĞÉèÖÃµÄ¼üºÍÖµ
+        // ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ»ï¿½È¡ï¿½ï¿½Ê½ï¿½ï¿½mykeyï¿½ï¿½myvalueï¿½ï¿½Ó¦Í¨Öªï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄ¼ï¿½ï¿½ï¿½Öµ
         if (!TextUtils.isEmpty(customContentString)) {
             JSONObject customJson = null;
             try {
@@ -149,33 +149,32 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
     }
 
     /**
-     * ½ÓÊÕÍ¨Öªµã»÷µÄº¯Êı¡£
+     * ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½
      *
-     * @param context             ÉÏÏÂÎÄ
-     * @param title               ÍÆËÍµÄÍ¨ÖªµÄ±êÌâ
-     * @param description         ÍÆËÍµÄÍ¨ÖªµÄÃèÊö
-     * @param customContentString ×Ô¶¨ÒåÄÚÈİ£¬Îª¿Õ»òÕßjson×Ö·û´®
+     * @param context             ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param title               ï¿½ï¿½ï¿½Íµï¿½Í¨Öªï¿½Ä±ï¿½ï¿½ï¿½
+     * @param description         ï¿½ï¿½ï¿½Íµï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param customContentString ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ£ï¿½Îªï¿½Õ»ï¿½ï¿½ï¿½jsonï¿½Ö·ï¿½ï¿½ï¿½
      */
     @Override
     public void onNotificationClicked(Context context, String title,
                                       String description, String customContentString) {
-        String notifyString = "Í¨Öªµã»÷ onNotificationClicked title=\"" + title + "\" description=\""
+        String notifyString = "Í¨Öªï¿½ï¿½ï¿½ onNotificationClicked title=\"" + title + "\" description=\""
                 + description + "\" customContent=" + customContentString;
         Log.d(TAG, notifyString);
-
-        // ×Ô¶¨ÒåÄÚÈİ»ñÈ¡·½Ê½£¬mykeyºÍmyvalue¶ÔÓ¦Í¨ÖªÍÆËÍÊ±×Ô¶¨ÒåÄÚÈİÖĞÉèÖÃµÄ¼üºÍÖµ
+        // è¿”å›åè‡ªå®šä¹‰ä¿¡æ¯è§£æ
         if (!TextUtils.isEmpty(customContentString)) {
             ScanBackModel.PushDataBean pushBean = new Gson().fromJson(customContentString, ScanBackModel.PushDataBean.class);
             Intent intentNext = new Intent();
             if ("1".equals(pushBean.getPushType())) {
-//               1£ºÍÆËÍ¸ø±»°İ·ÃÈË
+//               1æ¨é€ç»™è¢«æ‹œè®¿äºº
                 intentNext.setClass(context, AgreeAccessActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", pushBean);
                 intentNext.putExtras(bundle);
                 context.startActivity(intentNext);
             } else if ("2".equals(pushBean.getPushType())) {
-//        2£º°İ·ÃÈËµã»÷Í¬Òâ·ñ£¬ÍÆËÍ¸øÏà¹ØÈËÔ±
+//       2.æ‹œè®¿äººç‚¹å‡»åŒæ„å¦ï¼Œæ¨é€ç»™æ‰«ç ç”¨æˆ·
                 if ("1".equals(pushBean.getAgree())) {
                     ScanBackModel model = SharedPreferenceUtil.getScanBackModel(context);
                     intentNext.setClass(context, CodeResultActivity.class);
@@ -186,8 +185,11 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                     intentNext.putExtra("type", pushBean.getType());
                     context.startActivity(intentNext);
                 } else {
-                    ToastUtil.Companion.showToast("ÒÑ±»¾Ü¾ø£º" + pushBean.getRejectReason());
+                    AlertUtil.showMsgAlert(context, "æ‚¨å·²è¢«æ‹’ç»è¿›å…¥");
                 }
+            } else if ("3".equals(pushBean.getAgree())) {
+//               3. æ‹œè®¿äººç‚¹å‡»åŒæ„å¦ï¼Œæ¨é€ç»™åœºæ‰€ç ç›¸å…³äººå‘˜(é—¨å«å¤„)
+                AlertUtil.showMsgAlert(context, "é—¨å«æ”¶åˆ°æ¶ˆæ¯");
 
             } else {
 
@@ -197,15 +199,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 
     }
 
-    /**
-     * setTags() µÄ»Øµ÷º¯Êı¡£
-     *
-     * @param context     ÉÏÏÂÎÄ
-     * @param errorCode   ´íÎóÂë¡£0±íÊ¾Ä³Ğ©tagÒÑ¾­ÉèÖÃ³É¹¦£»·Ç0±íÊ¾ËùÓĞtagµÄÉèÖÃ¾ùÊ§°Ü¡£
-     * @param successTags ÉèÖÃ³É¹¦µÄtag
-     * @param failTags    ÉèÖÃÊ§°ÜµÄtag
-     * @param requestId   ·ÖÅä¸ø¶ÔÔÆÍÆËÍµÄÇëÇóµÄid
-     */
+
     @Override
     public void onSetTags(Context context, int errorCode,
                           List<String> successTags, List<String> failTags, String requestId) {
@@ -214,18 +208,16 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 + " requestId=" + requestId;
         Log.d(TAG, responseString);
 
-        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
 
     }
 
     /**
-     * delTags() µÄ»Øµ÷º¯Êı¡£
-     *
-     * @param context     ÉÏÏÂÎÄ
-     * @param errorCode   ´íÎóÂë¡£0±íÊ¾Ä³Ğ©tagÒÑ¾­É¾³ı³É¹¦£»·Ç0±íÊ¾ËùÓĞtag¾ùÉ¾³ıÊ§°Ü¡£
-     * @param successTags ³É¹¦É¾³ıµÄtag
-     * @param failTags    É¾³ıÊ§°ÜµÄtag
-     * @param requestId   ·ÖÅä¸ø¶ÔÔÆÍÆËÍµÄÇëÇóµÄid
+     * delTags() ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param context     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param errorCode   ï¿½ï¿½ï¿½ï¿½ï¿½ë¡£0ï¿½ï¿½Ê¾Ä³Ğ©tagï¿½Ñ¾ï¿½É¾ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½tagï¿½ï¿½É¾ï¿½ï¿½Ê§ï¿½Ü¡ï¿½
+     * @param successTags ï¿½É¹ï¿½É¾ï¿½ï¿½ï¿½ï¿½tag
+     * @param failTags    É¾ï¿½ï¿½Ê§ï¿½Üµï¿½tag
+     * @param requestId   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
      */
     @Override
     public void onDelTags(Context context, int errorCode,
@@ -235,17 +227,15 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 + " requestId=" + requestId;
         Log.d(TAG, responseString);
 
-        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
-
     }
 
     /**
-     * listTags() µÄ»Øµ÷º¯Êı¡£
+     * listTags() ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
-     * @param context   ÉÏÏÂÎÄ
-     * @param errorCode ´íÎóÂë¡£0±íÊ¾ÁĞ¾Ùtag³É¹¦£»·Ç0±íÊ¾Ê§°Ü¡£
-     * @param tags      µ±Ç°Ó¦ÓÃÉèÖÃµÄËùÓĞtag¡£
-     * @param requestId ·ÖÅä¸ø¶ÔÔÆÍÆËÍµÄÇëÇóµÄid
+     * @param context   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param errorCode ï¿½ï¿½ï¿½ï¿½ï¿½ë¡£0ï¿½ï¿½Ê¾ï¿½Ğ¾ï¿½tagï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¾Ê§ï¿½Ü¡ï¿½
+     * @param tags      ï¿½ï¿½Ç°Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½tagï¿½ï¿½
+     * @param requestId ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
      */
     @Override
     public void onListTags(Context context, int errorCode, List<String> tags,
@@ -254,16 +244,16 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 + tags;
         Log.d(TAG, responseString);
 
-        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+        // Demoï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½ë£¬Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 
     }
 
     /**
-     * PushManager.stopWork() µÄ»Øµ÷º¯Êı¡£
+     * PushManager.stopWork() ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
-     * @param context   ÉÏÏÂÎÄ
-     * @param errorCode ´íÎóÂë¡£0±íÊ¾´ÓÔÆÍÆËÍ½â°ó¶¨³É¹¦£»·Ç0±íÊ¾Ê§°Ü¡£
-     * @param requestId ·ÖÅä¸ø¶ÔÔÆÍÆËÍµÄÇëÇóµÄid
+     * @param context   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param errorCode ï¿½ï¿½ï¿½ï¿½ï¿½ë¡£0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í½ï¿½ó¶¨³É¹ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¾Ê§ï¿½Ü¡ï¿½
+     * @param requestId ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
      */
     @Override
     public void onUnbind(Context context, int errorCode, String requestId) {
@@ -272,10 +262,10 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         Log.d(TAG, responseString);
 
         if (errorCode == 0) {
-            // ½â°ó¶¨³É¹¦
-            Log.d(TAG, "½â°ó³É¹¦");
+            // ï¿½ï¿½ó¶¨³É¹ï¿½
+            Log.d(TAG, "ï¿½ï¿½ï¿½É¹ï¿½");
         }
-        // Demo¸üĞÂ½çÃæÕ¹Ê¾´úÂë£¬Ó¦ÓÃÇëÔÚÕâÀï¼ÓÈë×Ô¼ºµÄ´¦ÀíÂß¼­
+        // Demoï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½ë£¬Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 
     }
 

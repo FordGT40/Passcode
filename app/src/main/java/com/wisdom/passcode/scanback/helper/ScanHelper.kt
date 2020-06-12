@@ -52,6 +52,7 @@ class ScanHelper {
                 object : StringsCallback(object : OnTokenRefreshSuccessListener {
                     override fun onRefreshSuccess() {
                         Tools.closeDialog()
+                        getScanPlaceName(context, model)
                     }
 
                     override fun onRefreshFail(msg: String?) {

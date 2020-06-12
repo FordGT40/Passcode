@@ -59,6 +59,9 @@
     <string name="cannot_receive_code">收不到验证码？</string>
     <string name="btn_reRendValidate"><xliff id="max">%1$d</xliff>秒后重新发送</string>
     <string name="btn_reRendValidate2">重新发送(<xliff id="max">%1$d</xliff>)</string>
+
+    <string name="btn_reRendValidate_apply"><xliff id="max">%1$d</xliff>秒后可重新推送申请</string>
+    <string name="btn_reRendValidate_apply2">重新推送申请(<xliff id="max">%1$d</xliff>)</string>
     <string name="sms_send_success">验证码发送成功</string>
     <string name="hint12">密码最大长度为16位</string>
     <string name="hint14">手机号不正确，请查证</string>
@@ -218,6 +221,11 @@
     <string name="title_scan_success">提交申请成功</string>
     <string name="title_agree_success">审核申请信息</string>
     <string name="apply_again_success">请求成功,请等待回复</string>
+    <string name="login_time_out">登录过期，请重新登录</string>
+    <string name="wait_confirm">等待对方确认</string>
+    <string name="hint48">申请已推送至联络人</string>
+    <string name="hint49">长时间未确认请电话联系</string>
+    <string name="apply_again">再次申请</string>
 
 
 </resources>

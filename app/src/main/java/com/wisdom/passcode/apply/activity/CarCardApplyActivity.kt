@@ -312,6 +312,7 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
             object : StringsCallback(object : OnTokenRefreshSuccessListener {
                 override fun onRefreshSuccess() {
                     Tools.closeDialog()
+                    submitData()
                 }
 
                 override fun onRefreshFail(msg: String?) {

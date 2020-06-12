@@ -18,8 +18,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_36"
-        android:text="提交成功 等待审核"
+        android:layout_marginTop="@dimen/dp_34"
+        android:text="@string/wait_confirm"
         android:textColor="@color/textcolor"
         android:textSize="@dimen/sp_18"
         android:textStyle="bold" />
@@ -27,19 +27,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_12"
-        android:text="如果长时间未收到反馈，请点击下方按钮进行再次申请"
+        android:layout_marginTop="@dimen/dp_13"
+        android:text="@string/hint48"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_14" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:text="@string/hint49"
         android:textColor="@color/color_666666"
         android:textSize="@dimen/sp_14" />
 
     <Button
         android:id="@+id/btn_apply_again"
-        android:layout_width="@dimen/dp_100"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_30"
-        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_24"
         android:background="@drawable/shape_circle_conner_blue_deep"
         android:gravity="center"
         android:text="再次申请"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_8"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_15" />
 </LinearLayout>

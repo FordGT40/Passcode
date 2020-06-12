@@ -148,7 +148,7 @@ class ScanBackMainActivity : BaseActivity() {
             object : StringsCallback(object : OnTokenRefreshSuccessListener {
                 override fun onRefreshSuccess() {
                     Tools.closeDialog()
-
+                    scanLog(model)
                 }
 
                 override fun onRefreshFail(msg: String?) {

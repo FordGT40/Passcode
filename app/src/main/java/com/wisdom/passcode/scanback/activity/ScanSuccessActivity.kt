@@ -1,5 +1,7 @@
 package com.wisdom.passcode.scanback.activity
 
+import android.os.Handler
+import android.os.Message
 import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
@@ -12,6 +14,8 @@ import okhttp3.Call
 import okhttp3.Response
 import org.jetbrains.anko.toast
 import org.json.JSONObject
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ScanSuccessActivity : BaseActivity() {
 
@@ -24,6 +28,7 @@ class ScanSuccessActivity : BaseActivity() {
         setContentView(R.layout.activity_scan_success)
         val model = intent.extras.getSerializable("data") as ScanBackModel.PushDataBean
         btn_apply_again.setOnClickListener {
+            
             applyAgain(model)
         }
     }
@@ -92,6 +97,7 @@ class ScanSuccessActivity : BaseActivity() {
                     val code = jsonObject!!.optInt("code")
                     val msg = jsonObject!!.optString("msg")
                     if (code == 0) {
+startTimer()
                         toast(R.string.apply_again_success)
                     } else {
                         toast(msg)
@@ -99,5 +105,73 @@ class ScanSuccessActivity : BaseActivity() {
                 }
             })
 
+    }
+
+
+    //-----------------------------------------以下部分是获取验证码按钮的计时器------------------------------------------
+    private var timerTask: MyTimerTask? = null
+    private var timer: Timer? = null
+    private var MAX_TIME = 60
+    private val handler: Handler = object : Handler() {
+        override fun dispatchMessage(msg: Message) {
+            super.dispatchMessage(msg)
+            if (MAX_TIME > 0 && msg.what == 1) {
+                val value = java.lang.String.format(
+                    resources.getString(
+                        R.string.btn_reRendValidate_apply
+                    ),
+                    MAX_TIME--
+                )
+                btn_apply_again.setText(value)
+            } else {
+                stopTimer()
+            }
+        }
+    }
+
+    /**
+     * 获得验证码倒计时的任务
+     */
+    inner class MyTimerTask : TimerTask() {
+        override fun run() {
+            val message = Message()
+            message.what = 1
+            handler.sendMessage(message)
+        }
+    }
+
+    /**
+     * 获取验证码开始倒计时
+     */
+    private fun startTimer() {
+        btn_apply_again.isClickable = false
+        btn_apply_again.setBackgroundResource(R.drawable.shape_grey_btn)
+        val value = java.lang.String.format(
+            resources.getString(R.string.btn_reRendValidate_apply),
+            MAX_TIME
+        )
+        btn_apply_again.text = value
+        if (timer == null) timer = Timer(true)
+        if (timerTask != null) timerTask!!.cancel()
+        timerTask = MyTimerTask()
+        timer!!.schedule(timerTask, 1000, 1000)
+    }
+
+    /**
+     * 停止获取验证码按钮倒计时
+     */
+    private fun stopTimer() {
+        btn_apply_again.isClickable = true
+        btn_apply_again.setBackgroundResource(R.drawable.shape_circle_conner_blue_deep)
+        btn_apply_again.text = getString(R.string.apply_again)
+        MAX_TIME = 60
+        if (timerTask != null) {
+            timerTask!!.cancel()
+            timerTask = null
+        }
+        if (timerTask != null) {
+            timerTask!!.cancel()
+            timerTask = null
+        }
     }
 }

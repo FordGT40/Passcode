@@ -58,17 +58,16 @@ class SplashActivity : BaseActivity() {
     override fun initViews() {
         //将sp文件中的信息进行本地化操作
         Helper.getInfoFromSpFile(this)
-
+        //判断是否免登录
+        ConstantString.loginState = ConstantString.accessToken != ""
         //如果本地时间戳是空的，那么获取时间戳，否则不获取
         if (ConstantString.timeStamp == 0L) {
             getServerTimeMillis()
         } else {
             timeStampFinish = true
+            //开启计时线程，判断跳转页面
+            startIndexPage()
         }
-        //判断是否免登录
-        ConstantString.loginState = ConstantString.accessToken != ""
-        //开启计时线程，判断跳转页面
-        startIndexPage()
 
     }
 
@@ -96,6 +95,8 @@ class SplashActivity : BaseActivity() {
                             apply()
                         }
                     timeStampFinish = true
+                    //开启计时线程，判断跳转页面
+                    startIndexPage()
                 } else {
                     timeStampFinish = false
                     toast(HttpUtil.getErrorMsgByCode("$code"))

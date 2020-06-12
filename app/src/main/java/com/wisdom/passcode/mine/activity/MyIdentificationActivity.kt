@@ -44,6 +44,7 @@ class MyIdentificationActivity : BaseActivity() {
                 object : OnTokenRefreshSuccessListener {
                     override fun onRefreshSuccess() {
                         Tools.closeDialog()
+                        getUserInfo()
                     }
 
                     override fun onRefreshFail(msg: String?) {
