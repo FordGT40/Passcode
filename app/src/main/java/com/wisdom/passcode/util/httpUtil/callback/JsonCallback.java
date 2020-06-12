@@ -51,7 +51,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
      * <pre>
      * OkGo.get(Urls.URL_METHOD)//
      *     .tag(this)//
-     *     .execute(new DialogCallback<BaseModel<ServerModel>>(this) {
+     *     .execute(news DialogCallback<BaseModel<ServerModel>>(this) {
      *          @Override
      *          public void onSuccess(BaseModel<ServerModel> responseData, Call call, Response response) {
      *              handleResponse(responseData.results, call, response);
@@ -86,7 +86,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
 
         //这里我们既然都已经拿到了泛型的真实类型，即对应的 class ，那么当然可以开始解析数据了，我们采用 Gson 解析
         //以下代码是根据泛型解析数据，返回对象，返回的对象自动以参数的形式传递到 onSuccess 中，可以直接使用
-//        JsonReader jsonReader = new JsonReader(response.body().charStream());
+//        JsonReader jsonReader = news JsonReader(response.body().charStream());
         String responseStr = response.body().string();
 
         if (typeArgument == Void.class) {
@@ -96,7 +96,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //无数据类型,表示没有data数据的情况（以  new DialogCallback<BaseModel<Void>>(this)  以这种形式传递的泛型)
+            //无数据类型,表示没有data数据的情况（以  news DialogCallback<BaseModel<Void>>(this)  以这种形式传递的泛型)
             response.close();
             //noinspection unchecked
             return (T) simpleResponse.toBaseModel();

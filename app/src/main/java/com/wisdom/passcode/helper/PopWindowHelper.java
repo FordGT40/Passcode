@@ -97,9 +97,9 @@ public class PopWindowHelper implements View.OnClickListener {
             }
             break;
             case R.id.ll_upload_img: {//从相册选择
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                Intent intent = news Intent(Intent.ACTION_GET_CONTENT);
 ////              intent.setType("text/plain");
-////                Intent intent = new Intent(Intent.ACTION_GET_CONTENT,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+////                Intent intent = news Intent(Intent.ACTION_GET_CONTENT,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 //                intent.setType("image/*");
 //                intent.addCategory(Intent.CATEGORY_OPENABLE);
                 Intent intent;

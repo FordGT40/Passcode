@@ -95,7 +95,7 @@ public class Image {
     /**
      * Image format conversion.
      *
-     * @returns a @em new image with the sample data from the original
+     * @returns a @em news image with the sample data from the original
      * image converted to the requested format fourcc.  the original
      * image is unaffected.
      */

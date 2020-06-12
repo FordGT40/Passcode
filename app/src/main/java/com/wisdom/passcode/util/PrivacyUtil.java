@@ -41,7 +41,7 @@ public class PrivacyUtil {
 //            return "";
 //        }
 //
-//        StringBuilder sb = new StringBuilder(email);
+//        StringBuilder sb = news StringBuilder(email);
 //        //邮箱账号名只显示前两位
 //        int at_position = sb.indexOf("@");
 //        if (at_position > 2) {

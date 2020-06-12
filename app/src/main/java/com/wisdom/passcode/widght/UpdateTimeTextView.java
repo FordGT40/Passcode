@@ -39,8 +39,8 @@ public class UpdateTimeTextView extends androidx.appcompat.widget.AppCompatTextV
             @Override
             public void run() {
                 while(true){
-//                    SimpleDateFormat sdf=new SimpleDateFormat(DEFAULT_TIME_FORMAT);
-//                    String str=sdf.format(new Date());
+//                    SimpleDateFormat sdf=news SimpleDateFormat(DEFAULT_TIME_FORMAT);
+//                    String str=sdf.format(news Date());
                     SimpleDateFormat dateFormatter = new SimpleDateFormat(DEFAULT_TIME_FORMAT);
                     String time = dateFormatter.format(Calendar.getInstance().getTime());
                     handler.sendMessage(handler.obtainMessage(100,time));

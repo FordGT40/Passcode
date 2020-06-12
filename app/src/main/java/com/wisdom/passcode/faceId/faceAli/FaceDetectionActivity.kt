@@ -216,12 +216,12 @@ class FaceDetectionActivity : VideoBaseActivity() {
 //                    RelativeLayout componentLayout  = findViewById(R.id.componentLayout);
 //                    componentLayout.setLayoutParams(componentLayoutParams);
 
-//                    RelativeLayout.LayoutParams yprLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                    RelativeLayout.LayoutParams yprLayoutParams = news RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                    yprLayoutParams.addRule(RelativeLayout.BELOW, R.id.costTime);
 //                    mYPR.setPadding(24,0,0,0);
 //                    mYPR.setLayoutParams(yprLayoutParams);
 
-//                    RelativeLayout.LayoutParams faceActionLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                    RelativeLayout.LayoutParams faceActionLayoutParams = news RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                    faceActionLayoutParams.addRule(RelativeLayout.BELOW, R.id.ypr);
 //                    mFaceAction.setPadding(24,0,0,0);
 //                    mFaceAction.setLayoutParams(faceActionLayoutParams);
