@@ -24,22 +24,57 @@ public class SharedPreferenceUtil {
                 ConstantString.SHARE_PER_INFO, 0), context);
     }
 
-
+    /**
+     * 获取人员个人信息
+     * @param context
+     * @param model
+     */
     public static PersonalInfoModel getPersonalInfoModel(Context context) {
         return (PersonalInfoModel) getConfig(context).getSerializable(ConstantString.USER_INFO);
     }
 
+    /**
+     * 设置人员个人信息
+     * @param context
+     * @param model
+     */
     public static void setPersonalInfoModel(Context context, PersonalInfoModel model) {
         getConfig(context).putSerializable(ConstantString.USER_INFO, model);
     }
 
 
-
+    /**
+     * 获取人员扫码，填写表单后返回的model
+     * @param context
+     * @param model
+     */
     public static ScanBackModel getScanBackModel(Context context) {
         return (ScanBackModel) getConfig(context).getSerializable(ConstantString.SCAN_INFO);
     }
 
+    /**
+     * 存储人员扫码，填写表单后返回的model
+     * @param context
+     * @param model
+     */
     public static void setScanBackModel(Context context, ScanBackModel model) {
         getConfig(context).putSerializable(ConstantString.SCAN_INFO, model);
+    }
+
+    /**
+     * 取得管理员上次选中的当前场所
+     * @param context
+     * @return
+     */
+    public static PersonalInfoModel.PlaceListBean getAdminPlaceInfo(Context context) {
+        return (PersonalInfoModel.PlaceListBean) getConfig(context).getSerializable(ConstantString.ADIN_PLACE_INFO);
+    }
+    /**
+     * 存储管理员上次选中的当前场所
+     * @param context
+     * @return
+     */
+    public static void setAdminPlaceInfo(Context context, PersonalInfoModel.PlaceListBean model) {
+        getConfig(context).putSerializable(ConstantString.ADIN_PLACE_INFO, model);
     }
 }

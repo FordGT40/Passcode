@@ -13,7 +13,9 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.apply.activity.CarCardApplyActivity
 import com.wisdom.passcode.apply.activity.PersonCardApplyActivity
 import com.wisdom.passcode.apply.activity.PlaceCodePlaceTypeChooseActivity
+import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.helper.Helper
+import com.wisdom.passcode.homepage.activity.AdminPlaceChooseActivity
 import com.wisdom.passcode.homepage.activity.MyCardsActivity
 import com.wisdom.passcode.homepage.activity.ShowCodeActivity
 import com.wisdom.passcode.scanback.activity.ScanBackMainActivity
@@ -26,6 +28,7 @@ import kotlinx.android.synthetic.main.include_open.*
 import kotlinx.android.synthetic.main.include_toolbar_close.*
 import kotlinx.android.synthetic.main.include_toolbar_open.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.startActivityForResult
 import org.jetbrains.anko.support.v4.toast
 import kotlin.math.abs
 
@@ -56,9 +59,20 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
         ll_apply_id.setOnClickListener(this)
         ll_show_card.setOnClickListener(this)
         tv_head_show_card.setOnClickListener(this)
+        ll_top.setOnClickListener(this)
         if (ConstantString.isAdmin.toBoolean()) {
             //是管理员
             rl_admin.visibility = View.VISIBLE
+            //设置管理员场所信息
+            if (SharedPreferenceUtil.getAdminPlaceInfo(context) != null) {
+                //存在之前选的
+                tv_place_name.text = SharedPreferenceUtil.getAdminPlaceInfo(context).placeName
+            } else {
+                //不存在之前选好的地点信息
+                tv_place_name.text =
+                    SharedPreferenceUtil.getPersonalInfoModel(context).placeList[0].placeName
+            }
+
         } else {
             //非管理员
             rl_admin.visibility = View.GONE
@@ -68,7 +82,10 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
 
     override fun onClick(v: View) {
         when (v.id) {
-
+            R.id.ll_top -> {
+                //管理员选择场所
+                startActivityForResult<AdminPlaceChooseActivity>(ConstantString.REQUEST_CODE)
+            }
             R.id.iv_ad -> {
                 startActivity<ScanBackMainActivity>()
             }
@@ -95,7 +112,7 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
                             data.passCodeId = ""
                             data.placeCodeEncryption = placeCode
                             data.userIdEncryption = ConstantString.userIdEncryption
-                            ScanHelper.getScanPlaceName(context!!,data)
+                            ScanHelper.getScanPlaceName(context!!, data)
 
                         } else {
                             toast("扫的不是场所码")

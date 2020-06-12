@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:paddingBottom="@dimen/dp_40"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/dp_40"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -18,21 +18,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_1"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll_top"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_20"
-                android:text="管理人员扫码"
-                android:textColor="@color/textcolor"
-                android:textSize="@dimen/sp_18"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="场所管理员"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/sp_18"
+                    android:textStyle="bold" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_circle_corner_blue_main"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp_12"
+    android:paddingRight="@dimen/dp_12"
+    android:gravity="center"
+    android:layout_marginLeft="@dimen/dp_14"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/pulldown_blue"
+        android:textColor="@color/primary_blue"
+        android:textSize="@dimen/sp_14"
+        android:id="@+id/tv_place_name"
+        android:text="哈尔滨华泽"
+        android:drawablePadding="@dimen/dp_10"
+        android:singleLine="true"
+        android:ellipsize="end"/>
+
+</LinearLayout>
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_1"
+                android:layout_below="@+id/ll_top"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -323,7 +356,7 @@
                 android:layout_width="@dimen/dp_103"
                 android:layout_height="@dimen/dp_138"
                 android:layout_below="@+id/tv_3"
-               android:layout_alignParentRight="true"
+                android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/dp_15"
                 android:layout_marginRight="@dimen/dp_16"
@@ -367,7 +400,7 @@
                 android:layout_width="@dimen/dp_103"
                 android:layout_height="@dimen/dp_138"
                 android:layout_below="@+id/tv_3"
-             android:layout_alignParentLeft="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_15"
