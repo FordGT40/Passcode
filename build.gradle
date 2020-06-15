@@ -3,19 +3,35 @@
 buildscript {
     ext.kotlin_version = '1.3.61'
     repositories {
-        maven { url "https://jitpack.io" }
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
-        maven { url'https://maven.aliyun.com/repository/public/' }
-        maven { url'https://maven.aliyun.com/repository/google/' }
-        maven { url'https://maven.aliyun.com/repository/jcenter/' }
-        maven { url'https://maven.aliyun.com/repository/central/' }
+//        maven { url "https://jitpack.io" }
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+//        maven { url'https://maven.aliyun.com/repository/public/' }
+//        maven { url'https://maven.aliyun.com/repository/google/' }
+//        maven { url'https://maven.aliyun.com/repository/jcenter/' }
+//        maven { url'https://maven.aliyun.com/repository/central/' }
+//        maven {
+//            url "https://maven.google.com"
+//        }
+//        google()
+//        jcenter()
+//        maven { url "https://jitpack.io" }
+//        mavenCentral()
+
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven {
+            url "https://maven.google.com"
+        }
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
+        mavenCentral()
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:3.6.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -24,14 +40,29 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url "https://jitpack.io" }
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
-        maven { url'https://maven.aliyun.com/repository/public/' }
-        maven { url'https://maven.aliyun.com/repository/google/' }
-        maven { url'https://maven.aliyun.com/repository/jcenter/' }
-        maven { url'https://maven.aliyun.com/repository/central/' }
+
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+//        maven { url'https://maven.aliyun.com/repository/public/' }
+//        maven { url'https://maven.aliyun.com/repository/google/' }
+//        maven { url'https://maven.aliyun.com/repository/jcenter/' }
+//        maven { url'https://maven.aliyun.com/repository/central/' }
+//        maven {
+//            url "https://maven.google.com"
+//        }
+//        google()
+//        jcenter()
+//        maven { url "https://jitpack.io" }
+//        mavenCentral()
+
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven {
+            url "https://maven.google.com"
+        }
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
+        mavenCentral()
     }
 }
 

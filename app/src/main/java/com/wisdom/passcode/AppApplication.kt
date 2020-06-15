@@ -1,12 +1,16 @@
 package com.wisdom.passcode
 
 import android.app.Application
+import com.aliyun.sls.android.sdk.DaoMaster
+import com.aliyun.sls.android.sdk.DaoMaster.DevOpenHelper
+import com.aliyun.sls.android.sdk.DaoSession
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheEntity
 import com.lzy.okgo.cache.CacheMode
 import com.lzy.okgo.cookie.store.PersistentCookieStore
 import com.wisdom.passcode.util.ToastUtil
 import java.util.logging.Level
+
 
 /**
  * @ProjectName project： Passcode
@@ -19,9 +23,25 @@ import java.util.logging.Level
 class AppApplication : Application() {
 
     companion object {
+        private var mDaoSession: DaoSession? = null
         var context: AppApplication? = null
         fun getInstance(): AppApplication? {
             return context
+        }
+
+        fun initGreenDao() {
+            //创建数据库mydb.db
+            val helper = DevOpenHelper(context, "passcode.db")
+            //获取可写数据库
+            val database = helper.writableDatabase
+            //获取数据库对象
+            val daoMaster = DaoMaster(database)
+            //获取Dao对象管理者
+            mDaoSession = daoMaster.newSession()
+        }
+
+        fun getmDaoSession(): DaoSession? {
+            return mDaoSession
         }
     }
 
@@ -34,7 +54,8 @@ class AppApplication : Application() {
         //OKGo 调用初始化
         OkGo.init(this)
         okgoInit()
-        //
+        //配置数据库
+        initGreenDao()
     }
 
     /**

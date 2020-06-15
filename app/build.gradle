@@ -1,10 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 28
 
+    greendao {
+        schemaVersion 1 //数据库版本号，数据库升级使用
+        daoPackage 'com.dengjunduo.garden.greendao' //代表GreenDao自动生成的有关数据库操作工具类所要存放的包名
+        targetGenDir 'src/main/java' //路径
+    }
 
     defaultConfig {
         applicationId "com.wisdom.passcode"
@@ -29,6 +35,8 @@ android {
 }
 
 dependencies {
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'org.greenrobot:greendao-generator:3.2.2'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'

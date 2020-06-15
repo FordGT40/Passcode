@@ -44,6 +44,7 @@
     android:paddingRight="@dimen/dp_12"
     android:gravity="center"
     android:id="@+id/ll_place"
+    android:animateLayoutChanges="true"
     android:layout_marginLeft="@dimen/dp_14"
     >
     <TextView

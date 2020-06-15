@@ -1,5 +1,7 @@
 package com.wisdom.passcode.homepage.fragment
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Color
@@ -30,7 +32,6 @@ import kotlinx.android.synthetic.main.include_open.*
 import kotlinx.android.synthetic.main.include_toolbar_close.*
 import kotlinx.android.synthetic.main.include_toolbar_open.*
 import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.startActivityForResult
 import org.jetbrains.anko.support.v4.toast
 import kotlin.math.abs
 
@@ -89,14 +90,26 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
             rl_admin.visibility = View.GONE
         }
     }
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.ll_top -> {
                 //管理员选择场所
-                val intent=Intent(context,AdminPlaceChooseActivity::class.java)
-                intent.putExtra("placeName",tv_place_name.text.toString())
-                ll_place.visibility=View.INVISIBLE
-                startActivityForResult(intent,ConstantString.REQUEST_CODE, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
+                val intent = Intent(context, AdminPlaceChooseActivity::class.java)
+                intent.putExtra("placeName", tv_place_name.text.toString())
+                ll_place.animate()
+                    .alpha(0f)
+                    .setDuration(1000)
+                    .setListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            ll_place.visibility = View.INVISIBLE
+                        }
+                    })
+                startActivityForResult(
+                    intent,
+                    ConstantString.REQUEST_CODE,
+                    ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()
+                )
             }
             R.id.iv_ad -> {
                 startActivity<ScanBackMainActivity>()
@@ -190,10 +203,17 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(resultCode){
-            ConstantString.CODE_PLACE_CHOOSE->{
+        when (resultCode) {
+            ConstantString.CODE_PLACE_CHOOSE -> {
 //                选择完场所了
-                ll_place.visibility=View.VISIBLE
+                ll_place.animate()
+                    .alpha(1f)
+                    .setDuration(1)
+                    .setListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            ll_place.visibility = View.VISIBLE
+                        }
+                    })
             }
         }
     }
