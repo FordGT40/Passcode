@@ -1,18 +1,25 @@
 package com.wisdom.passcode.mine.fragment
 
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.ActivityManager
+import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.faceId.FaceIdInputNameActivity
+import com.wisdom.passcode.helper.PopWindowHelper
 import com.wisdom.passcode.mine.activity.*
 import com.wisdom.passcode.util.AlertUtil
+import com.wisdom.passcode.util.FileUtils
+import com.wisdom.passcode.util.ImageUtil
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.head_title_bar.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -38,11 +45,15 @@ class MineFragment : Fragment(), View.OnClickListener {
         rl_apply_record.setOnClickListener(this)
         btn_search.setOnClickListener(this)
         rl_my_identifiction.setOnClickListener(this)
-
+        iv_head.setOnClickListener(this)
     }
 
     override fun onResume() {
         super.onResume()
+        //设置用户头像
+        val headImgeUrl=SharedPreferenceUtil.getPersonalInfoModel(context).avatar
+        Glide.with(context).load(headImgeUrl).into(iv_head)
+
         if (SharedPreferenceUtil.getPersonalInfoModel(context).authState == ConstantString.AUTHENTICATION_TYPE_TRUE) {
             //已经实名了
             tv_attestation.text = getString(R.string.real_name)
@@ -66,6 +77,10 @@ class MineFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.iv_head -> {
+                //点击头像
+
+            }
             R.id.tv_info -> {
                 //个人资料
                 startActivity<MyProfileActivity>()
@@ -112,5 +127,7 @@ class MineFragment : Fragment(), View.OnClickListener {
 
         }
     }
+
+
 
 }

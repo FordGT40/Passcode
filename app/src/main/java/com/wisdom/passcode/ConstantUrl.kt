@@ -92,6 +92,9 @@ class ConstantUrl {
 //        28. 再次推送信息
        const val SCAN_PUSHAGAIN_URL="/v1/scan/pushAgain"
 
+//        11. 修改头像
+        const val UPDATE_AVATAR_URL="/v1/user/updateAvatar"
+
     }
 
 }

@@ -3,6 +3,7 @@ package com.wisdom.passcode.homepage.activity
 import android.Manifest
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -296,5 +297,9 @@ class MainActivity : FragmentActivity(), View.OnClickListener {
         super.onDestroy()
         // Push：解绑
         PushManager.stopWork(applicationContext)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

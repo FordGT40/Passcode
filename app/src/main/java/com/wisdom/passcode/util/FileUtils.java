@@ -18,7 +18,10 @@ import androidx.core.content.FileProvider;
 
 import com.lzy.okgo.BuildConfig;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +36,46 @@ public class FileUtils {
     public static final String TAG = FileUtils.class.getSimpleName();
 
 
+    /**
+     * 将bitmap存成文件到本地
+     * @param bmp
+     * @param filename
+     * @return
+     */
+   public static boolean saveBitmap2file(Bitmap bmp,String filename){
+        Bitmap.CompressFormat format= Bitmap.CompressFormat.JPEG;
+        int quality = 100;
+        OutputStream stream = null;
+        try {
+            stream = new FileOutputStream("/sdcard/" + filename);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return bmp.compress(format, quality, stream);
+    }
+
+
+    //在将bitmap转换成file
+    public static File getFileFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        File file = new File(Environment.getExternalStorageDirectory() + "/temp.jpg");
+        try {
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+            int x = 0;
+            byte[] b = new byte[1024 * 100];
+            while ((x = is.read(b)) != -1) {
+                fos.write(b, 0, x);
+            }
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
     /**
      * 打开指定文件路径
      *
@@ -183,9 +226,9 @@ public class FileUtils {
         String savePath;
         File filePic;
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            savePath = "harbin/download";
+            savePath = "passcode/download";
         } else {
-            savePath = context.getApplicationContext().getFilesDir().getAbsolutePath() + "harbin/download";
+            savePath = context.getApplicationContext().getFilesDir().getAbsolutePath() + "passcode/download";
         }
         try {
             filePic = new File(savePath + RandomUtil.getRandomString(11) + ".jpg");//保存的格式为jpg

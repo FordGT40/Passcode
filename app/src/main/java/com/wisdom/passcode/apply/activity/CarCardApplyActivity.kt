@@ -192,7 +192,7 @@ class CarCardApplyActivity : BaseActivity(), View.OnClickListener {
                     Glide.with(this@CarCardApplyActivity).load(carPhoto).into(iv_car_photo)
                 } else {
                     drivingLicencePhoto = ConstantString.PIC_LOCATE
-                    if (drivingLicencePhoto.isNotEmpty()) {
+                    if (drivingLicencePhoto.isNotEmpty()&&data!=null) {
                         Glide.with(this@CarCardApplyActivity).load(drivingLicencePhoto)
                             .into(iv_driving_licence)
                     }
