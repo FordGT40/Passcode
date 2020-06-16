@@ -167,7 +167,7 @@ class MyProfileActivity : BaseActivity() {
         val params = HttpParams()
         params.put("avatarFile", File(picPath))
         val listParams = ArrayList<String>().toMutableList()
-        Tools.showLoadingDialog(this)
+//        Tools.showLoadingDialog(this)
         HttpUtil.httpPostWithStampAndSignToken(
             ConstantUrl.UPDATE_AVATAR_URL,
             params,
