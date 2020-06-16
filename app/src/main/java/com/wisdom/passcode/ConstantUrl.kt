@@ -95,6 +95,9 @@ class ConstantUrl {
 //        11. 修改头像
         const val UPDATE_AVATAR_URL="/v1/user/updateAvatar"
 
+//        25. 场所常用进入事由
+        const val PLACE_REASONS_URL="/v1/place/reasons"
+
     }
 
 }

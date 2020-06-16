@@ -4,12 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.lzy.okgo.model.HttpParams
 import com.wisdom.passcode.ConstantString
 import com.wisdom.passcode.ConstantUrl
 import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
+import com.wisdom.passcode.scanback.adapter.ReasonChooseAdapter
+import com.wisdom.passcode.scanback.model.ReasonModel
 import com.wisdom.passcode.scanback.model.ScanBackModel
 import com.wisdom.passcode.scanback.model.UploadScanFormModel
 import com.wisdom.passcode.util.*
@@ -91,6 +94,7 @@ class ScanBackMainActivity : BaseActivity() {
         //设置页面相关信息
         val placeName = intent.getStringExtra("data")
         val placeCode = intent.getStringExtra("placeCode")
+        val placeIdEnc = intent.getStringExtra("placeIdEnc")
         tv_place_name.text = placeName
         val name =
             SharedPreferenceUtil.getPersonalInfoModel(this).nickName
@@ -98,6 +102,8 @@ class ScanBackMainActivity : BaseActivity() {
             EncrypAndDecrypUtil.decrypt(SharedPreferenceUtil.getPersonalInfoModel(this).phonenumber)
         tv_name.text = PrivacyUtil.nameDesensitization(name)
         tv_phoneNum.text = PrivacyUtil.phoneDesensitization(phoneNum)
+        //设置原因的候选信息项目
+        getReason(placeIdEnc)
 //提交按钮点击事件
         btn_submit.setOnClickListener {
             submitData(placeCode)
@@ -222,4 +228,55 @@ class ScanBackMainActivity : BaseActivity() {
         dataModel.visitorsUserName = StrUtils.getEdtTxtContent(et_name)
         scanLog(dataModel)
     }
+
+
+    fun getReason(placeIdEncryption: String) {
+        Tools.showLoadingDialog(this)
+        val params = HttpParams()
+        params.put("placeIdEncryption", placeIdEncryption)
+        val listPramas = listOf("placeIdEncryption$placeIdEncryption").toMutableList()
+        HttpUtil.httpPostWithStampAndSignToken(
+            ConstantUrl.PLACE_REASONS_URL,
+            params,
+            listPramas,
+            object : StringsCallback(
+                object : OnTokenRefreshSuccessListener {
+                    override fun onRefreshSuccess() {
+                        getReason(placeIdEncryption)
+                    }
+
+                    override fun onRefreshFail(msg: String?) {
+                    }
+                }
+            ) {
+                override fun onInterfaceSuccess(
+                    jsonObject: JSONObject?,
+                    call: Call?,
+                    response: Response?
+                ) {
+                    val code = jsonObject!!.optInt("code")
+                    val msg = jsonObject!!.optString("msg")
+                    if (code == 0) {
+                        //访问成功了：
+                        val dataList =
+                            Gson().fromJson<List<ReasonModel>>(jsonObject.optString("data"),
+                                object : TypeToken<List<ReasonModel>>() {}.type
+                            )
+                        val adapter = ReasonChooseAdapter(this@ScanBackMainActivity, dataList)
+                        gridView.adapter = adapter
+                        var reasonText=""
+                        gridView.setOnItemClickListener { parent, view, position, id ->
+                            reasonText+="${dataList[position].text},"
+                            et_reason.setText(reasonText)
+                        }
+                    } else {
+                        toast(msg)
+                    }
+                }
+            })
+
+
+    }
+
+
 }

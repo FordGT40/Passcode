@@ -110,7 +110,7 @@ public abstract class StringsCallback extends StringCallback {
                 });
             } else {
                 //token没有过期
-
+Tools.Companion.closeDialog();
                 onInterfaceSuccess(jsonObject, call, response);
             }
         } catch (JSONException e) {

@@ -70,8 +70,9 @@ class ScanHelper {
                         if (code == 0) {
                             val data = jsonObject.optJSONObject("data")
                             val placeName = data.optString("placeName")
+                            val placeIdEnc = data.optString("placeIdEnc")
                             //打开扫码详情页面
-                            context.startActivity<ScanBackMainActivity>("data" to placeName,"placeCode" to model.placeCodeEncryption)
+                            context.startActivity<ScanBackMainActivity>("data" to placeName,"placeIdEnc" to placeIdEnc,"placeCode" to model.placeCodeEncryption)
                         } else {
                             context.toast(msg)
                         }
