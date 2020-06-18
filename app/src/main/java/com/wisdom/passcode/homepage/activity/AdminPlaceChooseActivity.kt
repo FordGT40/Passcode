@@ -8,6 +8,7 @@ import com.wisdom.passcode.R
 import com.wisdom.passcode.base.BaseActivity
 import com.wisdom.passcode.base.SharedPreferenceUtil
 import com.wisdom.passcode.homepage.adapter.AdminPlaceChooseAdapter
+import com.wisdom.passcode.mine.model.PersonalInfoModel
 import kotlinx.android.synthetic.main.activity_admin_place_choose.*
 
 class AdminPlaceChooseActivity : BaseActivity() {
@@ -18,11 +19,21 @@ class AdminPlaceChooseActivity : BaseActivity() {
         if (!placeName.isNullOrEmpty()) {
             tv_place.text = placeName
         }
-        val dataList = SharedPreferenceUtil.getPersonalInfoModel(this).placeList
-        val adapter = AdminPlaceChooseAdapter(this, dataList)
+        val dataSource = SharedPreferenceUtil.getPersonalInfoModel(this).placeList
+        //遍历个人信息数据源，拿到可以供管理员切换的地点信息
+        var listData=ArrayList<PersonalInfoModel.PlaceCodeBean>().toMutableList()
+        for(item in dataSource){
+            if(!item.placeCode.isNullOrEmpty()){
+                for(it in item.placeCode){
+                    listData.add(it)
+                }
+            }
+        }
+        //设置适配器展示数据
+        val adapter = AdminPlaceChooseAdapter(this, listData)
         listView.setOnItemClickListener { parent, view, position, id ->
             //将选中的场所信息本地化
-            SharedPreferenceUtil.setAdminPlaceInfo(this, dataList[position])
+            SharedPreferenceUtil.setAdminPlaceInfo(this, listData[position])
             closePage()
         }
         listView.adapter = adapter

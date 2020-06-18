@@ -120,7 +120,7 @@ class ConstantString {
         var loginState = false//系统的登录状态
         var userPhone = ""//当前登录用户的手机号
         var PIC_LOCATE = "" //拍照后图片缓存的地址
-        var adminPlaceModel: PersonalInfoModel.PlaceListBean? = null//管理员角色存储的当前选定场所信息
+        var adminPlaceModel: PersonalInfoModel.PlaceCodeBean? = null//管理员角色存储的当前选定场所信息
 
 
         val LICENCEPAPER =

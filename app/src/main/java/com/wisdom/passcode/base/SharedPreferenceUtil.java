@@ -27,7 +27,7 @@ public class SharedPreferenceUtil {
     /**
      * 获取人员个人信息
      * @param context
-     * @param model
+     * @param context
      */
     public static PersonalInfoModel getPersonalInfoModel(Context context) {
         return (PersonalInfoModel) getConfig(context).getSerializable(ConstantString.USER_INFO);
@@ -46,7 +46,7 @@ public class SharedPreferenceUtil {
     /**
      * 获取人员扫码，填写表单后返回的model
      * @param context
-     * @param model
+     * @param context
      */
     public static ScanBackModel getScanBackModel(Context context) {
         return (ScanBackModel) getConfig(context).getSerializable(ConstantString.SCAN_INFO);
@@ -66,15 +66,15 @@ public class SharedPreferenceUtil {
      * @param context
      * @return
      */
-    public static PersonalInfoModel.PlaceListBean getAdminPlaceInfo(Context context) {
-        return (PersonalInfoModel.PlaceListBean) getConfig(context).getSerializable(ConstantString.ADIN_PLACE_INFO);
+    public static PersonalInfoModel.PlaceCodeBean getAdminPlaceInfo(Context context) {
+        return (PersonalInfoModel.PlaceCodeBean) getConfig(context).getSerializable(ConstantString.ADIN_PLACE_INFO);
     }
     /**
      * 存储管理员上次选中的当前场所
      * @param context
      * @return
      */
-    public static void setAdminPlaceInfo(Context context, PersonalInfoModel.PlaceListBean model) {
+    public static void setAdminPlaceInfo(Context context, PersonalInfoModel.PlaceCodeBean model) {
         getConfig(context).putSerializable(ConstantString.ADIN_PLACE_INFO, model);
     }
 }

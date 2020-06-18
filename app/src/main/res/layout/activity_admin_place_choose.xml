@@ -55,7 +55,7 @@
                         android:id="@+id/tv_place"
                         android:drawablePadding="@dimen/dp_10"
                         android:singleLine="true"
-                        android:ellipsize="end"/>
+                        android:ellipsize="middle"/>
 
                 </LinearLayout>
 

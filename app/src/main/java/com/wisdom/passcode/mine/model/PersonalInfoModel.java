@@ -288,7 +288,7 @@ public class PersonalInfoModel implements Serializable {
         this.placeList = placeList;
     }
 
-    public static class PlaceListBean implements Serializable{
+    public static class PlaceListBean implements Serializable {
         /**
          * deptName : 市场部
          * placeId : 24
@@ -303,6 +303,15 @@ public class PersonalInfoModel implements Serializable {
         private String userId;
         private String scannerType;
         private String postName;
+        private List<PlaceCodeBean> placeCode;
+
+        public List<PlaceCodeBean> getPlaceCode() {
+            return placeCode;
+        }
+
+        public void setPlaceCode(List<PlaceCodeBean> placeCode) {
+            this.placeCode = placeCode;
+        }
 
         public String getPostName() {
             return postName;
@@ -350,6 +359,28 @@ public class PersonalInfoModel implements Serializable {
 
         public void setScannerType(String scannerType) {
             this.scannerType = scannerType;
+        }
+    }
+
+
+    public static class PlaceCodeBean implements Serializable {
+        private String id;
+        private String name;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }

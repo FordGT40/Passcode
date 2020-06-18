@@ -19,7 +19,7 @@ import com.wisdom.passcode.mine.model.PersonalInfoModel
  */
 class AdminPlaceChooseAdapter(
     val context: Context,
-    private val listData: List<PersonalInfoModel.PlaceListBean>
+    private val listData: List<PersonalInfoModel.PlaceCodeBean>
 ) : BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View?{
@@ -33,7 +33,7 @@ class AdminPlaceChooseAdapter(
         } else {
             viewHolder = itemView.tag as ViewHolder
         }
-        viewHolder.tv_name.text = listData[position].placeName
+        viewHolder.tv_name.text = listData[position].name
         return itemView
     }
 

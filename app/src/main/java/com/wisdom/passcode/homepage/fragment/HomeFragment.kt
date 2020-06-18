@@ -76,13 +76,13 @@ class HomeFragment : Fragment(), View.OnClickListener, AppBarLayout.OnOffsetChan
             if (SharedPreferenceUtil.getAdminPlaceInfo(context) != null) {
                 //存在之前选的
                 ConstantString.adminPlaceModel = SharedPreferenceUtil.getAdminPlaceInfo(context)
-                tv_place_name.text = SharedPreferenceUtil.getAdminPlaceInfo(context).placeName
+                tv_place_name.text = SharedPreferenceUtil.getAdminPlaceInfo(context).name
             } else {
                 //不存在之前选好的地点信息
                 ConstantString.adminPlaceModel =
-                    SharedPreferenceUtil.getPersonalInfoModel(context).placeList[0]
+                    SharedPreferenceUtil.getPersonalInfoModel(context).placeList[0].placeCode[0]
                 tv_place_name.text =
-                    SharedPreferenceUtil.getPersonalInfoModel(context).placeList[0].placeName
+                    SharedPreferenceUtil.getPersonalInfoModel(context).placeList[0].placeCode[0].name
             }
 
         } else {
