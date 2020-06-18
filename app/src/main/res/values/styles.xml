@@ -57,9 +57,9 @@
 
     <!--    欢迎页样式-->
     <style name="ThemeSplash" parent="AppTheme">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
+<!--        <item name="windowNoTitle">true</item>-->
+<!--        <item name="windowActionBar">false</item>-->
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowFullscreen">true</item>
+<!--        <item name="android:windowFullscreen">true</item>-->
     </style>
 </resources>
