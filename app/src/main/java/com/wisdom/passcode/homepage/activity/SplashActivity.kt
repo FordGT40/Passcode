@@ -60,14 +60,14 @@ class SplashActivity : BaseActivity() {
     override fun initViews() {
 
         //隐藏下半部分的虚拟按键
-        val _window: Window = window
-        val params = _window.attributes
+        val window: Window = window
+        val params = window.attributes
         //点击会出现
 //        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         //点击不会出现
         params.systemUiVisibility =
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE
-        _window.attributes = params
+        window.attributes = params
         //沉浸式标题栏
         setNoStateBar()
         //将sp文件中的信息进行本地化操作

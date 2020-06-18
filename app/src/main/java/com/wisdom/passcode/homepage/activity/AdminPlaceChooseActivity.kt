@@ -31,7 +31,7 @@ class AdminPlaceChooseActivity : BaseActivity() {
         }
         //设置适配器展示数据
         val adapter = AdminPlaceChooseAdapter(this, listData)
-        listView.setOnItemClickListener { parent, view, position, id ->
+        listView.setOnItemClickListener { _, _, position, _ ->
             //将选中的场所信息本地化
             SharedPreferenceUtil.setAdminPlaceInfo(this, listData[position])
             closePage()
